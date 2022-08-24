@@ -1,9 +1,10 @@
 import { Fragment } from "react";
 import { Routes, Route } from "react-router-dom";
+import { routeContants } from "./Routes/contants";
 import Home from "./pages/Home";
 import CreateNewItem from "./pages/CreateNewItem";
 import ChoosePlatform from "./pages/ChoosePlatform";
-import { routeContants } from "./Routes/contants";
+
 import "./App.css";
 
 function App() {
