@@ -1,0 +1,28 @@
+@tailwind base;
+/* ===> Enabling Tailwind CSS */
+@tailwind components;
+/* ===> Enabling Tailwind CSS */
+@tailwind utilities;
+/* ===> Enabling Tailwind CSS */
+
+
+/* Data Display CSS, Static Data & Critical Data*/
+
+#data-box {
+  @apply grid justify-items-center shadow-lg rounded-md px-4 font-bold;
+}
+
+
+#flex-container {
+  @apply shadow-lg rounded-md py-4 font-semibold space-x-2 grid grid-cols-4 gap-2;
+}
+
+#data-bar {
+  @apply relative container flex justify-center  justify-items-center mx-auto py-8 mt-24;
+}
+
+/* Fuel Pod Data */
+
+#fuel-data {
+  @apply grid grid-cols-2 gap-2;
+}
