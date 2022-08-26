@@ -21,19 +21,21 @@ const SideBarItems = () => {
         <hr />
         <SiderBarItem Icon={GoGraph} buttonText="גרפים" />
         <hr />
-        <SiderBarItem Icon={FaObjectGroup} buttonText="מטענים קבועים" />
         <div onClick={() => setShowDropDown((prev) => !prev)}>
-          <SiderBarItem Icon={FaCaretDown} buttonText="רשימת אובייקטים " />
+          <SiderBarItem Icon={FaCaretDown} buttonText="מטענים קבועים" />
         </div>
         {showDropDown && <DropDown />}
+        <SiderBarItem Icon={FaObjectGroup} buttonText="רשימת מטענים" />
+        <ObjectList />
       </div>
-      <ObjectList />
-      <button className="bg-white text-xl whitespace-nowrap font-bold p-8 text-center rounded-2xl text-[#3D3D3D] mb-5">
-        תצוגה מלאה
-      </button>
-      <button className="bg-white text-xl whitespace-nowrap font-bold p-8 text-center rounded-2xl text-[#3D3D3D]">
-        יצא למסמך
-      </button>
+      <div className="flex flex-col">
+        <button className="bg-white text-xl whitespace-nowrap font-bold p-4 text-center rounded-2xl text-[#3D3D3D] mb-5">
+          תצוגה מלאה
+        </button>
+        <button className="bg-white text-xl whitespace-nowrap font-bold p-4 text-center rounded-2xl text-[#3D3D3D]">
+          יצא למסמך
+        </button>
+      </div>
     </div>
   );
 };

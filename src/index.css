@@ -18,7 +18,7 @@
 }
 
 #data-bar {
-  @apply relative container flex justify-center  justify-items-center mx-auto py-8 mt-24;
+  @apply flex flex-col justify-center  justify-items-center mx-auto py-8; 
 }
 
 /* Fuel Pod Data */

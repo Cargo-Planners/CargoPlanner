@@ -39,10 +39,9 @@ const DynamicObj = () => {
     }));
 
   return (
-    <div>
+    <div className="flex flex-col">
       <canvas id="canvas" />
-      <div className="flex justify-center">
-        {" "}
+      <div className="flex justify-between">
         <EditStaticDataButton />
         <AddItem ref={fabricRef} />
       </div>

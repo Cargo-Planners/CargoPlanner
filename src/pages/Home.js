@@ -8,9 +8,9 @@ const Home = () => {
   return (
     <div>
       <div className="flex flex-col">
-        <CGrid />
         <StaticData />
         <CriticalData />
+        <CGrid />
         <SideBar />
       </div>
     </div>

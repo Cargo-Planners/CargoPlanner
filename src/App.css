@@ -32,13 +32,6 @@ body {
   background-size: 40px 40px;
 }
 
-#addObjBtn {
-    border-radius: 15px;
-    width: 20%;
-    height: 10%;
-    font-size: 30px;
-    color: white;
-}
 .modal {
   font-size: 12px;
 }

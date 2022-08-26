@@ -19,7 +19,7 @@ const AddItem = (props, fabricRef) => {
       {...props}
       ref={fabricRef}
       onClick={addRectangle}
-      className="absolute bg-[#bebaf8] left-60"
+      className="bg-[#bebaf8] p-4 rounded-xl text-white"
     >
       הוסף אובייקט
     </button>

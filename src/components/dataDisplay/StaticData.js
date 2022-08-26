@@ -9,7 +9,7 @@ const StaticData = () => {
 
   return (
     <div id="data-bar">
-      <h1 className="px-4 font-semibold justify-self-center">נתונים קבועים</h1>
+      <h1 className="px-4 font-semibold justify-self-center mx-auto">נתונים קבועים</h1>
       <div id="flex-container">
         <DataBox bgColor="#FFF0E6" text="אורך כולל" data={totalHeight} />
         <DataBox bgColor="#ECFFE5" text="רוחב כולל" data={totalWidth} />
