@@ -9,7 +9,7 @@
 /* Data Display CSS, Static Data & Critical Data*/
 
 #data-box {
-  @apply grid justify-items-center shadow-lg rounded-md px-4 font-bold;
+  @apply grid justify-items-center shadow-lg rounded-md px-4 m-4 font-bold;
 }
 
 

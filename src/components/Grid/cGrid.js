@@ -5,7 +5,7 @@ function CGrid() {
 
   return (
     <Fragment>
-      <div className="container flex justify-center mt-10 mx-auto h-[400px]">
+      <div className="container flex justify-center mt-2 mx-auto h-[400px]">
         <div className="gridContainer flex flex-col mt-10" >
           <div className="startEndGrid">
             <h2>737</h2>

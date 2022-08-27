@@ -2,6 +2,7 @@ import React from "react";
 import DataBox from "./DataBox";
 import FuelPodData from "./FuelPodData";
 
+
 const CriticalData = () => {
   const totalWeight = 44;
   const totalIndex = 544;
