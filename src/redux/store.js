@@ -1,6 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import EditStaticDataButtonReducer from "./EditStaticDataButtonSlice";
+import AddFixedCargoReducer from "./AddFixedCargoSlice";
 
 export const store = configureStore({
-  reducer: { staticData: EditStaticDataButtonReducer },
+  reducer: {
+    staticData: EditStaticDataButtonReducer,
+    fixedCargo: AddFixedCargoReducer,
+  },
 });

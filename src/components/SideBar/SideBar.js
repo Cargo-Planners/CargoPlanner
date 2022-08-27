@@ -13,7 +13,7 @@ const SideBar = () => {
             className="flex text-5xl fixed right-2 top-2  text-white items-center cursor-pointer z-50"
             onClick={() => setShowSidebar(!showSidebar)}
           >
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 bg-[#8EDBED] pl-7">
               <FaTimes size={40} />
               <h2 className="text-xl font-bold text-[#185B6C]">
                 תכנון תא מטען
