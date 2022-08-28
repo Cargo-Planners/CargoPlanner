@@ -4,23 +4,36 @@ import { addWeight } from "../../redux/EditStaticDataButtonSlice";
 
 const ObjectList = () => {
   const dispatch = useDispatch();
-  const [weight, setWeight] = useState(0);
-  const [listOfObjectSum, setListOfObjectSum] = useState(0);
+  const [totalWeight, setTotalWeight] = useState(0);
+  const [values, setValues] = useState({});
 
   const objectListItems = useSelector(
     (state) => state.fixedCargo.objectListItems
   );
 
   const weightChangeHandler = (e) => {
-    setWeight(e.target.value);
+    let name = e.target.name;
+    let value = e.target.value;
+    if (value === "") {
+      value = 0;
+    }
+    const newValues = {
+      ...values,
+      [name]: parseInt(value),
+    };
+    setValues(newValues);
+    calcTotalValue(newValues);
+  };
+
+  const calcTotalValue = (newValues) => {
+    let sum = Object.values(newValues).reduce(
+      (previousValue, currentValue) => previousValue + currentValue
+    );
+    setTotalWeight(sum);
   };
 
   const calculateWeight = () => {
-    dispatch(addWeight(listOfObjectSum));
-  };
-
-  const onBlur = () => {
-    setListOfObjectSum((prev) => (prev += parseInt(weight)));
+    dispatch(addWeight(totalWeight));
   };
 
   return (
@@ -36,7 +49,7 @@ const ObjectList = () => {
             <div key={index} className="flex mb-2 gap-2">
               <p className="w-1/3">{item}</p>
               <input
-                onBlur={onBlur}
+                name={`item ${index}`}
                 onChange={(e) => weightChangeHandler(e)}
                 className="w-1/3 bg-[#8EDBED]"
                 placeholder="משקל"
@@ -57,14 +70,3 @@ const ObjectList = () => {
 };
 
 export default ObjectList;
-
-// <div className="flex justify-between">
-// <p>עגלה</p>
-// <p>7500</p>
-// <p>500</p>
-// </div>
-// <div className="flex justify-between">
-// <p>רכב</p>
-// <p>11500</p>
-// <p>350</p>
-// </div>
