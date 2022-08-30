@@ -4,15 +4,16 @@ import SideBar from "../components/SideBar/SideBar";
 // import StaticData from "../components/dataDisplay/StaticData";
 // import CriticalData from "../components/dataDisplay/CriticalData";
 import DataCollection from "../components/dataDisplay/DataCollection";
+import BasicData from "../components/BasicData/BasicData";
 
 const Home = () => {
-
   return (
     <div>
       <div className="flex flex-col">
-        <DataCollection />
+        {/* <DataCollection />
         <CGrid />
-        <SideBar />
+        <SideBar /> */}
+        <BasicData />
       </div>
     </div>
   );
