@@ -3,6 +3,7 @@ import { fabric } from "fabric";
 import AddItem from "./AddItemButton";
 import PopUp from "./PopUp";
 import EditStaticDataButton from "./EditStaticDataButton";
+import eventBus from "../Grid/eventBus"
 
 const DynamicObj = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,6 +20,13 @@ const DynamicObj = () => {
       }
     });
 
+    eventBus.on("setFsValue", (data) => {
+      if (fabricRef && data != null) {
+        fabricRef.current._objects[fabricRef.current._objects.length - 1].left = parseInt(data.message);
+        //<AddItem ref={fabricRef} left={parseInt(data.message)} />
+      }
+    });
+
     // destroy fabric on unmount
     return () => {
       canvas.current.dispose();
@@ -31,12 +39,12 @@ const DynamicObj = () => {
   };
 
   const initCanvas = () =>
-    (fabricRef.current = new fabric.Canvas("canvas", {
-      height: document.getElementsByClassName("gridContainer")[0].offsetHeight,
-      width: document.getElementsByClassName("gridContainer")[0].offsetWidth,
-      selection: false,
-      renderOnAddRemove: true,
-    }));
+  (fabricRef.current = new fabric.Canvas("canvas", {
+    height: document.getElementsByClassName("gridContainer")[0].offsetHeight,
+    width: document.getElementsByClassName("gridContainer")[0].offsetWidth,
+    selection: false,
+    renderOnAddRemove: true,
+  }));
 
   return (
     <div className="flex flex-col">
@@ -67,11 +75,8 @@ const DynamicObj = () => {
                 />
                 <input
                   className="w-28 h-10 bg-blue-200 p-1 m-1 rounded-xl"
-                  placeholder="Fuselage"
+                  placeholder={245 + fabricRef.current.getActiveObject().left}
                 />
-                <div>
-                  מיקום נוכחי - {245 + fabricRef.current.getActiveObject().left}
-                </div>
               </div>
             </Fragment>
           }
