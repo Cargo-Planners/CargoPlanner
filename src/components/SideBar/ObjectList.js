@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addWeight } from "../../redux/EditStaticDataButtonSlice";
-import eventBus from "../Grid/eventBus"
+import eventBus from "../Grid/eventBus";
+
 const ObjectList = () => {
   const dispatch = useDispatch();
   const [totalWeight, setTotalWeight] = useState(0);
@@ -38,14 +39,15 @@ const ObjectList = () => {
 
   const setFs = () => {
     eventBus.dispatch("setFsValue", { message: fsValue });
-  }
+  };
+
   return (
     <div className="w-auto my-6">
       <div className="flex flex-col">
-        <div className="flex justify-between mb-2">
+        <div className="flex justify-evenly mb-2">
           <p>שם</p>
           <p>משקל(KG)</p>
-          <p>מרחק(FS)</p>
+          <p className="pl-4">מרחק(FS)</p>
         </div>
         <div className="flex flex-col min-h-[50px] h-auto bg-[#72C4D8] text-right p-3 rounded-lg">
           {objectListItems.map((item, index) => (
@@ -57,7 +59,11 @@ const ObjectList = () => {
                 className="w-1/3 bg-[#8EDBED]"
                 placeholder="משקל"
               />
-              <input className="w-1/3 bg-[#8EDBED]" placeholder="0" onChange={(e) => fsValue = e.target.value} />
+              <input
+                className="w-1/3 bg-[#8EDBED]"
+                placeholder="0"
+                onChange={(e) => (fsValue = e.target.value)}
+              />
               <button onClick={setFs}>שלח</button>
             </div>
           ))}
