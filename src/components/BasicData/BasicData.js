@@ -8,13 +8,15 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   increment,
   decrement,
-  updateState,
+  updateEmptyWeight,
+  updateIndex,
 } from "../../redux/EditBasicDataSlice";
 
 import plus from "../../icons/plusIcon.png";
 import minus from "../../icons/minusIcon.png";
 
 import DataBox from "../dataDisplay/DataBox";
+import { useState } from "react";
 
 const configs = [
   { value: "1", label: "תצורה 1" },
@@ -31,8 +33,11 @@ const people = [
 ];
 
 const BasicData = () => {
-  const { countPeople } = useSelector((state) => state.basicData);
-  const { emptyWeight } = useSelector((state) => state.basicData);
+  const { countPeople, emptyWeight, index } = useSelector(
+    (state) => state.basicData
+  );
+  const [EmptyWeight, setEmptyWeight] = useState(0);
+  const [Index, setIndex] = useState(0);
   const dispatch = useDispatch();
   return (
     <div id="main-css" className="coolGrad">
@@ -63,6 +68,33 @@ const BasicData = () => {
         </div>
         <FuelData />
         <input id="next-button" type="submit" value="הבא" />
+
+        <input
+          type="text"
+          placeholder="New Username..."
+          onChange={(event) => {
+            setEmptyWeight(event.target.value);
+          }}
+        />
+        <h1>Weight : {emptyWeight}</h1>
+
+        <input
+          type="text"
+          placeholder="New Username..."
+          onChange={(event) => {
+            setIndex(event.target.value);
+          }}
+        />
+        <h1>Weight : {index}</h1>
+
+        <button
+          onClick={() => {
+            dispatch(updateEmptyWeight(EmptyWeight));
+            dispatch(updateIndex(Index));
+          }}
+        >
+          clickme
+        </button>
       </div>
     </div>
   );

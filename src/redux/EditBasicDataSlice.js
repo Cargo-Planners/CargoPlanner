@@ -3,10 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   countPeople: 0,
   emptyWeight: 0,
+  index: 0,
 };
 
 const EditBasicDataSlice = createSlice({
   name: "basicData",
+
   initialState,
   reducers: {
     increment: (state) => {
@@ -15,9 +17,16 @@ const EditBasicDataSlice = createSlice({
     decrement: (state) => {
       state.countPeople -= 1;
     },
-    updateState: (state, action) => {
+    updateEmptyWeight: (state, action) => {
       if (!isNaN(action.payload)) {
         state.emptyWeight = action.payload;
+      } else {
+        return state;
+      }
+    },
+    updateIndex: (state, action) => {
+      if (!isNaN(action.payload)) {
+        state.index = action.payload;
       } else {
         return state;
       }
@@ -25,5 +34,6 @@ const EditBasicDataSlice = createSlice({
   },
 });
 
-export const { increment, decrement, updateState } = EditBasicDataSlice.actions;
+export const { increment, decrement, updateEmptyWeight, updateIndex } =
+  EditBasicDataSlice.actions;
 export default EditBasicDataSlice.reducer;
