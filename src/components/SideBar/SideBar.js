@@ -7,7 +7,7 @@ const SideBar = () => {
 
   return (
     <Fragment>
-      <div className="flex flex-col items-center justify-center min-h-screen py-2">
+      <div className="flex flex-col items-center justify-center h-0 py-2">
         {showSidebar ? (
           <button
             className="flex text-5xl fixed right-2 top-2  text-white items-center cursor-pointer z-50"

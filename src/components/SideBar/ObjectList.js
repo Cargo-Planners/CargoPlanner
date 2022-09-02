@@ -1,47 +1,70 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addWeight } from "../../redux/EditStaticDataButtonSlice";
+import eventBus from "../Grid/eventBus";
 
 const ObjectList = () => {
   const dispatch = useDispatch();
-  const [weight, setWeight] = useState(0);
-  const [listOfObjectSum, setListOfObjectSum] = useState(0);
-
+  const [totalWeight, setTotalWeight] = useState(0);
+  const [values, setValues] = useState({});
   const objectListItems = useSelector(
     (state) => state.fixedCargo.objectListItems
   );
+  let fsValue = "";
 
   const weightChangeHandler = (e) => {
-    setWeight(e.target.value);
+    let name = e.target.name;
+    let value = e.target.value;
+    if (value === "") {
+      value = 0;
+    }
+    const newValues = {
+      ...values,
+      [name]: parseInt(value),
+    };
+    setValues(newValues);
+    calcTotalValue(newValues);
+  };
+
+  const calcTotalValue = (newValues) => {
+    let sum = Object.values(newValues).reduce(
+      (previousValue, currentValue) => previousValue + currentValue
+    );
+    setTotalWeight(sum);
   };
 
   const calculateWeight = () => {
-    dispatch(addWeight(listOfObjectSum));
+    dispatch(addWeight(totalWeight));
   };
 
-  const onBlur = () => {
-    setListOfObjectSum((prev) => (prev += parseInt(weight)));
+  const setFs = () => {
+    eventBus.dispatch("setFsValue", { message: fsValue });
   };
 
   return (
     <div className="w-auto my-6">
       <div className="flex flex-col">
-        <div className="flex justify-between mb-2">
+        <div className="flex justify-evenly mb-2">
           <p>שם</p>
           <p>משקל(KG)</p>
-          <p>מרחק(FS)</p>
+          <p className="pl-4">מרחק(FS)</p>
         </div>
         <div className="flex flex-col min-h-[50px] h-auto bg-[#72C4D8] text-right p-3 rounded-lg">
           {objectListItems.map((item, index) => (
             <div key={index} className="flex mb-2 gap-2">
               <p className="w-1/3">{item}</p>
               <input
-                onBlur={onBlur}
+                name={`item ${index}`}
                 onChange={(e) => weightChangeHandler(e)}
                 className="w-1/3 bg-[#8EDBED]"
                 placeholder="משקל"
               />
-              <input className="w-1/3 bg-[#8EDBED]" placeholder="מרחק" />
+              <input
+                className="w-1/3 bg-[#8EDBED]"
+                placeholder="0"
+                onChange={(e) => (fsValue = e.target.value)}
+              />
+              <button onClick={setFs}>שלח</button>
             </div>
           ))}
           <button
@@ -57,14 +80,3 @@ const ObjectList = () => {
 };
 
 export default ObjectList;
-
-// <div className="flex justify-between">
-// <p>עגלה</p>
-// <p>7500</p>
-// <p>500</p>
-// </div>
-// <div className="flex justify-between">
-// <p>רכב</p>
-// <p>11500</p>
-// <p>350</p>
-// </div>

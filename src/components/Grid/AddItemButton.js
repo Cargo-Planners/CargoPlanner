@@ -1,18 +1,24 @@
 import React from "react";
 import { fabric } from "fabric";
+import { addItem } from "../../redux/AddFixedCargoSlice";
+import { useDispatch } from "react-redux";
 
 const AddItem = (props, fabricRef) => {
-
+  const dispatch = useDispatch();
+  const addItemToObjectList = (item) => {
+    dispatch(addItem(item));
+  };
   const addRectangle = () => {
     const rect = new fabric.Rect({
       width: 50,
       height: 50,
-      opacity:0.5,
+      opacity: 0.5,
+      left: props.left,
       fill: "red",
     });
     fabricRef.current.add(rect);
+    addItemToObjectList("אובייקט " + fabricRef.current._objects.length);
   };
-
   return (
     <button
       id="addObjBtn"
