@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createAction } from "@reduxjs/toolkit";
 
 const initialState = {
   countPeople: 0,
@@ -7,6 +6,11 @@ const initialState = {
   index: 0,
   config: 1,
   fuelPod: null,
+  slider1: 0,
+  slider2: 0,
+  slider3: 0,
+  slider4: 0,
+  slider5: 0,
 };
 
 const EditBasicDataSlice = createSlice({
@@ -48,6 +52,41 @@ const EditBasicDataSlice = createSlice({
         return state;
       }
     },
+    updateSlider1: (state, action) => {
+      if (!isNaN(action.payload)) {
+        state.slider1 = action.payload;
+      } else {
+        return state;
+      }
+    },
+    updateSlider2: (state, action) => {
+      if (!isNaN(action.payload)) {
+        state.slider2 = action.payload;
+      } else {
+        return state;
+      }
+    },
+    updateSlider3: (state, action) => {
+      if (!isNaN(action.payload)) {
+        state.slider3 = action.payload;
+      } else {
+        return state;
+      }
+    },
+    updateSlider4: (state, action) => {
+      if (!isNaN(action.payload)) {
+        state.slider4 = action.payload;
+      } else {
+        return state;
+      }
+    },
+    updateSlider5: (state, action) => {
+      if (!isNaN(action.payload)) {
+        state.slider5 = action.payload;
+      } else {
+        return state;
+      }
+    },
   },
 });
 
@@ -58,5 +97,10 @@ export const {
   updateIndex,
   updateConfig,
   updateFuelPod,
+  updateSlider1,
+  updateSlider2,
+  updateSlider3,
+  updateSlider4,
+  updateSlider5,
 } = EditBasicDataSlice.actions;
 export default EditBasicDataSlice.reducer;

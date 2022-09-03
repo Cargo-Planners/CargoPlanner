@@ -1,18 +1,19 @@
-const Slider = ({ label }) => {
+const Slider = ({ label, changeValue, value }) => {
+  const handleChange = (e) => {
+    changeValue(e.target.value);
+  };
+
   return (
     <div>
-      <div
-        class="
-       "
-      >
-        <label className="text-base">{label}</label>
+      <div>
+        <label>{label + ":"}</label>
+        <label className="mr-2">{value + "%"}</label>
         <input
           type="range"
           min="0"
           max="100"
-          className="
-          
-            form-range
+          defaultValue="0"
+          className="form-range
             appearance-none
             w-full
             h-3
@@ -20,9 +21,8 @@ const Slider = ({ label }) => {
             bg-cyan-200
             shadow-lg
             rounded-md
-            
-            focus:outline-none focus:ring-0 focus:shadow-none
-            "
+            focus:outline-none focus:ring-0 focus:shadow-none"
+          onChange={handleChange}
         />
       </div>
     </div>

@@ -99,9 +99,9 @@ button{
  @apply flex space-x-8
 }
 
-/* Submit button */
+/* next  */
 
-#next-button{
+#next{
   @apply col-span-2 justify-self-center text-2xl rounded-md shadow-2xl border-black h-12 w-24
 }
 

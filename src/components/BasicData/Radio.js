@@ -12,11 +12,10 @@ function Radio() {
   const { fuelPod } = useSelector((state) => state.basicData);
   const dispatch = useDispatch();
 
-  let checkedList = [...options];
   const changeList = (id, checked) => {};
   return (
     <form>
-      {checkedList.map(({ id, name, checked }) => (
+      {options.map(({ id, name, checked }) => (
         <label key={id}>
           <input
             type="radio"

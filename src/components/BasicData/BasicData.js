@@ -3,6 +3,9 @@ import Select from "react-select";
 import FuelData from "./FuelData";
 import "reactjs-popup/dist/index.css";
 
+import { Link } from "react-router-dom";
+import { routeContants } from "../../Routes/contants";
+
 import { useDispatch, useSelector } from "react-redux";
 import {
   increment,
@@ -24,17 +27,8 @@ const configs = [
   { value: "4", label: "תצורה 4" },
 ];
 
-const people = [
-  { value: "1", label: "1" },
-  { value: "2", label: "2" },
-  { value: "3", label: "3" },
-  { value: "4", label: "4" },
-];
-
 const BasicData = () => {
-  const { countPeople, emptyWeight, index, config, fuelPod } = useSelector(
-    (state) => state.basicData
-  );
+  const { countPeople, emptyWeight } = useSelector((state) => state.basicData);
 
   const [EmptyWeight, setEmptyWeight] = useState(0);
   const [Index, setIndex] = useState(0);
@@ -56,8 +50,10 @@ const BasicData = () => {
               type="text"
               onChange={(event) => {
                 setEmptyWeight(event.target.value);
+                dispatch(updateEmptyWeight(EmptyWeight));
               }}
             />
+            <h1>{emptyWeight}</h1>
           </div>
           <div id="text-box-item">
             <label className="text-lg">אינדקס מטוס</label>
@@ -67,6 +63,7 @@ const BasicData = () => {
               type="text"
               onChange={(event) => {
                 setIndex(event.target.value);
+                dispatch(updateIndex(Index));
               }}
             />
           </div>
@@ -78,6 +75,7 @@ const BasicData = () => {
               defaultValue={Config}
               onChange={(Config) => {
                 setConfig(Config.value);
+                dispatch(updateConfig(Config));
               }}
               placeholder="בחר תצורה"
             />
@@ -98,17 +96,9 @@ const BasicData = () => {
           </div>
         </div>
         <FuelData />
-
-        <button
-          id="next-button"
-          onClick={() => {
-            dispatch(updateEmptyWeight(EmptyWeight));
-            dispatch(updateIndex(Index));
-            dispatch(updateConfig(Config));
-          }}
-        >
-          הבא
-        </button>
+        <Link to={routeContants.homeRoute} id="next">
+          <h1>הבא</h1>
+        </Link>
       </div>
     </div>
   );
