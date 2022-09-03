@@ -1,9 +1,10 @@
 import { Fragment } from "react";
 import { Routes, Route } from "react-router-dom";
-import { routeContants } from "./Routes/contants";
+import { routeConstants } from "./Routes/constants";
 import Home from "./pages/Home";
 import CreateNewItem from "./pages/CreateNewItem";
 import ChoosePlatform from "./pages/ChoosePlatform";
+import BasicDataPage from "./pages/BasicDataPage";
 
 import "./App.css";
 
@@ -11,9 +12,13 @@ function App() {
   return (
     <Fragment>
       <Routes>
-        <Route path={routeContants.mainRoute} element={<ChoosePlatform />} />
-        <Route path={routeContants.homeRoute} element={<Home />} />
-        <Route path={routeContants.newItemRoute} element={<CreateNewItem />} />
+        <Route path={routeConstants.mainRoute} element={<ChoosePlatform />} />
+        <Route
+          path={routeConstants.BasicDataRoute}
+          element={<BasicDataPage />}
+        />
+        <Route path={routeConstants.homeRoute} element={<Home />} />
+        <Route path={routeConstants.newItemRoute} element={<CreateNewItem />} />
       </Routes>
     </Fragment>
   );

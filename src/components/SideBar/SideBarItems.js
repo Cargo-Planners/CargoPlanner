@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import SiderBarItem from "./SiderBarItem";
 import ObjectList from "./ObjectList";
 import DropDown from "./DropDown";
-import { routeContants } from "../../Routes/contants";
+import { routeConstants } from "../../Routes/constants";
 
 const SideBarItems = () => {
   const [showDropDown, setShowDropDown] = useState(false);
@@ -15,7 +15,7 @@ const SideBarItems = () => {
     <div className="min-h-full flex flex-col justify-between">
       <div className="mt-12 flex flex-col gap-5">
         <hr />
-        <Link to={routeContants.newItemRoute}>
+        <Link to={routeConstants.newItemRoute}>
           <SiderBarItem Icon={GiCargoCrate} buttonText="צור מטען חדש" />
         </Link>
         <hr />

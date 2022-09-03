@@ -4,7 +4,7 @@ import FuelData from "./FuelData";
 import "reactjs-popup/dist/index.css";
 
 import { Link } from "react-router-dom";
-import { routeContants } from "../../Routes/contants";
+import { routeConstants } from "../../Routes/constants";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -96,7 +96,7 @@ const BasicData = () => {
           </div>
         </div>
         <FuelData />
-        <Link to={routeContants.homeRoute} id="next">
+        <Link to={routeConstants.homeRoute} id="next">
           <h1>הבא</h1>
         </Link>
       </div>
