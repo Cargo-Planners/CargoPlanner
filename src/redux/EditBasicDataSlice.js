@@ -1,9 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { createAction } from "@reduxjs/toolkit";
 
 const initialState = {
   countPeople: 0,
   emptyWeight: 0,
   index: 0,
+  config: 1,
+  fuelPod: null,
 };
 
 const EditBasicDataSlice = createSlice({
@@ -31,9 +34,29 @@ const EditBasicDataSlice = createSlice({
         return state;
       }
     },
+    updateConfig: (state, action) => {
+      if (!isNaN(action.payload)) {
+        state.config = action.payload;
+      } else {
+        return state;
+      }
+    },
+    updateFuelPod: (state, action) => {
+      if (!isNaN(action.payload)) {
+        state.fuelPod = action.payload;
+      } else {
+        return state;
+      }
+    },
   },
 });
 
-export const { increment, decrement, updateEmptyWeight, updateIndex } =
-  EditBasicDataSlice.actions;
+export const {
+  increment,
+  decrement,
+  updateEmptyWeight,
+  updateIndex,
+  updateConfig,
+  updateFuelPod,
+} = EditBasicDataSlice.actions;
 export default EditBasicDataSlice.reducer;

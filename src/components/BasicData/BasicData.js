@@ -1,6 +1,5 @@
 import React from "react";
 import Select from "react-select";
-import TextBox from "./TextBox";
 import FuelData from "./FuelData";
 import "reactjs-popup/dist/index.css";
 
@@ -10,12 +9,12 @@ import {
   decrement,
   updateEmptyWeight,
   updateIndex,
+  updateConfig,
 } from "../../redux/EditBasicDataSlice";
 
 import plus from "../../icons/plusIcon.png";
 import minus from "../../icons/minusIcon.png";
 
-import DataBox from "../dataDisplay/DataBox";
 import { useState } from "react";
 
 const configs = [
@@ -33,23 +32,55 @@ const people = [
 ];
 
 const BasicData = () => {
-  const { countPeople, emptyWeight, index } = useSelector(
+  const { countPeople, emptyWeight, index, config, fuelPod } = useSelector(
     (state) => state.basicData
   );
+
   const [EmptyWeight, setEmptyWeight] = useState(0);
   const [Index, setIndex] = useState(0);
+  const [Config, setConfig] = useState(null);
+
   const dispatch = useDispatch();
+
   return (
     <div id="main-css" className="coolGrad">
       <div className="window-css">
         <h1 className="col-span-2 justify-self-center text-2xl">נתוני בסיס</h1>
 
         <div>
-          <TextBox label="משקל ריק" placeholder="הכנס משקל ריק" />
-          <TextBox label="אינדקס מטוס" placeholder="הכנס אינדקס מטוס" />
+          <div id="text-box-item">
+            <label className="text-lg">משקל ריק</label>
+            <input
+              id="input-css"
+              placeholder="הכנס משקל ריק"
+              type="text"
+              onChange={(event) => {
+                setEmptyWeight(event.target.value);
+              }}
+            />
+          </div>
+          <div id="text-box-item">
+            <label className="text-lg">אינדקס מטוס</label>
+            <input
+              id="input-css"
+              placeholder="הכנס אינדקס מטוס"
+              type="text"
+              onChange={(event) => {
+                setIndex(event.target.value);
+              }}
+            />
+          </div>
+
           <div>
             <label className="text-lg">תצורות</label>
-            <Select options={configs} placeholder="בחר תצורה" />
+            <Select
+              options={configs}
+              defaultValue={Config}
+              onChange={(Config) => {
+                setConfig(Config.value);
+              }}
+              placeholder="בחר תצורה"
+            />
           </div>
           <div id="people-css">
             <label className="text-lg"> אנשי צוות</label>
@@ -67,33 +98,16 @@ const BasicData = () => {
           </div>
         </div>
         <FuelData />
-        <input id="next-button" type="submit" value="הבא" />
-
-        <input
-          type="text"
-          placeholder="New Username..."
-          onChange={(event) => {
-            setEmptyWeight(event.target.value);
-          }}
-        />
-        <h1>Weight : {emptyWeight}</h1>
-
-        <input
-          type="text"
-          placeholder="New Username..."
-          onChange={(event) => {
-            setIndex(event.target.value);
-          }}
-        />
-        <h1>Weight : {index}</h1>
 
         <button
+          id="next-button"
           onClick={() => {
             dispatch(updateEmptyWeight(EmptyWeight));
             dispatch(updateIndex(Index));
+            dispatch(updateConfig(Config));
           }}
         >
-          clickme
+          הבא
         </button>
       </div>
     </div>
