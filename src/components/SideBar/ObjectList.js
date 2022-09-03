@@ -62,7 +62,7 @@ const ObjectList = () => {
               <input
                 className="w-1/3 bg-[#8EDBED]"
                 placeholder="0"
-                onChange={(e) => (fsValue = e.target.value)}
+                onChange={(e) => (fsValue = (e.target.value - 245))}
               />
               <button onClick={setFs}>שלח</button>
             </div>

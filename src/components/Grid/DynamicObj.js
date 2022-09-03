@@ -15,7 +15,6 @@ const DynamicObj = () => {
 
     fabricRef.current.on("mouse:up", (e) => {
       if (e.target != null) {
-        console.log(fabricRef.current.getActiveObject().left);
         setIsOpen(true);
       }
     });
@@ -23,6 +22,8 @@ const DynamicObj = () => {
     eventBus.on("setFsValue", (data) => {
       if (fabricRef && data != null) {
         fabricRef.current._objects[fabricRef.current._objects.length - 1].left = parseInt(data.message);
+        fabricRef.current._objects[fabricRef.current._objects.length - 1].setCoords();
+        fabricRef.current.renderAll();
         //<AddItem ref={fabricRef} left={parseInt(data.message)} />
       }
     });

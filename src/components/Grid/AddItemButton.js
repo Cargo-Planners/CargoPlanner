@@ -13,7 +13,7 @@ const AddItem = (props, fabricRef) => {
       width: 50,
       height: 50,
       opacity: 0.5,
-      left: props.left,
+      left: 0,
       fill: "red",
     });
     fabricRef.current.add(rect);
