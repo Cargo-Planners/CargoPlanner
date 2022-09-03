@@ -51,7 +51,7 @@ const ObjectList = () => {
         </div>
         <div className="flex flex-col min-h-[50px] h-auto bg-[#72C4D8] text-right p-3 rounded-lg">
           {objectListItems.map((item, index) => (
-            <div key={index} className="flex mb-2 gap-2">
+            <div key={index} className={'flex mb-2 gap-2'}>
               <p className="w-1/3">{item}</p>
               <input
                 name={`item ${index}`}
@@ -62,7 +62,7 @@ const ObjectList = () => {
               <input
                 className="w-1/3 bg-[#8EDBED]"
                 placeholder="0"
-                onChange={(e) => (fsValue = e.target.value)}
+                onChange={(e) => (fsValue = (e.target.value - 245))}
               />
               <button onClick={setFs}>שלח</button>
             </div>

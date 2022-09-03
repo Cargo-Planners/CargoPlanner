@@ -9,13 +9,12 @@ const DynamicObj = () => {
   const [isOpen, setIsOpen] = useState(false);
   const canvas = useRef(null);
   const fabricRef = useRef(null);
-
   useEffect(() => {
     canvas.current = initCanvas();
 
     fabricRef.current.on("mouse:up", (e) => {
       if (e.target != null) {
-        console.log(fabricRef.current.getActiveObject().left);
+        console.log(fabricRef.current._activeObject.left)
         setIsOpen(true);
       }
     });
@@ -23,11 +22,11 @@ const DynamicObj = () => {
     eventBus.on("setFsValue", (data) => {
       if (fabricRef && data != null) {
         fabricRef.current._objects[fabricRef.current._objects.length - 1].left = parseInt(data.message);
-        //<AddItem ref={fabricRef} left={parseInt(data.message)} />
+        fabricRef.current._objects[fabricRef.current._objects.length - 1].setCoords();
+        fabricRef.current.renderAll();
       }
     });
 
-    // destroy fabric on unmount
     return () => {
       canvas.current.dispose();
       canvas.current = null;
@@ -51,7 +50,7 @@ const DynamicObj = () => {
       <canvas id="canvas" />
       <div className="flex justify-between">
         <EditStaticDataButton />
-        <AddItem ref={fabricRef} />
+        <AddItem ref={fabricRef} objcolor={Math.floor(Math.random()*16777215).toString(16)}/>
       </div>
       {isOpen && (
         <PopUp
@@ -75,7 +74,7 @@ const DynamicObj = () => {
                 />
                 <input
                   className="w-28 h-10 bg-blue-200 p-1 m-1 rounded-xl"
-                  placeholder={245 + fabricRef.current.getActiveObject().left}
+                  placeholder={245 + fabricRef.current._activeObject.left}
                 />
               </div>
             </Fragment>
