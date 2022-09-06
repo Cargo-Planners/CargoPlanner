@@ -125,3 +125,12 @@ body {
   display: flex;
   justify-content: space-between;
 }
+
+.blob {
+  position: absolute;
+  left: -36.04%;
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+}
