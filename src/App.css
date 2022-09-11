@@ -114,11 +114,11 @@ body {
 }
 
 .sidebar::-webkit-scrollbar-track {
-  background: #8edbed; /* color of the tracking area */
+  background: #FAC11A; /* color of the tracking area */
 }
 
 .sidebar::-webkit-scrollbar-thumb {
-  background-color: #185b6c; /* color of the scroll thumb */
+  background-color: #1E1E22; /* color of the scroll thumb */
 }
 
 .startEndGrid {

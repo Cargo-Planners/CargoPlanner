@@ -20,7 +20,7 @@ const DropDown = () => {
           onClick={() => {
             addItemToObjectList(items.car);
           }}
-          className="flex justify-start items-center gap-2 hover:bg-[#185B6C] cursor-pointer"
+          className="flex justify-start items-center gap-2 hover:bg-[#1E1E22] cursor-pointer"
         >
           <AiFillCar size={25} /> <p className="text-lg">הוסף רכב</p>
         </div>
@@ -28,7 +28,7 @@ const DropDown = () => {
           onClick={() => {
             addItemToObjectList(items.wagon);
           }}
-          className="flex justify-start items-center gap-2 hover:bg-[#185B6C] cursor-pointer"
+          className="flex justify-start items-center gap-2 hover:bg-[#1E1E22] cursor-pointer"
         >
           <GiOldWagon size={25} /> <p className="text-lg">הוסף עגלה</p>
         </div>
@@ -36,7 +36,7 @@ const DropDown = () => {
           onClick={() => {
             addItemToObjectList(items.plate);
           }}
-          className="flex justify-start items-center gap-2 hover:bg-[#185B6C] cursor-pointer"
+          className="flex justify-start items-center gap-2 hover:bg-[#1E1E22] cursor-pointer"
         >
           <TbOvalVertical size={25} /> <p className="text-lg">הוסף פלטה </p>
         </div>

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { FaObjectGroup, FaCaretDown } from "react-icons/fa";
+import { FaCaretDown } from "react-icons/fa";
 import { GiCargoCrate } from "react-icons/gi";
-import { GoGraph } from "react-icons/go";
 import { Link } from "react-router-dom";
 import SiderBarItem from "./SiderBarItem";
-import ObjectList from "./ObjectList";
 import DropDown from "./DropDown";
 import { routeConstants } from "../../Routes/constants";
+import settingsIcon from "../../icons/settingsIcon.png";
+import helpIcon from '../../icons/helpIcon.png';
 
 const SideBarItems = () => {
   const [showDropDown, setShowDropDown] = useState(false);
@@ -16,28 +16,32 @@ const SideBarItems = () => {
       <div className="mt-12 flex flex-col gap-5">
         <hr />
         <Link to={routeConstants.newItemRoute}>
-          <SiderBarItem Icon={GiCargoCrate} buttonText="צור מטען חדש" />
+          <SiderBarItem Icon={GiCargoCrate} buttonText="אובייקט חדש" />
         </Link>
         <hr />
-        <SiderBarItem Icon={GoGraph} buttonText="גרפים" />
-        <hr />
         <div onClick={() => setShowDropDown((prev) => !prev)}>
-          <SiderBarItem Icon={FaCaretDown} buttonText="מטענים קבועים" />
+          <SiderBarItem Icon={FaCaretDown} buttonText="אובייקטים קיימים" />
         </div>
         {showDropDown && <DropDown />}
-        <SiderBarItem Icon={FaObjectGroup} buttonText="רשימת מטענים" />
-        <ObjectList />
+        <div className="flex justify-start">
+          <img
+            className="my-auto h-5 w-5"
+            src={helpIcon}
+            alt="helpIcon"
+          />
+          <button className="font-bold">עזרה</button>
+        </div>
       </div>
-      <div className="flex flex-col">
-        <button className="bg-white text-xl whitespace-nowrap font-bold p-4 text-center rounded-2xl text-[#3D3D3D] mb-5">
-          תצוגה מלאה
-        </button>
-        <button className="bg-white text-xl whitespace-nowrap font-bold p-4 text-center rounded-2xl text-[#3D3D3D]">
-          יצא למסמך
-        </button>
+      <div className="flex justify-start">
+        <img className="my-auto h-5 w-5" src={settingsIcon} alt="settingIcon" />
+        <button className="font-bold">הגדרות</button>
       </div>
     </div>
   );
 };
 
 export default SideBarItems;
+
+// Ignore For Now!
+//  <SiderBarItem Icon={GoGraph} buttonText="גרפים" />
+//  <SiderBarItem Icon={FaObjectGroup} buttonText="רשימת מטענים" />
