@@ -5,10 +5,10 @@ import { routeConstants } from "../../Routes/constants";
 const OptionWrapper = ({ name, img }) => {
   return (
     <Fragment>
-      <Link to={routeConstants.BasicDataRoute}>
-        <div className="flex justify-around rounded-2xl bg-white p-2 cursor-pointer">
-          <h1 className="text-3xl m-auto font-semibold">{name}</h1>
-          <img className="rounded-2xl 2xl:h-24 h-16" src={img} alt="img" />
+      <Link to={routeConstants.homeRoute}>
+        <div className="grid flex justify-around rounded-2xl bg-[#6C614B] p-2 cursor-pointer" >
+          <img className="rounded-2xl 2xl:h-40 h-40" src={img} alt="img" />
+          <h1 className="justify-self-center font-bold">{name}</h1>
         </div>
       </Link>
     </Fragment>

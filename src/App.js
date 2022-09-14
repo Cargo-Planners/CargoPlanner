@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import CreateNewItem from "./pages/CreateNewItem";
 import ChoosePlatform from "./pages/ChoosePlatform";
 import BasicDataPage from "./pages/BasicDataPage";
-
+import FirstPage from "./pages/FirstPage";
 import "./App.css";
 
 function App() {
@@ -13,6 +13,8 @@ function App() {
     <Fragment>
       <Routes>
         <Route path={routeConstants.mainRoute} element={<ChoosePlatform />} />
+        <Route path={routeConstants.firstPageRoute} element={<FirstPage />} />
+
         <Route
           path={routeConstants.BasicDataRoute}
           element={<BasicDataPage />}
