@@ -50,6 +50,7 @@ const DynamicObj = () => {
       <canvas id="canvas" />
       <div className="flex justify-between">
         <EditStaticDataButton />
+
         <AddItem ref={fabricRef} objcolor={Math.floor(Math.random() * 16777215).toString(16)} />
       </div>
       {isOpen && (

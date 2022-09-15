@@ -4,9 +4,7 @@ import SideBar from "../components/SideBar/SideBar";
 import DataCollection from "../components/dataDisplay/DataCollection";
 import ObjectList from "../components/ObjectList/ObjectList";
 import Options from "../components/Options/Options"
-import BasicData from "../components/BasicData/BasicData";
 
-import Modal from 'react-modal';
 
 const Home = () => {
   return (
@@ -14,9 +12,12 @@ const Home = () => {
       <div className="flex flex-col">
 
         <Options />
-        <CGrid />
-        <ObjectList />
-        <SideBar /> <DataCollection />
+        <CGrid /><SideBar />
+
+        <div className="grid grid-cols-2 ">
+          <DataCollection />
+          <ObjectList /></div>
+
       </div>
     </div>
   );
