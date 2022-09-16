@@ -42,7 +42,7 @@ const ObjectList = () => {
   };
 
   return (
-    <div className="bg-[#FAC11A] w-1/4 my-6 ml-16 mr-auto rounded-t-3xl ">
+    <div className="flex flex-col bg-[#FAC11A] w-1/2  my-6 ml-16 mr-auto rounded-t-3xl">
       <h1 className="text-white font-bold text-center my-2">מטענים</h1>
       <div className="flex flex-col mt-2">
         <div className="flex justify-evenly mb-2">
@@ -69,7 +69,12 @@ const ObjectList = () => {
                   onChange={(e) => (fsValue = e.target.value - 245)}
                 />
               </div>
-              <button className="bg-[#6C614B] w-1/4 mx-auto rounded-lg text-center" onClick={setFs}>עדכן FS</button>
+              <button
+                className="bg-[#6C614B] w-1/4 mx-auto rounded-lg text-center"
+                onClick={setFs}
+              >
+                עדכן FS
+              </button>
             </div>
           ))}
           <button

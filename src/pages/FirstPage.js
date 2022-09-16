@@ -1,8 +1,6 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { routeConstants } from "../Routes/constants";
-
-//import firstPageImage from "../images/choosePlatform.png";
 
 const FirstPage = () => {
     return (

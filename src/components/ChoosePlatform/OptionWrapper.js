@@ -6,8 +6,8 @@ const OptionWrapper = ({ name, img }) => {
   return (
     <Fragment>
       <Link to={routeConstants.homeRoute}>
-        <div className="grid flex justify-around rounded-2xl bg-[#6C614B] p-2 cursor-pointer" >
-          <img className="rounded-2xl 2xl:h-40 h-40" src={img} alt="img" />
+        <div className="grid justify-around rounded-2xl bg-[#6C614B] p-2 cursor-pointer" >
+          <img className="rounded-2xl h-40" src={img} alt="img" />
           <h1 className="justify-self-center font-bold">{name}</h1>
         </div>
       </Link>

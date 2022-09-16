@@ -5,13 +5,11 @@
 @tailwind utilities;
 /* ===> Enabling Tailwind CSS */
 
-
 /* Data Display CSS, Static Data & Critical Data*/
 
 #data-box {
   @apply grid justify-items-center shadow-lg rounded-md px-4 m-4 font-bold;
 }
-
 
 #flex-container {
   @apply shadow-lg rounded-md py-4 font-semibold space-x-2 grid grid-cols-4 gap-2;
@@ -23,17 +21,14 @@
 
 /* Variables */
 
-
 /* Basic Data CSS */
 
-
 .window-css {
-  @apply flex justify-center p-8 grid grid-cols-2 gap-7 mx-2;
-
+  @apply grid grid-cols-2 p-8 gap-7 mx-2;
 }
 
 .modal {
-  background-color: #CFA015;
+  background-color: #cfa015;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -42,31 +37,28 @@
   margin-bottom: 15vh;
   margin-left: 40vh;
   margin-right: 40vh;
-
 }
 
 p,
 label {
-  font: 1rem 'Fira Sans', sans-serif;
+  font: 1rem "Fira Sans", sans-serif;
 }
 
 input {
-  margin: .4rem;
+  margin: 0.4rem;
 }
 
 #people-css {
-  @apply flex justify-start mt-4
+  @apply flex justify-start mt-4;
 }
 
 .text-box-item {
-  @apply my-1 justify-self-center grid grid-cols-2
+  @apply my-1 justify-self-center grid grid-cols-2;
 }
 
 button {
-  @apply mx-3
+  @apply mx-3;
 }
-
-
 
 /* Fuel Pod Data */
 
@@ -74,35 +66,31 @@ button {
   @apply grid grid-cols-2 gap-2;
 }
 
-
 #fuel-silders {
-  @apply mt-3
+  @apply mt-3;
 }
 
 /* Input Variables CSS */
 
 #input-css {
   @apply w-full h-11 place-items-stretch rounded-md text-right border border-[#d9d9d9] placeholder-gray-500;
-  margin: .4rem;
+  margin: 0.4rem;
 }
-
-
 
 /* CheckBox CSS */
 
-
 #main-fuel {
-  @apply mt-1 border border-[#d9d9d9] p-3
+  @apply mt-1 border border-[#d9d9d9] p-3;
 }
 
 #checkBoxes {
-  @apply flex space-x-8
+  @apply flex space-x-8;
 }
 
 /* next  */
 
 #next {
-  @apply col-span-2 justify-self-center text-2xl rounded-md shadow-2xl border-black h-12 w-24
+  @apply my-3 mx-auto text-2xl rounded-md border-2 h-12 w-24 text-white hover:border-[#cfa015] hover:bg-white hover:text-[#cfa015];
 }
 
 /* first page image */
@@ -118,8 +106,7 @@ button {
 /* Data Collection */
 
 #data-col-win {
-  @apply flex flex-col bg-[#4E4E4E] mr-12;
-  border-radius: 20px;
+  @apply flex flex-col w-1/2 bg-[#4E4E4E] mr-12 rounded-t-3xl my-6;
 }
 
 #data-col-h1 {
@@ -127,6 +114,5 @@ button {
 }
 
 #data-col-h2 {
-  color: #CFA015;
-
+  color: #cfa015;
 }
