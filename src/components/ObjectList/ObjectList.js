@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addWeight } from "../../redux/EditStaticDataButtonSlice";
 import eventBus from "../Grid/eventBus";
+import PopUp from "../Grid/PopUp";
+import { fabric } from "fabric";
 
-const ObjectList = () => {
+
+const ObjectList = (props, fabricRef) => {
   const dispatch = useDispatch();
   const [totalWeight, setTotalWeight] = useState(0);
   const [values, setValues] = useState({});
@@ -41,6 +44,10 @@ const ObjectList = () => {
     eventBus.dispatch("setFsValue", { message: fsValue });
   };
 
+  const setPopUp = () => {
+    eventBus.dispatch("setPopup", {});
+  }
+
   return (
     <div className="flex flex-col bg-[#FAC11A] w-1/2  my-6 ml-16 mr-auto rounded-t-3xl">
       <h1 className="text-white font-bold text-center my-2">מטענים</h1>
@@ -54,11 +61,11 @@ const ObjectList = () => {
         <div className="flex flex-col sidebar overflow-auto max-h-[100px] min-h-[50px] h-auto bg-[#FAC11A] text-right p-3 rounded-lg">
           {objectListItems.map((item, index) => (
             <div className="flex flex-col">
-              <div key={index} className={"flex mb-2 gap-2"}>
+              <div key={index} className={"flex mb-2 gap-2"} onClick={setPopUp}>
                 <p className="w-1/4 m-auto text-center">{index}</p>
                 <p className="w-1/4 m-auto text-center">{item}</p>
                 <input
-                  name={`item ${index}`}
+                  name={`item`}
                   onChange={(e) => weightChangeHandler(e)}
                   className="w-1/4 bg-[#6C614B] text-white"
                   placeholder="מש"

@@ -51,7 +51,12 @@ const BasicData = ({ setModalIsOpen }) => {
         <div>
           <div className="text-box-item">
             <input
+<<<<<<< HEAD
               clasName="input-css"
+=======
+              className="input-css"
+              placeholder="הכנס משקל ריק"
+>>>>>>> 935bbbd96dfcd07b8cee2e7f9cf3f1a441563971
               type="text"
               placeholder={emptyWeight}
               onChange={(event) => {
@@ -62,7 +67,12 @@ const BasicData = ({ setModalIsOpen }) => {
           </div>
           <div className="text-box-item">
             <input
+<<<<<<< HEAD
               clasName="input-css"
+=======
+              className="input-css"
+              placeholder="הכנס אינדקס מטוס"
+>>>>>>> 935bbbd96dfcd07b8cee2e7f9cf3f1a441563971
               type="text"
               placeholder={index}
               onChange={(event) => {
