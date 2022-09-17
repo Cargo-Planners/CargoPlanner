@@ -12,13 +12,13 @@ const Slider = ({ label, changeValue, value }) => {
           type="range"
           min="0"
           max="100"
-          defaultValue="0"
+          defaultValue={value}
           className="form-range
             appearance-none
             w-full
             h-3
             p-0
-            bg-cyan-200
+            
             shadow-lg
             rounded-md
             focus:outline-none focus:ring-0 focus:shadow-none"

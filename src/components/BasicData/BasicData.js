@@ -27,7 +27,7 @@ const configs = [
 const BasicData = ({ setModalIsOpen }) => {
   const {
     cockpitCrew,
-    Crew,
+    inspectorsCrew,
     emptyWeight,
     index,
     config,
@@ -46,40 +46,30 @@ const BasicData = ({ setModalIsOpen }) => {
   return (
     <div className="flex flex-col w-11/12">
       <h1 className="text-center text-5xl font-bold my-4">Basic Data</h1>
-      <div className="flex justify-around">
+      <div className="flex justify-around ">
         <FuelData />
         <div>
           <div className="text-box-item">
             <input
-<<<<<<< HEAD
               clasName="input-css"
-=======
-              className="input-css"
-              placeholder="הכנס משקל ריק"
->>>>>>> 935bbbd96dfcd07b8cee2e7f9cf3f1a441563971
               type="text"
               placeholder={emptyWeight}
               onChange={(event) => {
                 dispatch(updateEmptyWeight(event.target.value));
               }}
             />
-            <label className="text-lg">Empty Weight</label>
+            <label className="text-lg">:Empty Weight</label>
           </div>
           <div className="text-box-item">
             <input
-<<<<<<< HEAD
               clasName="input-css"
-=======
-              className="input-css"
-              placeholder="הכנס אינדקס מטוס"
->>>>>>> 935bbbd96dfcd07b8cee2e7f9cf3f1a441563971
               type="text"
               placeholder={index}
               onChange={(event) => {
                 dispatch(updateIndex(event.target.value));
               }}
             />
-            <label className="text-lg">Aircraft Index</label>
+            <label className="text-lg">:Aircraft Index</label>
           </div>
           <div className="grid grid-cols-2 place-items-end ">
             <Select
@@ -92,10 +82,10 @@ const BasicData = ({ setModalIsOpen }) => {
               }}
               placeholder={"Option " + config}
             />
-            <label className="text-lg">Formation</label>
+            <label className="text-lg">:Formation</label>
           </div>
-          <div className="place-items-start">
-            <label className="text-lg "> Crew </label>
+          <div className="justify-items-end grid grid-rows">
+            <label className="text-2xl text-white ">: Crew</label>
             <div id="counter-css">
               <button
                 onClick={() => {
@@ -108,10 +98,28 @@ const BasicData = ({ setModalIsOpen }) => {
               <button onClick={() => dispatch(incrementCockpitCrew())}>
                 <img src={plus} alt="" />
               </button>
+              <label className="text-lg">:Cockpit Crew</label>
+            </div>
+          </div>
+          <div className="justify-items-end grid grid-rows">
+            <div id="counter-css">
+              <button
+                onClick={() => {
+                  if (inspectorsCrew > 0) dispatch(decrementInspectorsCrew());
+                }}
+              >
+                <img src={minus} alt="" />
+              </button>
+              <h1>{inspectorsCrew}</h1>
+              <button onClick={() => dispatch(incrementInspectorsCrew())}>
+                <img src={plus} alt="" />
+              </button>
+              <label className="text-lg">:Inspectors Crew</label>
             </div>
           </div>
         </div>
       </div>
+
       <button
         id="next"
         onClick={() => {
