@@ -127,6 +127,7 @@ body {
 .startEndGrid {
   display: flex;
   justify-content: space-between;
+  background-color: white;
 }
 
 .blob {

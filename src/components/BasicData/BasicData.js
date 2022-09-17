@@ -42,7 +42,7 @@ const BasicData = ({ setModalIsOpen }) => {
           <div className="text-box-item">
             <label className="text-lg">משקל ריק</label>
             <input
-              clasName="input-css"
+              className="input-css"
               placeholder="הכנס משקל ריק"
               type="text"
               onChange={(event) => {
@@ -54,7 +54,7 @@ const BasicData = ({ setModalIsOpen }) => {
           <div className="text-box-item">
             <label className="text-lg">אינדקס מטוס</label>
             <input
-              clasName="input-css"
+              className="input-css"
               placeholder="הכנס אינדקס מטוס"
               type="text"
               onChange={(event) => {

@@ -4,11 +4,13 @@ import AddItem from "./AddItemButton";
 import PopUp from "./PopUp";
 import EditStaticDataButton from "./EditStaticDataButton";
 import eventBus from "../Grid/eventBus"
+import $ from "jquery";
 
 const DynamicObj = () => {
   const [isOpen, setIsOpen] = useState(false);
   const canvas = useRef(null);
   const fabricRef = useRef(null);
+  let currentObj = useRef(null);
   useEffect(() => {
     canvas.current = initCanvas();
 
@@ -19,11 +21,47 @@ const DynamicObj = () => {
       }
     });
 
+
     eventBus.on("setFsValue", (data) => {
       if (fabricRef && data != null) {
         fabricRef.current._objects[fabricRef.current._objects.length - 1].left = parseInt(data.message);
         fabricRef.current._objects[fabricRef.current._objects.length - 1].setCoords();
         fabricRef.current.renderAll();
+      }
+    });
+
+    eventBus.on("setPopup", (data) => {
+      if (fabricRef != null) {
+        <PopUp
+          content={
+            <Fragment>
+              <h1 className="text-center mb-5 text-xl font-bold text-black">
+                אפיין אובייקט
+              </h1>
+              <div className="flex justify-center h-52">
+                <input
+                  className="lengthData w-28 h-10 bg-red-200 p-1 m-1 rounded-xl"
+                  placeholder="אורך"
+                />
+                <button className="popUpBtn" onClick={setObjLength}>שלח</button>
+                <input
+                  className="heightData w-28 h-10 bg-green-200 p-1 m-1 rounded-xl"
+                  placeholder="רוחב"
+                />
+                <button className="popUpBtn" onClick={setObjHeight}>שלח</button>
+                <input
+                  className="w-28 h-10 bg-yellow-200 p-1 m-1 rounded-xl"
+                  placeholder="אינדקס"
+                />
+                <input
+                  className="w-28 h-10 bg-blue-200 p-1 m-1 rounded-xl"
+                  placeholder={245 + fabricRef.current._activeObject.left}
+                />
+              </div>
+            </Fragment>
+          }
+          handleClose={togglePopup}
+        />
       }
     });
 
@@ -45,12 +83,31 @@ const DynamicObj = () => {
     renderOnAddRemove: true,
   }));
 
+  const setObjLength = () => {
+    currentObj = fabricRef.current.getActiveObject();
+    if (currentObj != null) {
+      currentObj.set('width', parseInt($(".lengthData").value) / currentObj.getObjectScaling().scaleX);
+      currentObj.setCoords();
+      fabricRef.current.requestRenderAll();
+    }
+
+  }
+
+  const setObjHeight = () => {
+    currentObj = fabricRef.current.getActiveObject();
+    if (currentObj != null) {
+      currentObj.set('height', parseInt($(".heightData").value) / currentObj.getObjectScaling().scaleX);
+      currentObj.setCoords();
+      fabricRef.current.requestRenderAll();
+    }
+
+  }
+
   return (
     <div className="flex flex-col">
       <canvas id="canvas" />
       <div className="flex justify-between">
         <EditStaticDataButton />
-
         <AddItem ref={fabricRef} objcolor={Math.floor(Math.random() * 16777215).toString(16)} />
       </div>
       {isOpen && (
@@ -62,13 +119,15 @@ const DynamicObj = () => {
               </h1>
               <div className="flex justify-center h-52">
                 <input
-                  className="w-28 h-10 bg-red-200 p-1 m-1 rounded-xl"
+                  className="lengthData w-28 h-10 bg-red-200 p-1 m-1 rounded-xl"
                   placeholder="אורך"
                 />
+                <button className="popUpBtn" onClick={setObjLength}>שלח</button>
                 <input
-                  className="w-28 h-10 bg-green-200 p-1 m-1 rounded-xl"
+                  className="heightData w-28 h-10 bg-green-200 p-1 m-1 rounded-xl"
                   placeholder="רוחב"
                 />
+                <button className="popUpBtn" onClick={setObjHeight}>שלח</button>
                 <input
                   className="w-28 h-10 bg-yellow-200 p-1 m-1 rounded-xl"
                   placeholder="אינדקס"

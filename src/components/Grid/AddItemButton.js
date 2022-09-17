@@ -4,10 +4,15 @@ import { addItem } from "../../redux/AddFixedCargoSlice";
 import { useDispatch } from "react-redux";
 import $ from "jquery";
 import randomColor from "randomcolor";
+import { addItemToArray } from "../../redux/AddObject2Array";
+
 const AddItem = (props, fabricRef) => {
   const dispatch = useDispatch();
   const addItemToObjectList = (item) => {
     dispatch(addItem(item));
+  };
+  const addItemToArrayList = (item) => {
+    dispatch(addItemToArray(item));
   };
   const addRectangle = () => {
     let color = randomColor();
@@ -19,10 +24,8 @@ const AddItem = (props, fabricRef) => {
       fill: color,
     });
     fabricRef.current.add(rect);
+    addItemToArrayList(fabricRef.current)
     addItemToObjectList("אובייקט " + fabricRef.current._objects.length);
-    $(
-      `input[name="item ${fabricRef.current._objects.length - 2}"]`
-    ).parentNode.style.backgroundColor = color;
   };
   return (
     <button
