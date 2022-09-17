@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  countPeople: 0,
+  cockpitCrew: 0,
+  inspectorsCrew: 0,
   emptyWeight: 0,
   index: 0,
   config: 1,
@@ -18,11 +19,17 @@ const EditBasicDataSlice = createSlice({
 
   initialState,
   reducers: {
-    increment: (state) => {
-      state.countPeople += 1;
+    incrementCockpitCrew: (state) => {
+      state.cockpitCrew += 1;
     },
-    decrement: (state) => {
-      state.countPeople -= 1;
+    decrementCockpitCrew: (state) => {
+      state.cockpitCrew -= 1;
+    },
+    incrementInspectorsCrew: (state) => {
+      state.inspectorsCrew += 1;
+    },
+    decrementInspectorsCrew: (state) => {
+      state.inspectorsCrew -= 1;
     },
     updateEmptyWeight: (state, action) => {
       if (!isNaN(action.payload)) {
@@ -91,8 +98,10 @@ const EditBasicDataSlice = createSlice({
 });
 
 export const {
-  increment,
-  decrement,
+  incrementCockpitCrew,
+  decrementCockpitCrew,
+  incrementInspectorsCrew,
+  decrementInspectorsCrew,
   updateEmptyWeight,
   updateIndex,
   updateConfig,

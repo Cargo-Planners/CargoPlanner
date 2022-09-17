@@ -13,8 +13,8 @@ const Home = () => {
         <CGrid />
         <SideBar />
         <div className="flex gap-10">
-          <DataCollection />
           <ObjectList />
+          <DataCollection />
         </div>
       </div>
     </div>

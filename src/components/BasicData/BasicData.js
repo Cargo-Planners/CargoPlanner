@@ -1,11 +1,12 @@
 import React from "react";
 import Select from "react-select";
 import FuelData from "./FuelData";
-// import "reactjs-popup/dist/index.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  increment,
-  decrement,
+  incrementCockpitCrew,
+  decrementCockpitCrew,
+  incrementInspectorsCrew,
+  decrementInspectorsCrew,
   updateEmptyWeight,
   updateIndex,
   updateConfig,
@@ -17,81 +18,89 @@ import minus from "../../icons/minusIcon.png";
 import { useState } from "react";
 
 const configs = [
-  { value: "1", label: "תצורה 1" },
-  { value: "2", label: "תצורה 2" },
-  { value: "3", label: "תצורה 3" },
-  { value: "4", label: "תצורה 4" },
+  { value: "1", label: "Option 1" },
+  { value: "2", label: "Option 2" },
+  { value: "3", label: "Option 3" },
+  { value: "4", label: "Option 4" },
 ];
 
 const BasicData = ({ setModalIsOpen }) => {
-  const { countPeople, emptyWeight } = useSelector((state) => state.basicData);
+  const {
+    cockpitCrew,
+    Crew,
+    emptyWeight,
+    index,
+    config,
+    fuelPod,
+    slider1,
+    slider2,
+    slider3,
+    slider4,
+    slider5,
+  } = useSelector((state) => state.basicData);
 
-  const [EmptyWeight, setEmptyWeight] = useState(0);
-  const [Index, setIndex] = useState(0);
   const [Config, setConfig] = useState(null);
 
   const dispatch = useDispatch();
 
   return (
     <div className="flex flex-col w-11/12">
-      <h1 className="text-center text-5xl font-bold my-4">
-        נתוני בסיס
-      </h1>
+      <h1 className="text-center text-5xl font-bold my-4">Basic Data</h1>
       <div className="flex justify-around">
+        <FuelData />
         <div>
           <div className="text-box-item">
-            <label className="text-lg">משקל ריק</label>
             <input
               clasName="input-css"
-              placeholder="הכנס משקל ריק"
               type="text"
+              placeholder={emptyWeight}
               onChange={(event) => {
-                setEmptyWeight(event.target.value);
-                dispatch(updateEmptyWeight(EmptyWeight));
+                dispatch(updateEmptyWeight(event.target.value));
               }}
             />
+            <label className="text-lg">Empty Weight</label>
           </div>
           <div className="text-box-item">
-            <label className="text-lg">אינדקס מטוס</label>
             <input
               clasName="input-css"
-              placeholder="הכנס אינדקס מטוס"
               type="text"
+              placeholder={index}
               onChange={(event) => {
-                setIndex(event.target.value);
-                dispatch(updateIndex(Index));
+                dispatch(updateIndex(event.target.value));
               }}
             />
+            <label className="text-lg">Aircraft Index</label>
           </div>
-
-          <div>
-            <label className="text-lg">תצורות</label>
+          <div className="grid grid-cols-2 place-items-end ">
             <Select
               options={configs}
-              defaultValue={Config}
+              defaultValue={config}
               onChange={(Config) => {
                 setConfig(Config.value);
-                dispatch(updateConfig(Config));
+                dispatch(updateConfig(Config.value));
+                console.log(Config.value);
               }}
-              placeholder="בחר תצורה"
+              placeholder={"Option " + config}
             />
+            <label className="text-lg">Formation</label>
           </div>
-          <div id="people-css">
-            <label className="text-lg"> אנשי צוות</label>
-            <button onClick={() => dispatch(increment())}>
-              <img src={plus} alt="" />
-            </button>
-            <h1>{countPeople}</h1>
-            <button
-              onClick={() => {
-                if (countPeople > 0) dispatch(decrement());
-              }}
-            >
-              <img src={minus} alt="" />
-            </button>
+          <div className="place-items-start">
+            <label className="text-lg "> Crew </label>
+            <div id="counter-css">
+              <button
+                onClick={() => {
+                  if (cockpitCrew > 0) dispatch(decrementCockpitCrew());
+                }}
+              >
+                <img src={minus} alt="" />
+              </button>
+              <h1>{cockpitCrew}</h1>
+              <button onClick={() => dispatch(incrementCockpitCrew())}>
+                <img src={plus} alt="" />
+              </button>
+            </div>
           </div>
         </div>
-        <FuelData />
       </div>
       <button
         id="next"
