@@ -2,9 +2,8 @@ import React, { Fragment, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addWeight } from "../../redux/EditStaticDataButtonSlice";
 import eventBus from "../Grid/eventBus";
-import PopUp from "../Grid/PopUp";
-import { fabric } from "fabric";
-
+// import PopUp from "../Grid/PopUp";
+// import { fabric } from "fabric";
 
 const ObjectList = (props, fabricRef) => {
   const dispatch = useDispatch();
@@ -46,53 +45,59 @@ const ObjectList = (props, fabricRef) => {
 
   const setPopUp = () => {
     eventBus.dispatch("setPopup", {});
-  }
+  };
 
   return (
-    <div className="flex flex-col bg-[#FAC11A] w-1/2  my-6 ml-16 mr-auto rounded-t-3xl">
-      <h1 className="text-white font-bold text-center my-2">מטענים</h1>
-      <div className="flex flex-col mt-2">
-        <div className="flex justify-evenly mb-2">
-          <p>מס</p>
-          <p>שם</p>
-          <p>משקל</p>
-          <p className="pl-4">FS</p>
-        </div>
-        <div className="flex flex-col sidebar overflow-auto max-h-[100px] min-h-[50px] h-auto bg-[#FAC11A] text-right p-3 rounded-lg">
-          {objectListItems.map((item, index) => (
-            <div className="flex flex-col">
-              <div key={index} className={"flex mb-2 gap-2"} onClick={setPopUp}>
-                <p className="w-1/4 m-auto text-center">{index}</p>
-                <p className="w-1/4 m-auto text-center">{item}</p>
-                <input
-                  name={`item`}
-                  onChange={(e) => weightChangeHandler(e)}
-                  className="w-1/4 bg-[#6C614B] text-white"
-                  placeholder="מש"
-                />
-                <input
-                  className="w-1/4 bg-[#6C614B] text-white"
-                  placeholder="0"
-                  onChange={(e) => (fsValue = e.target.value - 245)}
-                />
+    <Fragment>
+      <div className="flex flex-col bg-[#FAC11A] w-1/2  my-6 ml-16 mr-auto rounded-t-3xl">
+        <h1 className="text-white font-bold text-center my-2">מטענים</h1>
+        <div className="flex flex-col mt-2">
+          <div className="flex justify-evenly mb-2">
+            <p>מס</p>
+            <p>שם</p>
+            <p>משקל</p>
+            <p className="pl-4">FS</p>
+          </div>
+          <div className="flex flex-col sidebar overflow-auto max-h-[230px] min-h-[50px] h-auto bg-[#FAC11A] text-right p-3 rounded-lg">
+            {objectListItems.map((item, index) => (
+              <div className="flex flex-col">
+                <div
+                  key={index}
+                  className={"flex mb-2 gap-2"}
+                  onClick={setPopUp}
+                >
+                  <p className="w-1/4 m-auto text-center">{index}</p>
+                  <p className="w-1/4 m-auto text-center">{item}</p>
+                  <input
+                    name={`item`}
+                    onChange={(e) => weightChangeHandler(e)}
+                    className="w-1/4 bg-[#6C614B] text-white"
+                    placeholder="מש"
+                  />
+                  <input
+                    className="w-1/4 bg-[#6C614B] text-white"
+                    placeholder="0"
+                    onChange={(e) => (fsValue = e.target.value - 245)}
+                  />
+                </div>
+                <button
+                  className="bg-[#6C614B] w-1/4 mx-auto rounded-lg text-center"
+                  onClick={setFs}
+                >
+                  עדכן FS
+                </button>
               </div>
-              <button
-                className="bg-[#6C614B] w-1/4 mx-auto rounded-lg text-center"
-                onClick={setFs}
-              >
-                עדכן FS
-              </button>
-            </div>
-          ))}
-          <button
-            onClick={calculateWeight}
-            className="bg-[#6C614B] mt-4 mx-auto py-2 px-4 rounded-lg"
-          >
-            עדכן משקל מטען כולל
-          </button>
+            ))}
+            <button
+              onClick={calculateWeight}
+              className="bg-[#6C614B] mt-4 mx-auto py-2 px-4 rounded-lg"
+            >
+              עדכן משקל מטען כולל
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </Fragment>
   );
 };
 

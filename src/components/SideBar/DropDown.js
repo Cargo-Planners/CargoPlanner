@@ -22,7 +22,7 @@ const DropDown = () => {
           }}
           className="flex justify-start items-center gap-2 hover:bg-[#1E1E22] cursor-pointer"
         >
-          <AiFillCar size={25} /> <p className="text-lg">הוסף רכב</p>
+          <AiFillCar size={25} /> <p className="text-lg">Add Car</p>
         </div>
         <div
           onClick={() => {
@@ -30,7 +30,7 @@ const DropDown = () => {
           }}
           className="flex justify-start items-center gap-2 hover:bg-[#1E1E22] cursor-pointer"
         >
-          <GiOldWagon size={25} /> <p className="text-lg">הוסף עגלה</p>
+          <GiOldWagon size={25} /> <p className="text-lg">Add Cart</p>
         </div>
         <div
           onClick={() => {
@@ -38,7 +38,7 @@ const DropDown = () => {
           }}
           className="flex justify-start items-center gap-2 hover:bg-[#1E1E22] cursor-pointer"
         >
-          <TbOvalVertical size={25} /> <p className="text-lg">הוסף פלטה </p>
+          <TbOvalVertical size={25} /> <p className="text-lg">Add Board</p>
         </div>
       </div>
     </div>

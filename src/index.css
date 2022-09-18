@@ -5,6 +5,7 @@
 @tailwind utilities;
 /* ===> Enabling Tailwind CSS */
 
+
 /* Data Display CSS, Static Data & Critical Data*/
 
 #data-box {
@@ -52,7 +53,7 @@ input {
 
 
 #counter-css {
-  @apply flex mt-4 place-items-start;
+  @apply flex mt-4 justify-start;
   
 }
 

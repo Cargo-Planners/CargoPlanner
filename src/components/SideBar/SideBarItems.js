@@ -6,7 +6,7 @@ import SiderBarItem from "./SiderBarItem";
 import DropDown from "./DropDown";
 import { routeConstants } from "../../Routes/constants";
 import settingsIcon from "../../icons/settingsIcon.png";
-import helpIcon from '../../icons/helpIcon.png';
+import helpIcon from "../../icons/helpIcon.png";
 
 const SideBarItems = () => {
   const [showDropDown, setShowDropDown] = useState(false);
@@ -16,25 +16,21 @@ const SideBarItems = () => {
       <div className="mt-12 flex flex-col gap-5">
         <hr />
         <Link to={routeConstants.newItemRoute}>
-          <SiderBarItem Icon={GiCargoCrate} buttonText="אובייקט חדש" />
+          <SiderBarItem Icon={GiCargoCrate} buttonText="New Object" />
         </Link>
         <hr />
         <div onClick={() => setShowDropDown((prev) => !prev)}>
-          <SiderBarItem Icon={FaCaretDown} buttonText="אובייקטים קיימים" />
+          <SiderBarItem Icon={FaCaretDown} buttonText="Existing Objects" />
         </div>
         {showDropDown && <DropDown />}
-        <div className="flex justify-start">
-          <img
-            className="my-auto h-5 w-5"
-            src={helpIcon}
-            alt="helpIcon"
-          />
-          <button className="font-bold">עזרה</button>
+        <div className="flex  ">
+          <button className="font-bold">Help</button>
+          <img className="my-auto h-5 w-5" src={helpIcon} alt="helpIcon" />
         </div>
       </div>
-      <div className="flex justify-start">
+      <div className="flex ">
+      <button className="font-bold">Settings</button>
         <img className="my-auto h-5 w-5" src={settingsIcon} alt="settingIcon" />
-        <button className="font-bold">הגדרות</button>
       </div>
     </div>
   );
