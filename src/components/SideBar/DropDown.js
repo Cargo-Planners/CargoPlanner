@@ -3,11 +3,10 @@ import { AiFillCar } from "react-icons/ai";
 import { GiOldWagon } from "react-icons/gi";
 import { TbOvalVertical } from "react-icons/tb";
 import { useDispatch } from "react-redux";
-import { addItem } from "../../redux/AddFixedCargoSlice";
+import { addItem } from "../../redux/ObjectsDataSlice";
 
 const DropDown = () => {
   const dispatch = useDispatch();
-  const items = { car: "רכב", wagon: "עגלה", plate: "פלטה" };
 
   const addItemToObjectList = (item) => {
     dispatch(addItem(item));
@@ -18,7 +17,7 @@ const DropDown = () => {
       <div className="container flex flex-col gap-2">
         <div
           onClick={() => {
-            addItemToObjectList(items.car);
+            addItemToObjectList({type : "Car", weight : 0, fs : 0});
           }}
           className="flex justify-start items-center gap-2 hover:bg-[#1E1E22] cursor-pointer"
         >
@@ -26,7 +25,7 @@ const DropDown = () => {
         </div>
         <div
           onClick={() => {
-            addItemToObjectList(items.wagon);
+            addItemToObjectList({type : "Cart", weight : 0, fs : 0});
           }}
           className="flex justify-start items-center gap-2 hover:bg-[#1E1E22] cursor-pointer"
         >
@@ -34,7 +33,7 @@ const DropDown = () => {
         </div>
         <div
           onClick={() => {
-            addItemToObjectList(items.plate);
+            addItemToObjectList({type : "Board", weight : 0, fs : 0});
           }}
           className="flex justify-start items-center gap-2 hover:bg-[#1E1E22] cursor-pointer"
         >

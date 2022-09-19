@@ -1,6 +1,6 @@
 import React from "react";
 import { fabric } from "fabric";
-import { addItem } from "../../redux/AddFixedCargoSlice";
+import { addItem } from "../../redux/ObjectsDataSlice";
 import { useDispatch } from "react-redux";
 import $ from "jquery";
 import randomColor from "randomcolor";
@@ -24,8 +24,13 @@ const AddItem = (props, fabricRef) => {
       fill: color,
     });
     fabricRef.current.add(rect);
+<<<<<<< HEAD
     addItemToArrayList(fabricRef.current);
     addItemToObjectList("אובייקט " + fabricRef.current._objects.length);
+=======
+    addItemToArrayList(fabricRef.current)
+    addItemToObjectList({type : "Object", weight : 0, fs : 0});
+>>>>>>> 8aa4c19bb5d52e0f55b9135021f3f43de281e04f
   };
   return (
     <button
