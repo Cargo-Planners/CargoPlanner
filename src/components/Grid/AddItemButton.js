@@ -24,7 +24,7 @@ const AddItem = (props, fabricRef) => {
       fill: color,
     });
     fabricRef.current.add(rect);
-    addItemToArrayList(fabricRef.current)
+    addItemToArrayList(fabricRef.current);
     addItemToObjectList("אובייקט " + fabricRef.current._objects.length);
   };
   return (
@@ -42,3 +42,5 @@ const AddItem = (props, fabricRef) => {
 
 const AddItemWithforwardedRef = React.forwardRef(AddItem);
 export default AddItemWithforwardedRef;
+
+// אורך רוחב INDEX משקל FS

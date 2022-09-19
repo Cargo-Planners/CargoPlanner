@@ -10,7 +10,7 @@ const DataCollection = () => {
         <h1 id="data-col-h1">General Data Collection</h1>
         <div
           id="data-col-h2"
-          className="grid grid-cols-2 gap-2 place-items-end m-12 ml-20 font-semibold text-2xl"
+          className="grid grid-cols-2 gap-2 place-items-start m-12 ml-20 font-semibold text-2xl"
         >
           <h2>ZFW : {staticData.ZFW}</h2>
           <h2>Take-Off Weight: {staticData.takeOffWeight}</h2>

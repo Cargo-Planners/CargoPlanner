@@ -12,7 +12,7 @@ const Home = () => {
         <Options />
         <CGrid />
         <SideBar />
-        <div className="flex justify-evenly">
+        <div className="flex justify-evenly ">
           <DataCollection />
           <ObjectList />
         </div>

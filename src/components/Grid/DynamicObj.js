@@ -2,8 +2,7 @@ import React, { Fragment, useEffect, useRef, useState } from "react";
 import { fabric } from "fabric";
 import AddItem from "./AddItemButton";
 import PopUp from "./PopUp";
-import EditStaticDataButton from "./EditStaticDataButton";
-import eventBus from "../Grid/eventBus"
+import eventBus from "../Grid/eventBus";
 import $ from "jquery";
 
 const DynamicObj = () => {
@@ -16,16 +15,18 @@ const DynamicObj = () => {
 
     fabricRef.current.on("mouse:up", (e) => {
       if (e.target != null) {
-        console.log(fabricRef.current._activeObject.left)
+        console.log(fabricRef.current._activeObject.left);
         setIsOpen(true);
       }
     });
 
-
     eventBus.on("setFsValue", (data) => {
       if (fabricRef && data != null) {
-        fabricRef.current._objects[fabricRef.current._objects.length - 1].left = parseInt(data.message);
-        fabricRef.current._objects[fabricRef.current._objects.length - 1].setCoords();
+        fabricRef.current._objects[fabricRef.current._objects.length - 1].left =
+          parseInt(data.message);
+        fabricRef.current._objects[
+          fabricRef.current._objects.length - 1
+        ].setCoords();
         fabricRef.current.renderAll();
       }
     });
@@ -43,12 +44,16 @@ const DynamicObj = () => {
                   className="lengthData w-28 h-10 bg-red-200 p-1 m-1 rounded-xl"
                   placeholder="אורך"
                 />
-                <button className="popUpBtn" onClick={setObjLength}>שלח</button>
+                <button className="popUpBtn" onClick={setObjLength}>
+                  שלח
+                </button>
                 <input
                   className="heightData w-28 h-10 bg-green-200 p-1 m-1 rounded-xl"
                   placeholder="רוחב"
                 />
-                <button className="popUpBtn" onClick={setObjHeight}>שלח</button>
+                <button className="popUpBtn" onClick={setObjHeight}>
+                  שלח
+                </button>
                 <input
                   className="w-28 h-10 bg-yellow-200 p-1 m-1 rounded-xl"
                   placeholder="אינדקס"
@@ -61,7 +66,7 @@ const DynamicObj = () => {
             </Fragment>
           }
           handleClose={togglePopup}
-        />
+        />;
       }
     });
 
@@ -76,39 +81,45 @@ const DynamicObj = () => {
   };
 
   const initCanvas = () =>
-  (fabricRef.current = new fabric.Canvas("canvas", {
-    height: document.getElementsByClassName("gridContainer")[0].offsetHeight,
-    width: document.getElementsByClassName("gridContainer")[0].offsetWidth,
-    selection: false,
-    renderOnAddRemove: true,
-  }));
+    (fabricRef.current = new fabric.Canvas("canvas", {
+      height: document.getElementsByClassName("gridContainer")[0].offsetHeight,
+      width: document.getElementsByClassName("gridContainer")[0].offsetWidth,
+      selection: false,
+      renderOnAddRemove: true,
+    }));
 
   const setObjLength = () => {
     currentObj = fabricRef.current.getActiveObject();
     if (currentObj != null) {
-      currentObj.set('width', parseInt($(".lengthData").value) / currentObj.getObjectScaling().scaleX);
+      currentObj.set(
+        "width",
+        parseInt($(".lengthData").value) / currentObj.getObjectScaling().scaleX
+      );
       currentObj.setCoords();
       fabricRef.current.requestRenderAll();
     }
-
-  }
+  };
 
   const setObjHeight = () => {
     currentObj = fabricRef.current.getActiveObject();
     if (currentObj != null) {
-      currentObj.set('height', parseInt($(".heightData").value) / currentObj.getObjectScaling().scaleX);
+      currentObj.set(
+        "height",
+        parseInt($(".heightData").value) / currentObj.getObjectScaling().scaleX
+      );
       currentObj.setCoords();
       fabricRef.current.requestRenderAll();
     }
-
-  }
+  };
 
   return (
     <div className="flex flex-col">
       <canvas id="canvas" />
       <div className="flex justify-between">
-        <EditStaticDataButton />
-        <AddItem ref={fabricRef} objcolor={Math.floor(Math.random() * 16777215).toString(16)} />
+        <AddItem
+          ref={fabricRef}
+          objcolor={Math.floor(Math.random() * 16777215).toString(16)}
+        />
       </div>
       {isOpen && (
         <PopUp
@@ -122,12 +133,16 @@ const DynamicObj = () => {
                   className="lengthData w-28 h-10 bg-red-200 p-1 m-1 rounded-xl"
                   placeholder="אורך"
                 />
-                <button className="popUpBtn" onClick={setObjLength}>שלח</button>
+                <button className="popUpBtn" onClick={setObjLength}>
+                  שלח
+                </button>
                 <input
                   className="heightData w-28 h-10 bg-green-200 p-1 m-1 rounded-xl"
                   placeholder="רוחב"
                 />
-                <button className="popUpBtn" onClick={setObjHeight}>שלח</button>
+                <button className="popUpBtn" onClick={setObjHeight}>
+                  שלח
+                </button>
                 <input
                   className="w-28 h-10 bg-yellow-200 p-1 m-1 rounded-xl"
                   placeholder="אינדקס"
