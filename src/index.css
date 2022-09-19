@@ -111,7 +111,7 @@ button {
 /* Data Collection */
 
 #data-col-win {
-  @apply flex flex-col w-1/2 bg-[#4E4E4E] mr-12 rounded-t-3xl my-6;
+  @apply flex flex-col w-1/2 bg-[#4E4E4E] rounded-t-3xl my-6;
 }
 
 #data-col-h1 {

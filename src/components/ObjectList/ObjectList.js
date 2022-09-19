@@ -47,16 +47,20 @@ const ObjectList = (props, fabricRef) => {
     eventBus.dispatch("setPopup", {});
   };
 
+
   return (
     <Fragment>
-      <div className="flex flex-col bg-[#FAC11A] w-1/2  my-6 ml-16 mr-auto rounded-t-3xl">
-        <h1 className="text-white font-bold text-center my-2">מטענים</h1>
+      <div className="flex flex-col bg-[#FAC11A] w-1/3  my-6 rounded-t-3xl">
+        <h1 className="text-white text-2xl font-bold text-center my-2">
+          Objects
+        </h1>
         <div className="flex flex-col mt-2">
-          <div className="flex justify-evenly mb-2">
-            <p>מס</p>
-            <p>שם</p>
-            <p>משקל</p>
-            <p className="pl-4">FS</p>
+          <div className="flex mb-2 text-center">
+            <p className="w-1/5">Num</p>
+            <p className="w-1/5">Name</p>
+            <p className="w-1/5">Weight</p>
+            <p className="w-1/5">FS</p>
+            <p className="w-1/5">cell</p>
           </div>
           <div className="flex flex-col sidebar overflow-auto max-h-[230px] min-h-[50px] h-auto bg-[#FAC11A] text-right p-3 rounded-lg">
             {objectListItems.map((item, index) => (
@@ -66,25 +70,26 @@ const ObjectList = (props, fabricRef) => {
                   className={"flex mb-2 gap-2"}
                   onClick={setPopUp}
                 >
-                  <p className="w-1/4 m-auto text-center">{index}</p>
-                  <p className="w-1/4 m-auto text-center">{item}</p>
+                  <p className="w-1/5 m-auto text-center">{index}</p>
+                  <p className="w-1/5 m-auto text-center">{item}</p>
                   <input
                     name={`item`}
                     onChange={(e) => weightChangeHandler(e)}
-                    className="w-1/4 bg-[#6C614B] text-white"
-                    placeholder="מש"
+                    className="w-1/5 bg-transparent text-white"
+                    placeholder="Weight"
                   />
                   <input
-                    className="w-1/4 bg-[#6C614B] text-white"
-                    placeholder="0"
+                    className="w-1/5 bg-transparent text-white"
+                    placeholder="FS"
                     onChange={(e) => (fsValue = e.target.value - 245)}
                   />
+                  <p className="w-1/5 m-auto text-center">{index}</p>
                 </div>
                 <button
                   className="bg-[#6C614B] w-1/4 mx-auto rounded-lg text-center"
                   onClick={setFs}
                 >
-                  עדכן FS
+                  Update FS
                 </button>
               </div>
             ))}
@@ -92,7 +97,7 @@ const ObjectList = (props, fabricRef) => {
               onClick={calculateWeight}
               className="bg-[#6C614B] mt-4 mx-auto py-2 px-4 rounded-lg"
             >
-              עדכן משקל מטען כולל
+              Update Total Weight
             </button>
           </div>
         </div>

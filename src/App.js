@@ -14,7 +14,6 @@ function App() {
       <Routes>
         <Route path={routeConstants.mainRoute} element={<ChoosePlatform />} />
         <Route path={routeConstants.firstPageRoute} element={<FirstPage />} />
-
         <Route
           path={routeConstants.BasicDataRoute}
           element={<BasicDataPage />}

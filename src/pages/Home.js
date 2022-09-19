@@ -12,9 +12,9 @@ const Home = () => {
         <Options />
         <CGrid />
         <SideBar />
-        <div className="flex gap-10">
-          <ObjectList />
+        <div className="flex justify-evenly">
           <DataCollection />
+          <ObjectList />
         </div>
       </div>
     </div>

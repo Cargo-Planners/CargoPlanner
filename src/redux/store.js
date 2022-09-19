@@ -1,7 +1,7 @@
-import { configureStore } from "@reduxjs/toolkit";
 import EditStaticDataButtonReducer from "./EditStaticDataButtonSlice";
 import AddFixedCargoReducer from "./AddFixedCargoSlice";
 import EditBasicDataReducer from "./EditBasicDataSlice";
+import { configureStore } from "@reduxjs/toolkit";
 
 export const store = configureStore({
   reducer: {
