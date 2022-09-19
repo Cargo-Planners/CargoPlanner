@@ -11,7 +11,7 @@ const EditStaticDataButton = () => {
       <button className="bg-red-200 top-0 left-20 p-4 rounded-xl text-white" onClick={() => setModalIsOpen(true)}>
         ערוך נתוני בסיס
       </button>
-      <Modal isOpen={modalIsOpen} className="modal flex" >
+      <Modal isOpen={modalIsOpen} className="modal flex" appElement={document.getElementById('root') || undefined}>
         <BasicData setModalIsOpen={setModalIsOpen} />
       </Modal>
     </Fragment>

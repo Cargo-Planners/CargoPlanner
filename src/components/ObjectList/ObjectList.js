@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addWeight } from "../../redux/EditStaticDataButtonSlice";
+import { addWeight } from "../../redux/ObjectsDataSlice";
 import eventBus from "../Grid/eventBus";
 // import PopUp from "../Grid/PopUp";
 // import { fabric } from "fabric";
@@ -10,7 +10,7 @@ const ObjectList = (props, fabricRef) => {
   const [totalWeight, setTotalWeight] = useState(0);
   const [values, setValues] = useState({});
   const objectListItems = useSelector(
-    (state) => state.fixedCargo.objectListItems
+    (state) => state.objectsData.objectListItems
   );
   let fsValue = "";
 
@@ -47,7 +47,6 @@ const ObjectList = (props, fabricRef) => {
     eventBus.dispatch("setPopup", {});
   };
 
-
   return (
     <Fragment>
       <div className="flex flex-col bg-[#FAC11A] w-1/3  my-6 rounded-t-3xl">
@@ -64,19 +63,15 @@ const ObjectList = (props, fabricRef) => {
           </div>
           <div className="flex flex-col sidebar overflow-auto max-h-[230px] min-h-[50px] h-auto bg-[#FAC11A] text-right p-3 rounded-lg">
             {objectListItems.map((item, index) => (
-              <div className="flex flex-col">
-                <div
-                  key={index}
-                  className={"flex mb-2 gap-2"}
-                  onClick={setPopUp}
-                >
+              <div key={index} className="flex flex-col">
+                <div className={"flex mb-2 gap-2"} onClick={setPopUp}>
                   <p className="w-1/5 m-auto text-center">{index}</p>
-                  <p className="w-1/5 m-auto text-center">{item}</p>
+                  <p className="w-1/5 m-auto text-center">{item.type}</p>
                   <input
-                    name={`item`}
-                    onChange={(e) => weightChangeHandler(e)}
+                    name="item"
                     className="w-1/5 bg-transparent text-white"
                     placeholder="Weight"
+                    onChange={(e) => weightChangeHandler(e)}
                   />
                   <input
                     className="w-1/5 bg-transparent text-white"

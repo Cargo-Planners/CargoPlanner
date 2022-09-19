@@ -51,7 +51,7 @@ const BasicData = ({ setModalIsOpen }) => {
         <div>
           <div className="text-box-item">
             <input
-              clasName="input-css"
+              className="input-css"
               type="text"
               placeholder={emptyWeight}
               onChange={(event) => {
@@ -62,7 +62,7 @@ const BasicData = ({ setModalIsOpen }) => {
           </div>
           <div className="text-box-item">
             <input
-              clasName="input-css"
+              className="input-css"
               type="text"
               placeholder={index}
               onChange={(event) => {

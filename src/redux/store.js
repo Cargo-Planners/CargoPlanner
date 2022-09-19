@@ -1,12 +1,13 @@
-import EditStaticDataButtonReducer from "./EditStaticDataButtonSlice";
-import AddFixedCargoReducer from "./AddFixedCargoSlice";
+import ObjectsDataSliceReducer from "./ObjectsDataSlice";
 import EditBasicDataReducer from "./EditBasicDataSlice";
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore} from "@reduxjs/toolkit";
 
 export const store = configureStore({
   reducer: {
-    staticData: EditStaticDataButtonReducer,
-    fixedCargo: AddFixedCargoReducer,
+    objectsData: ObjectsDataSliceReducer,
     basicData: EditBasicDataReducer,
   },
+  middleware : (getDefaultMiddleware) => getDefaultMiddleware({
+    serializableCheck: false
+  })
 });
