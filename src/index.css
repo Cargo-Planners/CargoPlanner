@@ -53,7 +53,7 @@ input {
 
 
 #counter-css {
-  @apply flex mt-4 place-items-start;
+  @apply flex mt-4 justify-start;
   
 }
 

@@ -1,51 +1,32 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addWeight } from "../../redux/ObjectsDataSlice";
+import { calculateWeight, updateWeight } from "../../redux/ObjectsDataSlice";
 import eventBus from "../Grid/eventBus";
-// import PopUp from "../Grid/PopUp";
-// import { fabric } from "fabric";
 
-const ObjectList = (props, fabricRef) => {
+const ObjectList = () => {
   const dispatch = useDispatch();
-  const [totalWeight, setTotalWeight] = useState(0);
-  const [values, setValues] = useState({});
   const objectListItems = useSelector(
     (state) => state.objectsData.objectListItems
   );
   let fsValue = "";
 
-  const weightChangeHandler = (e) => {
-    let name = e.target.name;
-    let value = e.target.value;
-    if (value === "") {
-      value = 0;
-    }
-    const newValues = {
-      ...values,
-      [name]: parseInt(value),
-    };
-    setValues(newValues);
-    calcTotalValue(newValues);
+  const weightChangeHandler = (e, index) => {
+    const value = e.target.value === "" ? 0 : parseInt(e.target.value);
+    dispatch(updateWeight({ value, index }));
+    dispatch(calculateWeight());
   };
 
-  const calcTotalValue = (newValues) => {
-    let sum = Object.values(newValues).reduce(
-      (previousValue, currentValue) => previousValue + currentValue
-    );
-    setTotalWeight(sum);
-  };
-
-  const calculateWeight = () => {
-    dispatch(addWeight(totalWeight));
+  const activeCalculateWeight = () => {
+    dispatch(calculateWeight());
   };
 
   const setFs = () => {
     eventBus.dispatch("setFsValue", { message: fsValue });
   };
 
-  const setPopUp = () => {
-    eventBus.dispatch("setPopup", {});
-  };
+  // const setPopUp = () => {
+  //   eventBus.dispatch("setPopup", {});
+  // };
 
   return (
     <Fragment>
@@ -53,6 +34,20 @@ const ObjectList = (props, fabricRef) => {
         <h1 className="text-white text-2xl font-bold text-center my-2">
           Objects
         </h1>
+        <div className="flex items-center">
+          <button
+            onClick={activeCalculateWeight}
+            className="bg-[#FFE9A0] my-4 mx-auto py-2 px-4 rounded-lg" // Might not need this Button! ignore for now.
+          >
+            Update Total Weight 
+          </button>
+          <button
+            className="bg-[#FFE9A0] my-4 mx-auto py-2 px-4 rounded-lg"
+            onClick={setFs}
+          >
+            Update FS
+          </button>
+        </div>
         <div className="flex flex-col mt-2">
           <div className="flex mb-2 text-center">
             <p className="w-1/5">Num</p>
@@ -61,39 +56,29 @@ const ObjectList = (props, fabricRef) => {
             <p className="w-1/5">FS</p>
             <p className="w-1/5">cell</p>
           </div>
-          <div className="flex flex-col sidebar overflow-auto max-h-[230px] min-h-[50px] h-auto bg-[#FAC11A] text-right p-3 rounded-lg">
+          <div className="flex flex-col sidebar overflow-auto max-h-[230px] min-h-[50px] h-auto bg-[#FAC11A] text-right py-3 rounded-lg">
             {objectListItems.map((item, index) => (
               <div key={index} className="flex flex-col">
-                <div className={"flex mb-2 gap-2"} onClick={setPopUp}>
-                  <p className="w-1/5 m-auto text-center">{index}</p>
-                  <p className="w-1/5 m-auto text-center">{item.type}</p>
+                <div className="flex mb-2">
+                  {" "}
+                  {/* onClick={setPopUp} What is this? */}
+                  <p className="w-1/5 my-auto text-center">{index}</p>
+                  <p className="w-1/5 my-auto text-center">{item.type}</p>
                   <input
                     name="item"
-                    className="w-1/5 bg-transparent text-white"
+                    className="w-1/5 bg-[#FFE9A0] placeholder:text-center text-black"
                     placeholder="Weight"
-                    onChange={(e) => weightChangeHandler(e)}
+                    onChange={(e) => weightChangeHandler(e, index)}
                   />
                   <input
-                    className="w-1/5 bg-transparent text-white"
+                    className="w-1/5 bg-[#FFE9A0] placeholder:text-center text-black"
                     placeholder="FS"
                     onChange={(e) => (fsValue = e.target.value - 245)}
                   />
-                  <p className="w-1/5 m-auto text-center">{index}</p>
+                  <p className="w-1/5 my-auto text-center">{index}</p>
                 </div>
-                <button
-                  className="bg-[#6C614B] w-1/4 mx-auto rounded-lg text-center"
-                  onClick={setFs}
-                >
-                  Update FS
-                </button>
               </div>
             ))}
-            <button
-              onClick={calculateWeight}
-              className="bg-[#6C614B] mt-4 mx-auto py-2 px-4 rounded-lg"
-            >
-              Update Total Weight
-            </button>
           </div>
         </div>
       </div>
