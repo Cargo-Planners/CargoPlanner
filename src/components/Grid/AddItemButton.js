@@ -2,17 +2,12 @@ import React from "react";
 import { fabric } from "fabric";
 import { addItem } from "../../redux/ObjectsDataSlice";
 import { useDispatch } from "react-redux";
-import $ from "jquery";
 import randomColor from "randomcolor";
-import { addItemToArray } from "../../redux/AddObject2Array";
 
 const AddItem = (props, fabricRef) => {
   const dispatch = useDispatch();
   const addItemToObjectList = (item) => {
     dispatch(addItem(item));
-  };
-  const addItemToArrayList = (item) => {
-    dispatch(addItemToArray(item));
   };
   const addRectangle = () => {
     let color = randomColor();
@@ -24,9 +19,7 @@ const AddItem = (props, fabricRef) => {
       fill: color,
     });
     fabricRef.current.add(rect);
-
-    addItemToArrayList(fabricRef.current);
-    addItemToObjectList({ type: "Object", weight: 0, fs: 0 });
+    addItemToObjectList({ type: "Object", weight: 0, fs: 0, width: 50, height: 50 });
   };
   return (
     <button

@@ -1,4 +1,4 @@
-import { createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   objectListItems: [],
@@ -10,6 +10,7 @@ const initialState = {
   areaGraph: 0,
   MAC: 0,
   MACRange: 0,
+  index: 0
 };
 
 const ObjectsDataSlice = createSlice({
@@ -30,10 +31,19 @@ const ObjectsDataSlice = createSlice({
       state.totalCargoWeight = total;
       state.takeOffWeight = total;
     },
+    updateWidth: (state, action) => {
+      state.objectListItems[action.payload.index].width = action.payload.value;
+    },
+    updateHeight: (state, action) => {
+      state.objectListItems[action.payload.index].height = action.payload.value;
+    },
+    updateIndexObj: (state, action) => {
+      state.objectListItems[action.payload.index].index = action.payload.value;
+    },
   },
 });
 
 export default ObjectsDataSlice.reducer;
 
-export const { addWeight, addItem, updateWeight, calculateWeight } =
+export const { addWeight, addItem, updateWeight, calculateWeight, updateWidth, updateHeight, updateIndexObj } =
   ObjectsDataSlice.actions;
