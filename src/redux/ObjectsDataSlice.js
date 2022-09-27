@@ -35,5 +35,5 @@ const ObjectsDataSlice = createSlice({
 
 export default ObjectsDataSlice.reducer;
 
-export const { addWeight, addItem, updateWeight, calculateWeight } =
+export const { addItem, updateWeight, calculateWeight } =
   ObjectsDataSlice.actions;
