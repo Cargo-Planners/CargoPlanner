@@ -10,7 +10,7 @@ const initialState = {
   areaGraph: 0,
   MAC: 0,
   MACRange: 0,
-  index: 0
+  index: 0,
 };
 
 const ObjectsDataSlice = createSlice({
@@ -44,10 +44,11 @@ const ObjectsDataSlice = createSlice({
 });
 
 export default ObjectsDataSlice.reducer;
-
-<<<<<<< HEAD
-export const { addItem, updateWeight, calculateWeight } =
-=======
-export const { addWeight, addItem, updateWeight, calculateWeight, updateWidth, updateHeight, updateIndexObj } =
->>>>>>> e201d475556aa9e78badb9a3c7df05d2322e825a
-  ObjectsDataSlice.actions;
+export const {
+  addItem,
+  updateWeight,
+  calculateWeight,
+  updateWidth,
+  updateHeight,
+  updateIndexObj,
+} = ObjectsDataSlice.actions;
