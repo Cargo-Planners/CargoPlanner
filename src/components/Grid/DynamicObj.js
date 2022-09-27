@@ -1,15 +1,33 @@
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { fabric } from "fabric";
+import { useSelector, useDispatch } from "react-redux";
+import $ from "jquery";
+import { updateWidth, updateHeight, updateIndexObj } from "../../redux/ObjectsDataSlice";
 import AddItem from "./AddItemButton";
 import PopUp from "./PopUp";
 import eventBus from "../Grid/eventBus";
-import $ from "jquery";
 
 const DynamicObj = () => {
   const [isOpen, setIsOpen] = useState(false);
   const canvas = useRef(null);
   const fabricRef = useRef(null);
   let currentObj = useRef(null);
+  const dispatch = useDispatch();
+  const objectListItems = useSelector(
+    (state) => state.objectsData.objectListItems
+  );
+  const widthChangeHandler = (e, index) => {
+    const value = e.target.value === "" ? 0 : parseInt(e.target.value);
+    dispatch(updateWidth({ value, index }));
+  };
+  const heightChangeHandler = (e, index) => {
+    const value = e.target.value === "" ? 0 : parseInt(e.target.value);
+    dispatch(updateHeight({ value, index }));
+  };
+  const indexChangeHandler = (e, index) => {
+    const value = e.target.value === "" ? 0 : parseInt(e.target.value);
+    dispatch(updateIndexObj({ value, index }));
+  };
   useEffect(() => {
     canvas.current = initCanvas();
 
@@ -81,20 +99,18 @@ const DynamicObj = () => {
   };
 
   const initCanvas = () =>
-    (fabricRef.current = new fabric.Canvas("canvas", {
-      height: document.getElementsByClassName("gridContainer")[0].offsetHeight,
-      width: document.getElementsByClassName("gridContainer")[0].offsetWidth,
-      selection: false,
-      renderOnAddRemove: true,
-    }));
+  (fabricRef.current = new fabric.Canvas("canvas", {
+    height: document.getElementsByClassName("gridContainer")[0].offsetHeight,
+    width: document.getElementsByClassName("gridContainer")[0].offsetWidth,
+    selection: false,
+    renderOnAddRemove: true,
+  }));
 
   const setObjLength = () => {
     currentObj = fabricRef.current.getActiveObject();
     if (currentObj != null) {
-      currentObj.set(
-        "width",
-        parseInt($(".lengthData").value) / currentObj.getObjectScaling().scaleX
-      );
+      currentObj.width = (parseInt($(".lengthData").value) * currentObj.getObjectScaling().scaleX);
+      //currentObj.set({ "width": parseInt($(".lengthData").value) / currentObj.getObjectScaling().scaleX });
       currentObj.setCoords();
       fabricRef.current.requestRenderAll();
     }
@@ -128,30 +144,38 @@ const DynamicObj = () => {
               <h1 className="text-center mb-5 text-xl font-bold text-black">
                 אפיין אובייקט
               </h1>
-              <div className="flex justify-center h-52">
-                <input
-                  className="lengthData w-28 h-10 bg-red-200 p-1 m-1 rounded-xl"
-                  placeholder="אורך"
-                />
-                <button className="popUpBtn" onClick={setObjLength}>
-                  שלח
-                </button>
-                <input
-                  className="heightData w-28 h-10 bg-green-200 p-1 m-1 rounded-xl"
-                  placeholder="רוחב"
-                />
-                <button className="popUpBtn" onClick={setObjHeight}>
-                  שלח
-                </button>
-                <input
-                  className="w-28 h-10 bg-yellow-200 p-1 m-1 rounded-xl"
-                  placeholder="אינדקס"
-                />
-                <input
-                  className="w-28 h-10 bg-blue-200 p-1 m-1 rounded-xl"
-                  placeholder={245 + fabricRef.current._activeObject.left}
-                />
-              </div>
+              {objectListItems.map((item, index) => (
+                <div key={index} className="flex justify-center h-52">
+                  <input
+                    name="item"
+                    className="lengthData w-28 h-10 bg-red-200 p-1 m-1 rounded-xl"
+                    placeholder="אורך"
+                    onChange={(e) => widthChangeHandler(e, index)}
+                  />
+                  <button className="popUpBtn" onClick={setObjLength}>
+                    שלח
+                  </button>
+                  <input
+                    name="item"
+                    className="heightData w-28 h-10 bg-green-200 p-1 m-1 rounded-xl"
+                    placeholder="רוחב"
+                    onChange={(e) => heightChangeHandler(e, index)}
+                  />
+                  <button className="popUpBtn" onClick={setObjHeight}>
+                    שלח
+                  </button>
+                  <input
+                    name="item"
+                    className="w-28 h-10 bg-yellow-200 p-1 m-1 rounded-xl"
+                    placeholder="אינדקס"
+                    onChange={(e) => indexChangeHandler(e, index)}
+                  />
+                  <input
+                    className="w-28 h-10 bg-blue-200 p-1 m-1 rounded-xl"
+                    placeholder={245 + fabricRef.current._activeObject.left}
+                  />
+                </div>
+              ))}
             </Fragment>
           }
           handleClose={togglePopup}
