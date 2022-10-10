@@ -11,7 +11,6 @@ import {
 } from "../../redux/EditBasicDataSlice";
 
 import Slider from "./Slider";
-import Radio from "./Radio";
 
 const FuelData = () => {
   const dispatch = useDispatch();
@@ -27,7 +26,6 @@ const FuelData = () => {
 
   return (
     <div>
-      <Radio />
       <Slider
         label="כמות דלק"
         value={slider1}

@@ -34,10 +34,10 @@
   justify-content: center;
   align-items: center;
   border-radius: 20px;
-  margin-top: 15vh;
-  margin-bottom: 15vh;
-  margin-left: 40vh;
-  margin-right: 40vh;
+  margin-top: 22vh;
+  margin-bottom: 20vh;
+  margin-left: 70vh;
+  margin-right: 70vh;
 }
 
 p,
@@ -51,11 +51,16 @@ input {
 }
 
 
-
 #counter-css {
-  @apply flex mt-4 justify-start;
+  @apply flex mt-4 justify-start grid grid-cols-2;
   
 }
+#counter-comp-css {
+  @apply grid grid-cols-3 justify-items-center gap-0;
+  
+}
+
+
 
 .box-item {
   @apply my-1  grid grid-cols-2 text-left;
@@ -65,6 +70,21 @@ button {
   @apply mx-3;
 }
 
+
+.label-font-b{
+ @apply text-2xl font-bold;
+}
+
+.label-font-w{
+  @apply text-3xl font-bold text-white;
+ }
+
+ .plus-minus{
+  height: auto;
+  width: 22px; 
+ }
+
+
 /* Fuel Pod Data */
 
 #fuel-data {
@@ -73,6 +93,13 @@ button {
 
 #fuel-silders {
   @apply mt-3;
+}
+
+#fuel-img{
+  height: auto;
+  width: 2vw; 
+  margin-left: 3em;
+
 }
 
 /* Input Variables CSS */
@@ -94,19 +121,17 @@ button {
 
 /* next  */
 
-#next {
-  @apply my-3 mx-auto text-2xl rounded-md border-2 h-12 w-24 text-white hover:border-[#cfa015] hover:bg-white hover:text-[#cfa015];
+#basicData-Modal{
+  position: relative;
+}
+#close{
+  position: absolute;
+  width: 1vw; 
+  top: 23vh;
+  right: 71vh;
 }
 
 /* first page image */
-
-/* #background-image {
-  background-image: url("/src/images/choosePlatform.png");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  height: 100vh;
-  width: 100vw;
-} */
 
 #background-color {
   background-color: #FFD990;
@@ -134,11 +159,10 @@ button {
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
-  margin-top: auto;
-  margin-bottom: auto;
+
   
   height: auto;
-  width: 31vw; 
+  width: 29vw; 
 }
 .proj-label {
 
@@ -250,8 +274,43 @@ right: 0vw;
   }
   #background-image{
   background-image:   none;
-  } ;
+  } }
 
+  @media (max-height:629px) {
+    img#p1 {
+      display: none;
+    }
+    img#p2 {
+      display: none;
+    }
+    img#p3 {
+      display: none;
+    }
+    img#p4 {
+      display: none;
+    }
+    img#p5 {
+      display: none;
+    }
+    img#p6 {
+      display: none;
+    }
+    img#p7 {
+      display: none;
+    }
+      img#p8 {
+      display: none;
+    }
+  
+    #airPlane1 {
+      display: none;
+    }
+    #airPlane2{
+      display: none;
+    }
+    #background-image{
+    background-image:   none;
+    } 
 }
 /* Data Collection */
 

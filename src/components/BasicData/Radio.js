@@ -4,8 +4,8 @@ import { updateFuelPod } from "../../redux/EditBasicDataSlice";
 import { useState } from "react";
 
 const options = [
-  { id: true, name: "כן" },
-  { id: false, name: "לא" },
+  { id: true, name: "Yes" },
+  { id: false, name: "No" },
 ];
 
 function Radio() {

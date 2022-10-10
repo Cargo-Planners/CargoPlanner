@@ -14,19 +14,8 @@ import p7 from "../images/p7.png";
 import p8 from "../images/p8.png";
 
 const FirstPage = () => {
-  //   const pageStyle = {
-  //     color: "black",
-  //     backgroundColor: "#FFD990",
-  //     fontFamily: "Arial",
-  //     height: "100vh",
-  //     width: "100vw",
-  //   };
-
   return (
     <Link to={routeConstants.mainRoute}>
-      {/* <div id="background-image">
-
-            </div> */}
       <div id="background-color">
         <div id="background-image">
           <img src={airPlane1} alt="" id="airPlane1" />
