@@ -11,6 +11,7 @@
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
     "fabric": "^5.2.1",
+    "framer-motion": "^7.5.3",
     "jquery": "^3.6.0",
     "randomcolor": "^0.6.2",
     "rc-ruler": "^0.1.1",

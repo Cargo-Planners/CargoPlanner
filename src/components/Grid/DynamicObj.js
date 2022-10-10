@@ -2,7 +2,11 @@ import React, { Fragment, useEffect, useRef, useState } from "react";
 import { fabric } from "fabric";
 import { useSelector, useDispatch } from "react-redux";
 import $ from "jquery";
-import { updateWidth, updateHeight, updateIndexObj } from "../../redux/ObjectsDataSlice";
+import {
+  updateWidth,
+  updateHeight,
+  updateIndexObj,
+} from "../../redux/ObjectsDataSlice";
 import AddItem from "./AddItemButton";
 import PopUp from "./PopUp";
 import eventBus from "../Grid/eventBus";
@@ -99,17 +103,18 @@ const DynamicObj = () => {
   };
 
   const initCanvas = () =>
-  (fabricRef.current = new fabric.Canvas("canvas", {
-    height: document.getElementsByClassName("gridContainer")[0].offsetHeight,
-    width: document.getElementsByClassName("gridContainer")[0].offsetWidth,
-    selection: false,
-    renderOnAddRemove: true,
-  }));
+    (fabricRef.current = new fabric.Canvas("canvas", {
+      height: document.getElementsByClassName("gridContainer")[0].offsetHeight,
+      width: document.getElementsByClassName("gridContainer")[0].offsetWidth,
+      selection: false,
+      renderOnAddRemove: true,
+    }));
 
   const setObjLength = () => {
     currentObj = fabricRef.current.getActiveObject();
     if (currentObj != null) {
-      currentObj.width = (parseInt($(".lengthData").value) * currentObj.getObjectScaling().scaleX);
+      currentObj.width =
+        parseInt($(".lengthData").value) * currentObj.getObjectScaling().scaleX;
       //currentObj.set({ "width": parseInt($(".lengthData").value) / currentObj.getObjectScaling().scaleX });
       currentObj.setCoords();
       fabricRef.current.requestRenderAll();

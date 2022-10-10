@@ -12,6 +12,8 @@ import p5 from "../images/p5.png";
 import p6 from "../images/p6.png";
 import p7 from "../images/p7.png";
 import p8 from "../images/p8.png";
+import arrows from "../images/arrows.svg";
+import { motion } from "framer-motion";
 
 const FirstPage = () => {
   //   const pageStyle = {
@@ -40,8 +42,15 @@ const FirstPage = () => {
           <img src={p7} alt="" id="p7" />
           <img src={p8} alt="" id="p8" />
           <img src={appIcon} alt="" id="proj-img" />
-          <h1 className="proj-label">GULLIVER</h1>
-          <h1 className="proj-label">System Engineering</h1>
+          <motion.img
+            src={arrows}
+            alt="img"
+            className="arrows_img"
+            transition={{ ease: "linear", duration: 2, repeat: Infinity }}
+            animate={{ y: [15, -15, 15] }}
+          />
+          {/*   <h1 className="proj-label">GULLIVER</h1>
+          <h1 className="proj-label">System Engineering</h1>*/}
         </div>
       </div>
     </Link>
