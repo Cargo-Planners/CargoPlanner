@@ -19,6 +19,7 @@ import Fuel from "../../icons/Fuel.png";
 import close from "../../icons/close.png";
 
 import { useState } from "react";
+import Modal from "react-modal";
 
 const configs = [
   { value: "1", label: "Option 1" },
@@ -43,19 +44,21 @@ const BasicData = ({ setModalIsOpen }) => {
   } = useSelector((state) => state.basicData);
 
   const [Config, setConfig] = useState(null);
+  const [fuelModalIsOpen, setFuelModalIsOpen] = useState(false);
 
   const dispatch = useDispatch();
 
   return (
-    <div>
+    <div id="modal-style">
       <button
         onClick={() => {
           setModalIsOpen(false);
         }}
+        id="close"
       >
-        <img src={close} alt="" id="close" />
+        <img src={close} alt="" />
       </button>
-      <h1 className="text-center text-5xl font-bold my-4">Basic Data</h1>
+      <h1 className="text-center text-5xl font-bold my-4  ">Basic Data</h1>
 
       <label className="label-font-w">Aircraft:</label>
       <div className="box-item">
@@ -129,13 +132,23 @@ const BasicData = ({ setModalIsOpen }) => {
         </div>
       </div>
 
-      {/* <FuelData /> */}
-      <div className="grid grid-cols-2 mb-6">
+      <div className="grid grid-cols-2 mb-6 mt-4">
         <label className="label-font-w">Fuel Distribution:</label>
-        <img src={Fuel} alt="" id="fuel-img" />
+        <button onClick={() => setFuelModalIsOpen(true)}>
+          <img src={Fuel} alt="" id="fuel-img" />
+        </button>
+
         <label className="label-font-b">POD/NO POD:</label>
         <Radio />
       </div>
+
+      <Modal
+        isOpen={fuelModalIsOpen}
+        className="modal"
+        appElement={document.getElementById("root") || undefined}
+      >
+        <FuelData setFuelModalIsOpen={setFuelModalIsOpen} />
+      </Modal>
     </div>
   );
 };

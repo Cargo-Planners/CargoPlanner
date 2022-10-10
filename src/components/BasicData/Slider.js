@@ -4,27 +4,30 @@ const Slider = ({ label, changeValue, value }) => {
   };
 
   return (
-    <div>
-      <div>
-        <label>{label + ":"}</label>
-        <label className="mr-2">{value + "%"}</label>
-        <input
-          type="range"
-          min="0"
-          max="100"
-          defaultValue={value}
-          className="form-range
+    <div className="grid grid-rows-4">
+      <label className="m-1 row-span-1">
+        {label} {value + "%"}
+      </label>
+
+      <input
+        type="range"
+        min="0"
+        max="100"
+        defaultValue={value}
+        className="
+        row-span-3
+          vertical
+          form-range
             appearance-none
             w-full
-            h-3
+            h-4
             p-0
-            
             shadow-lg
             rounded-md
-            focus:outline-none focus:ring-0 focus:shadow-none"
-          onChange={handleChange}
-        />
-      </div>
+            focus:outline-none focus:ring-0 focus:shadow-none
+            "
+        onChange={handleChange}
+      />
     </div>
   );
 };
