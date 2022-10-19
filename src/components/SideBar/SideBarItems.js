@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import randomColor from "randomcolor";
 
 const SideBarItems = (props, fabricRef) => {
+  const [count, setCount] = useState(0);
   const [showDropDown, setShowDropDown] = useState(false);
 
   const dispatch = useDispatch();
@@ -33,7 +34,9 @@ const SideBarItems = (props, fabricRef) => {
       fs: 0,
       width: 50,
       height: 50,
+      count: count,
     });
+    setCount((count) => count + 1);
   };
 
   return (

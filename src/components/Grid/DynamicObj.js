@@ -34,7 +34,7 @@ const DynamicObj = (props, fabricRef) => {
   };
   const heightChangeHandler = (e, index) => {
     const value = e.target.value === "" ? 0 : parseInt(e.target.value);
-        currentObj = fabricRef.current.getActiveObject();
+    currentObj = fabricRef.current.getActiveObject();
     if (currentObj != null) {
       currentObj.set(
         "height",
@@ -52,11 +52,14 @@ const DynamicObj = (props, fabricRef) => {
   useEffect(() => {
     canvas.current = initCanvas();
     fabricRef.current.on("mouse:up", (e) => {
-      if ((e.target != null) && (fabricRef.current._activeObject.left - currentFus.current === 0)) {
+      if (
+        e.target != null &&
+        fabricRef.current._activeObject.left - currentFus.current === 0
+      ) {
         setIsOpen(true);
-      }else {
-      currentFus.current = fabricRef.current._activeObject.left;
-      setIsOpen(false);
+      } else {
+        currentFus.current = fabricRef.current._activeObject.left;
+        setIsOpen(false);
       }
     });
 
@@ -99,7 +102,37 @@ const DynamicObj = (props, fabricRef) => {
               <h1 className="text-center mb-5 text-xl font-bold text-black">
                 אפיין אובייקט
               </h1>
-              {objectListItems.map((item, index) => (
+              {
+                <div className="flex justify-center h-52">
+                  <input
+                    name="item"
+                    className="lengthData w-28 h-10 bg-red-200 p-1 m-1 rounded-xl"
+                    placeholder="אורך"
+                    onChange={(e) => {
+                      let test = fabricRef.current;
+                      console.log(test);
+                      heightChangeHandler(e, 0);
+                    }}
+                  />
+                  <input
+                    name="item"
+                    className="heightData w-28 h-10 bg-green-200 p-1 m-1 rounded-xl"
+                    placeholder="רוחב"
+                    onChange={(e) => widthChangeHandler(e, 0)}
+                  />
+                  <input
+                    name="item"
+                    className="w-28 h-10 bg-yellow-200 p-1 m-1 rounded-xl"
+                    placeholder="אינדקס"
+                    onChange={(e) => indexChangeHandler(e, 0)}
+                  />
+                  <input
+                    className="w-28 h-10 bg-blue-200 p-1 m-1 rounded-xl"
+                    placeholder={245 + fabricRef.current._activeObject.left}
+                  />
+                </div>
+              }
+              {/* objectListItems.map((item, index) => (
                 <div key={index} className="flex justify-center h-52">
                   <input
                     name="item"
@@ -124,7 +157,7 @@ const DynamicObj = (props, fabricRef) => {
                     placeholder={245 + fabricRef.current._activeObject.left}
                   />
                 </div>
-              ))}
+              )) */}
             </Fragment>
           }
           handleClose={togglePopup}
@@ -136,4 +169,3 @@ const DynamicObj = (props, fabricRef) => {
 
 const DynamicObjWithforwardedRef = React.forwardRef(DynamicObj);
 export default DynamicObjWithforwardedRef;
-
