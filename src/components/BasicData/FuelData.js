@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-
+import Modal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
 import {
   updateSlider1,
@@ -11,11 +11,11 @@ import {
 } from "../../redux/EditBasicDataSlice";
 
 import Slider from "./Slider";
-import Radio from "./Radio";
+import close from "../../icons/close.png";
 
-const FuelData = () => {
+const FuelData = ({ setFuelModalIsOpen }) => {
   const dispatch = useDispatch();
-  const { slider1, slider2, slider3, slider4, slider5 } = useSelector(
+  const { slider1, slider2, slider3, slider4, slider5, fuelPod } = useSelector(
     (state) => state.basicData
   );
 
@@ -26,20 +26,25 @@ const FuelData = () => {
   const [Slider5, setSlider5] = useState();
 
   return (
-    <div>
-      <Radio />
-      <Slider
-        label="כמות דלק"
-        value={slider1}
-        changeValue={(Slider1) => {
-          setSlider1(Slider1);
-          dispatch(updateSlider1(Slider1));
-        }}
-      />
+    <div id="modal-style">
+      <button onClick={() => setFuelModalIsOpen(false)} id="close-fuel">
+        <img src={close} alt="" />
+      </button>
+      <h1 className=" text-5xl font-bold text-white text-center">
+        Fuel Distribution
+      </h1>
       <div id="fuel-silders">
-        <label className="text-lg">פודי דלק</label>
         <Slider
-          label="חיצוני"
+          label="Outboard-L"
+          value={slider1}
+          changeValue={(Slider1) => {
+            setSlider1(Slider1);
+            dispatch(updateSlider1(Slider1));
+          }}
+        />
+
+        <Slider
+          label="Inboard-L"
           value={slider2}
           changeValue={(Slider2) => {
             setSlider2(Slider2);
@@ -48,7 +53,7 @@ const FuelData = () => {
         />
 
         <Slider
-          label="עזר"
+          label="Fuselage"
           value={slider3}
           changeValue={(Slider3) => {
             setSlider3(Slider3);
@@ -57,7 +62,7 @@ const FuelData = () => {
         />
 
         <Slider
-          label="אין-בורד"
+          label="Inboard-R"
           value={slider4}
           changeValue={(Slider4) => {
             setSlider4(Slider4);
@@ -65,7 +70,7 @@ const FuelData = () => {
           }}
         />
         <Slider
-          label="אוט-בורד"
+          label="Outboard-R"
           value={slider5}
           changeValue={(Slider5) => {
             setSlider5(Slider5);

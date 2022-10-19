@@ -16,19 +16,8 @@ import arrows from "../images/arrows.svg";
 import { motion } from "framer-motion";
 
 const FirstPage = () => {
-  //   const pageStyle = {
-  //     color: "black",
-  //     backgroundColor: "#FFD990",
-  //     fontFamily: "Arial",
-  //     height: "100vh",
-  //     width: "100vw",
-  //   };
-
   return (
     <Link to={routeConstants.mainRoute}>
-      {/* <div id="background-image">
-
-            </div> */}
       <div id="background-color">
         <div id="background-image">
           <img src={airPlane1} alt="" id="airPlane1" />

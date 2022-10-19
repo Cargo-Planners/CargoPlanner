@@ -14,7 +14,7 @@ const EditBasicDataButton = ({ img }) => {
 
       <Modal
         isOpen={modalIsOpen}
-        className="modal flex"
+        className="modal"
         appElement={document.getElementById("root") || undefined}
       >
         <BasicData setModalIsOpen={setModalIsOpen} />
