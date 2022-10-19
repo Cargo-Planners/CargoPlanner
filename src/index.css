@@ -5,11 +5,7 @@
 @tailwind utilities;
 /* ===> Enabling Tailwind CSS */
 
-<<<<<<< HEAD
 
-
-=======
->>>>>>> eaff23e1424dfa13622c63396ba05ff366152034
 /* Data Display CSS, Static Data & Critical Data*/
 
 #data-box {
@@ -54,8 +50,6 @@ input {
   text-align: left;
 }
 
-<<<<<<< HEAD
-
 #counter-css {
   @apply flex mt-4 justify-start grid grid-cols-2;
   
@@ -63,13 +57,7 @@ input {
 #counter-comp-css {
   @apply grid grid-cols-3 justify-items-center gap-0;
   
-=======
-#counter-css {
-  @apply flex mt-4 justify-start;
->>>>>>> eaff23e1424dfa13622c63396ba05ff366152034
 }
-
-
 
 .box-item {
   @apply my-1  grid grid-cols-2 text-left;
@@ -211,20 +199,13 @@ input[type="range"] {
 
 #proj-img {
   justify-content: center;
-<<<<<<< HEAD
-  margin-left: auto;
-  margin-right: auto;
 
-  
-  height: auto;
-  width: 29vw; 
-=======
   margin: auto;
 
   height: auto;
   width: 31vw;
->>>>>>> eaff23e1424dfa13622c63396ba05ff366152034
 }
+
 .proj-label {
   font-size: 5vh;
   font-weight: bold;
@@ -324,16 +305,15 @@ input[type="range"] {
   img#p8 {
     display: none;
   }
-
   #airPlane1 {
     display: none;
   }
   #airPlane2 {
     display: none;
   }
-<<<<<<< HEAD
+
   #background-image{
-  background-image:   none;
+  background-image:  none;
   } }
 
   @media (max-height:629px) {
@@ -371,12 +351,7 @@ input[type="range"] {
     #background-image{
     background-image:   none;
     } 
-=======
-  #background-image {
-    background-image: none;
   }
->>>>>>> eaff23e1424dfa13622c63396ba05ff366152034
-}
 /* Data Collection */
 
 #data-col-win {
