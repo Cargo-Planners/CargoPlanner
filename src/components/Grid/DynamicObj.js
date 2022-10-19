@@ -22,10 +22,28 @@ const DynamicObj = (props, fabricRef) => {
   );
   const widthChangeHandler = (e, index) => {
     const value = e.target.value === "" ? 0 : parseInt(e.target.value);
+    currentObj = fabricRef.current.getActiveObject();
+    if (currentObj != null) {
+      currentObj.set(
+        "width",
+        parseInt(e.target.value) / currentObj.getObjectScaling().scaleX
+      );
+      currentObj.setCoords();
+      fabricRef.current.requestRenderAll();
+    }
     dispatch(updateWidth({ value, index }));
   };
   const heightChangeHandler = (e, index) => {
     const value = e.target.value === "" ? 0 : parseInt(e.target.value);
+        currentObj = fabricRef.current.getActiveObject();
+    if (currentObj != null) {
+      currentObj.set(
+        "height",
+        parseInt(e.target.value) / currentObj.getObjectScaling().scaleX
+      );
+      currentObj.setCoords();
+      fabricRef.current.requestRenderAll();
+    }
     dispatch(updateHeight({ value, index }));
   };
   const indexChangeHandler = (e, index) => {
@@ -115,7 +133,7 @@ const DynamicObj = (props, fabricRef) => {
     currentObj = fabricRef.current.getActiveObject();
     if (currentObj != null) {
       currentObj.width =
-        parseInt($(".lengthData").value) * currentObj.getObjectScaling().scaleX;
+        parseInt($(".heightData").value) * currentObj.getObjectScaling().scaleX;
       //currentObj.set({ "width": parseInt($(".lengthData").value) / currentObj.getObjectScaling().scaleX });
       currentObj.setCoords();
       fabricRef.current.requestRenderAll();
@@ -127,7 +145,7 @@ const DynamicObj = (props, fabricRef) => {
     if (currentObj != null) {
       currentObj.set(
         "height",
-        parseInt($(".heightData").value) / currentObj.getObjectScaling().scaleX
+        parseInt($(".lengthData").value) / currentObj.getObjectScaling().scaleX
       );
       currentObj.setCoords();
       fabricRef.current.requestRenderAll();
@@ -150,20 +168,14 @@ const DynamicObj = (props, fabricRef) => {
                     name="item"
                     className="lengthData w-28 h-10 bg-red-200 p-1 m-1 rounded-xl"
                     placeholder="אורך"
-                    onChange={(e) => widthChangeHandler(e, index)}
+                    onChange={(e) => heightChangeHandler(e, index)}
                   />
-                  <button className="popUpBtn" onClick={setObjLength}>
-                    שלח
-                  </button>
                   <input
                     name="item"
                     className="heightData w-28 h-10 bg-green-200 p-1 m-1 rounded-xl"
                     placeholder="רוחב"
-                    onChange={(e) => heightChangeHandler(e, index)}
+                    onChange={(e) => widthChangeHandler(e, index)}
                   />
-                  <button className="popUpBtn" onClick={setObjHeight}>
-                    שלח
-                  </button>
                   <input
                     name="item"
                     className="w-28 h-10 bg-yellow-200 p-1 m-1 rounded-xl"
