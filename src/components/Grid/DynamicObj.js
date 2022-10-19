@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { fabric } from "fabric";
 import { useSelector, useDispatch } from "react-redux";
-import $ from "jquery";
 import {
   updateWidth,
   updateHeight,
@@ -9,7 +8,6 @@ import {
 } from "../../redux/ObjectsDataSlice";
 import PopUp from "./PopUp";
 import eventBus from "../Grid/eventBus";
-import { current } from "@reduxjs/toolkit";
 
 const DynamicObj = (props, fabricRef) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -75,45 +73,6 @@ const DynamicObj = (props, fabricRef) => {
       }
     });
 
-    // eventBus.on("setPopup", (data) => {
-    //   if (fabricRef != null) {
-    //     <PopUp
-    //       content={
-    //         <Fragment>
-    //           <h1 className="text-center mb-5 text-xl font-bold text-black">
-    //             אפיין אובייקט
-    //           </h1>
-    //           <div className="flex justify-center h-52">
-    //             <input
-    //               className="lengthData w-28 h-10 bg-red-200 p-1 m-1 rounded-xl"
-    //               placeholder="אורך"
-    //             />
-    //             <button className="popUpBtn" onClick={setObjLength}>
-    //               שלח
-    //             </button>
-    //             <input
-    //               className="heightData w-28 h-10 bg-green-200 p-1 m-1 rounded-xl"
-    //               placeholder="רוחב"
-    //             />
-    //             <button className="popUpBtn" onClick={setObjHeight}>
-    //               שלח
-    //             </button>
-    //             <input
-    //               className="w-28 h-10 bg-yellow-200 p-1 m-1 rounded-xl"
-    //               placeholder="אינדקס"
-    //             />
-    //             <input
-    //               className="w-28 h-10 bg-blue-200 p-1 m-1 rounded-xl"
-    //               placeholder={245 + fabricRef.current._activeObject.left}
-    //             />
-    //           </div>
-    //         </Fragment>
-    //       }
-    //       handleClose={togglePopup}
-    //     />;
-    //   }
-    // });
-
     return () => {
       canvas.current.dispose();
       canvas.current = null;
@@ -132,29 +91,6 @@ const DynamicObj = (props, fabricRef) => {
       renderOnAddRemove: true,
     }));
 
-  const setObjLength = () => {
-    currentObj = fabricRef.current.getActiveObject();
-    if (currentObj != null) {
-      currentObj.width =
-        parseInt($(".heightData").value) * currentObj.getObjectScaling().scaleX;
-      //currentObj.set({ "width": parseInt($(".lengthData").value) / currentObj.getObjectScaling().scaleX });
-      currentObj.setCoords();
-      fabricRef.current.requestRenderAll();
-    }
-  };
-
-  const setObjHeight = () => {
-    currentObj = fabricRef.current.getActiveObject();
-    if (currentObj != null) {
-      currentObj.set(
-        "height",
-        parseInt($(".lengthData").value) / currentObj.getObjectScaling().scaleX
-      );
-      currentObj.setCoords();
-      fabricRef.current.requestRenderAll();
-    }
-  };
-
   return (
     <div className="flex flex-col">
       <canvas id="canvas" />
@@ -165,6 +101,7 @@ const DynamicObj = (props, fabricRef) => {
               <h1 className="text-center mb-5 text-xl font-bold text-black">
                 Modify Object
               </h1>
+
               {objectListItems.map((item, index) => (
                 <div key={index} className="flex justify-center h-52">
                   <div className="grid grid-rows-2 place-items-center">

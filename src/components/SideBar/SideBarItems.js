@@ -33,6 +33,7 @@ const SideBarItems = (props, fabricRef) => {
       fs: 0,
       width: 50,
       height: 50,
+      fill: color,
     });
   };
 
