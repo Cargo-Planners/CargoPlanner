@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import DynamicObj from "./DynamicObj";
 
-function CGrid() {
+function CGrid(props, fabricRef) {
   return (
     <Fragment>
       <div className="container flex justify-center mt-2 mx-auto h-[400px]">
@@ -10,11 +10,12 @@ function CGrid() {
             <h2>245</h2>
             <h2>737</h2>
           </div>
-          <DynamicObj />
+          <DynamicObj ref={fabricRef} />
         </div>
       </div>
     </Fragment>
   );
 }
 
-export default CGrid;
+const CGridWithforwardedRef = React.forwardRef(CGrid);
+export default CGridWithforwardedRef;

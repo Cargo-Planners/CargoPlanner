@@ -7,14 +7,12 @@ import {
   updateHeight,
   updateIndexObj,
 } from "../../redux/ObjectsDataSlice";
-import AddItem from "./AddItemButton";
 import PopUp from "./PopUp";
 import eventBus from "../Grid/eventBus";
 
-const DynamicObj = () => {
+const DynamicObj = (props, fabricRef) => {
   const [isOpen, setIsOpen] = useState(false);
   const canvas = useRef(null);
-  const fabricRef = useRef(null);
   let currentObj = useRef(null);
   const dispatch = useDispatch();
   const objectListItems = useSelector(
@@ -34,7 +32,6 @@ const DynamicObj = () => {
   };
   useEffect(() => {
     canvas.current = initCanvas();
-
     fabricRef.current.on("mouse:up", (e) => {
       if (e.target != null) {
         console.log(fabricRef.current._activeObject.left);
@@ -136,12 +133,6 @@ const DynamicObj = () => {
   return (
     <div className="flex flex-col">
       <canvas id="canvas" />
-      <div className="flex justify-between">
-        <AddItem
-          ref={fabricRef}
-          objcolor={Math.floor(Math.random() * 16777215).toString(16)}
-        />
-      </div>
       {isOpen && (
         <PopUp
           content={
@@ -190,4 +181,6 @@ const DynamicObj = () => {
   );
 };
 
-export default DynamicObj;
+const DynamicObjWithforwardedRef = React.forwardRef(DynamicObj);
+export default DynamicObjWithforwardedRef;
+
