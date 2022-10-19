@@ -69,11 +69,14 @@ const ObjectList = () => {
                     className="w-1/5 bg-[#FFE9A0] placeholder:text-center text-black"
                     placeholder="Weight"
                     onChange={(e) => weightChangeHandler(e, index)}
+                    type="number" min="0"
                   />
                   <input
                     className="w-1/5 bg-[#FFE9A0] placeholder:text-center text-black"
                     placeholder="FS"
                     onChange={(e) => (fsValue = e.target.value - 245)}
+                    type="number" min="0"
+                   
                   />
                   <p className="w-1/5 my-auto text-center">{index}</p>
                 </div>
