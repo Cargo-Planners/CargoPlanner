@@ -9,11 +9,13 @@ import {
 } from "../../redux/ObjectsDataSlice";
 import PopUp from "./PopUp";
 import eventBus from "../Grid/eventBus";
+import { current } from "@reduxjs/toolkit";
 
 const DynamicObj = (props, fabricRef) => {
   const [isOpen, setIsOpen] = useState(false);
   const canvas = useRef(null);
   let currentObj = useRef(null);
+  let currentFus = useRef(0);
   const dispatch = useDispatch();
   const objectListItems = useSelector(
     (state) => state.objectsData.objectListItems
@@ -33,9 +35,11 @@ const DynamicObj = (props, fabricRef) => {
   useEffect(() => {
     canvas.current = initCanvas();
     fabricRef.current.on("mouse:up", (e) => {
-      if (e.target != null) {
-        console.log(fabricRef.current._activeObject.left);
+      if ((e.target != null) && (fabricRef.current._activeObject.left - currentFus.current === 0)) {
         setIsOpen(true);
+      }else {
+      currentFus.current = fabricRef.current._activeObject.left;
+      setIsOpen(false);
       }
     });
 
@@ -50,44 +54,44 @@ const DynamicObj = (props, fabricRef) => {
       }
     });
 
-    eventBus.on("setPopup", (data) => {
-      if (fabricRef != null) {
-        <PopUp
-          content={
-            <Fragment>
-              <h1 className="text-center mb-5 text-xl font-bold text-black">
-                אפיין אובייקט
-              </h1>
-              <div className="flex justify-center h-52">
-                <input
-                  className="lengthData w-28 h-10 bg-red-200 p-1 m-1 rounded-xl"
-                  placeholder="אורך"
-                />
-                <button className="popUpBtn" onClick={setObjLength}>
-                  שלח
-                </button>
-                <input
-                  className="heightData w-28 h-10 bg-green-200 p-1 m-1 rounded-xl"
-                  placeholder="רוחב"
-                />
-                <button className="popUpBtn" onClick={setObjHeight}>
-                  שלח
-                </button>
-                <input
-                  className="w-28 h-10 bg-yellow-200 p-1 m-1 rounded-xl"
-                  placeholder="אינדקס"
-                />
-                <input
-                  className="w-28 h-10 bg-blue-200 p-1 m-1 rounded-xl"
-                  placeholder={245 + fabricRef.current._activeObject.left}
-                />
-              </div>
-            </Fragment>
-          }
-          handleClose={togglePopup}
-        />;
-      }
-    });
+    // eventBus.on("setPopup", (data) => {
+    //   if (fabricRef != null) {
+    //     <PopUp
+    //       content={
+    //         <Fragment>
+    //           <h1 className="text-center mb-5 text-xl font-bold text-black">
+    //             אפיין אובייקט
+    //           </h1>
+    //           <div className="flex justify-center h-52">
+    //             <input
+    //               className="lengthData w-28 h-10 bg-red-200 p-1 m-1 rounded-xl"
+    //               placeholder="אורך"
+    //             />
+    //             <button className="popUpBtn" onClick={setObjLength}>
+    //               שלח
+    //             </button>
+    //             <input
+    //               className="heightData w-28 h-10 bg-green-200 p-1 m-1 rounded-xl"
+    //               placeholder="רוחב"
+    //             />
+    //             <button className="popUpBtn" onClick={setObjHeight}>
+    //               שלח
+    //             </button>
+    //             <input
+    //               className="w-28 h-10 bg-yellow-200 p-1 m-1 rounded-xl"
+    //               placeholder="אינדקס"
+    //             />
+    //             <input
+    //               className="w-28 h-10 bg-blue-200 p-1 m-1 rounded-xl"
+    //               placeholder={245 + fabricRef.current._activeObject.left}
+    //             />
+    //           </div>
+    //         </Fragment>
+    //       }
+    //       handleClose={togglePopup}
+    //     />;
+    //   }
+    // });
 
     return () => {
       canvas.current.dispose();
