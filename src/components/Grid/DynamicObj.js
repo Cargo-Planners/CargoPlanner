@@ -99,36 +99,49 @@ const DynamicObj = (props, fabricRef) => {
           content={
             <Fragment>
               <h1 className="text-center mb-5 text-xl font-bold text-black">
-                אפיין אובייקט
+                Modify Object
               </h1>
+
               {objectListItems.map(
                 (item, index) =>
                   fabricRef.current.getActiveObject().fill === item.fill && (
                     <div key={index} className="flex justify-center h-52">
-                      <input
-                        name="item"
-                        className="lengthData w-28 h-10 bg-red-200 p-1 m-1 rounded-xl"
-                        placeholder="אורך"
-                        onChange={(e) => {
-                          heightChangeHandler(e, index);
-                        }}
-                      />
-                      <input
-                        name="item"
-                        className="heightData w-28 h-10 bg-green-200 p-1 m-1 rounded-xl"
-                        placeholder="רוחב"
-                        onChange={(e) => widthChangeHandler(e, index)}
-                      />
-                      <input
-                        name="item"
-                        className="w-28 h-10 bg-yellow-200 p-1 m-1 rounded-xl"
-                        placeholder="אינדקס"
-                        onChange={(e) => indexChangeHandler(e, index)}
-                      />
-                      <input
-                        className="w-28 h-10 bg-blue-200 p-1 m-1 rounded-xl"
-                        placeholder={245 + fabricRef.current._activeObject.left}
-                      />
+                      <div className="grid grid-rows-2 place-items-center">
+                        <h1 className="self-end">Hight</h1>
+                        <input
+                          name="item"
+                          className="lengthData w-28 h-10 bg-red-200 rounded-xl self-start"
+                          placeholder={objectListItems[index].height}
+                          onChange={(e) => heightChangeHandler(e, index)}
+                        />
+                      </div>
+                      <div className="grid grid-rows-2 place-items-center">
+                        <h1 className="self-end">Width</h1>
+                        <input
+                          name="item"
+                          className="heightData w-28 h-10 bg-green-200 p-1 m-1 rounded-xl self-start"
+                          placeholder={objectListItems[index].width}
+                          onChange={(e) => widthChangeHandler(e, index)}
+                        />
+                      </div>
+                      <div className="grid grid-rows-2 place-items-center">
+                        <h1 className="self-end">Index</h1>
+                        <input
+                          name="item"
+                          className="w-28 h-10 bg-yellow-200 p-1 m-1 rounded-xl self-start"
+                          placeholder={objectListItems[index].index}
+                          onChange={(e) => indexChangeHandler(e, index)}
+                        />
+                      </div>
+                      <div className="grid grid-rows-2 place-items-center">
+                        <h1 className="self-end">Fusalge</h1>
+                        <input
+                          className="w-28 h-10 bg-blue-200 p-1 m-1 rounded-xl self-start"
+                          placeholder={
+                            245 + fabricRef.current._activeObject.left
+                          }
+                        />
+                      </div>
                     </div>
                   )
               )}
