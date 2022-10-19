@@ -101,7 +101,6 @@ const DynamicObj = (props, fabricRef) => {
               <h1 className="text-center mb-5 text-xl font-bold text-black">
                 Modify Object
               </h1>
-
               {objectListItems.map(
                 (item, index) =>
                   fabricRef.current.getActiveObject().fill === item.fill && (
