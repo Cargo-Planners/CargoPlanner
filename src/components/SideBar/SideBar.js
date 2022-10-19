@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import SideBarItems from "./SideBarItems";
 
-const SideBar = () => {
+const SideBar = (props, fabricRef) => {
   const [showSidebar, setShowSidebar] = useState(true);
 
   return (
@@ -31,11 +31,12 @@ const SideBar = () => {
             showSidebar ? "translate-x-0" : "translate-x-[-100%]"
           }`}
         >
-          <SideBarItems />
+          <SideBarItems ref={fabricRef} />
         </div>
       </div>
     </Fragment>
   );
 };
 
-export default SideBar;
+const SideBarWithforwardedRef = React.forwardRef(SideBar);
+export default SideBarWithforwardedRef;
