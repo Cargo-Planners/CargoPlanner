@@ -29,19 +29,8 @@ const configs = [
 ];
 
 const BasicData = ({ setModalIsOpen }) => {
-  const {
-    cockpitCrew,
-    inspectorsCrew,
-    emptyWeight,
-    index,
-    config,
-    fuelPod,
-    slider1,
-    slider2,
-    slider3,
-    slider4,
-    slider5,
-  } = useSelector((state) => state.basicData);
+  const { cockpitCrew, inspectorsCrew, emptyWeight, index, config, fuelPod } =
+    useSelector((state) => state.basicData);
 
   const [Config, setConfig] = useState(null);
   const [fuelModalIsOpen, setFuelModalIsOpen] = useState(false);
@@ -49,7 +38,7 @@ const BasicData = ({ setModalIsOpen }) => {
   const dispatch = useDispatch();
 
   return (
-    <div id="modal-style">
+    <div>
       <button
         onClick={() => {
           setModalIsOpen(false);
@@ -144,8 +133,29 @@ const BasicData = ({ setModalIsOpen }) => {
 
       <Modal
         isOpen={fuelModalIsOpen}
-        className="modal"
         appElement={document.getElementById("root") || undefined}
+        style={{
+          overlay: {
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "#3A3A35",
+          },
+          content: {
+            backgroundColor: "#3D3E43",
+            display: "flex",
+            justifyContent: "center",
+            borderRadius: "20px",
+            width: "1050px",
+            height: "800px",
+            margin: "auto",
+            marginTop: "3vh",
+            padding: "10px",
+            position: "relative",
+          },
+        }}
       >
         <FuelData setFuelModalIsOpen={setFuelModalIsOpen} />
       </Modal>

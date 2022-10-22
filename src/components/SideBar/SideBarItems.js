@@ -50,12 +50,12 @@ const SideBarItems = (props, fabricRef) => {
         </div>
         {showDropDown && <DropDown />}
         <div className="flex  ">
-          <button className="font-bold">Help</button>
+          <button className="font-bold text-black">Help</button>
           <img className="my-auto h-5 w-5" src={helpIcon} alt="helpIcon" />
         </div>
       </div>
       <div className="flex ">
-        <button className="font-bold">Settings</button>
+        <button className="font-bold text-black">Settings</button>
         <img className="my-auto h-5 w-5" src={settingsIcon} alt="settingIcon" />
       </div>
     </div>

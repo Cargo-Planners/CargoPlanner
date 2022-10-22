@@ -6,6 +6,7 @@
 /* ===> Enabling Tailwind CSS */
 
 
+
 /* Data Display CSS, Static Data & Critical Data*/
 
 #data-box {
@@ -28,17 +29,7 @@
   @apply grid grid-cols-2 p-8 gap-7 mx-2;
 }
 
-.modal {
-  background-color: #CFA015;
-  display: flex;
-  justify-content: center;
-  border-radius: 20px;
-width: 1050px;
-height: 610px;
-margin:auto;
-margin-top: 15vh;
-padding: 10px;
-}
+
 
 p,
 label {
@@ -111,39 +102,127 @@ background-image: url();
 }
 /* Fuel Pod Data */
 
-#fuel-data {
-  @apply grid grid-cols-2 gap-2;
-}
+
 
 #fuel-silders {
   @apply mt-3 grid grid-cols-5;
-  padding: 120px;
-  width: 105vh;
-  height: 65vh;
+  padding: 30px;
+  width: 95vh;
+  height: 35vh;
 
 }
 
-#fuel-silder {
-  @apply mt-3 grid grid-cols-5 place-items-center;
-  padding: 120px;
-  width: 65vh;
-  height: 65vh;
+
+
+#fuel-silder{
+  @apply  grid grid-cols-5;
+  transform: rotate(-90deg) translate(-50%, -50%);
 }
 
 #fuel-img{
-  height: auto;
-  width: 2vw; 
-  margin-left: 3em;
+  height: 5vh;
+  width: 3vw; 
+  margin-left: 2em;
 
 }
 
-.vertical{
-  transform: translate(-50%,-50%) rotate(-90deg)
+#podState{
+  text-align: center;
+  color: #ffff;
+  font-size: 4vh;
+  font-weight: 500;
 }
 
-input[type="range"] {
-  width:150px;
+
+
+
+.tank-container
+{
+  background-color:#1b1b1b;
+  border-radius:10px;
 }
+#tank-outBoard{
+  background: #52db90;
+  width: 100v;
+  border-radius:10px;
+  
+}
+ #outboard1 {
+position: relative;
+top: 98px;
+left: 69px;
+opacity: 0.75;
+width:100px;
+height:70px;
+transform: rotate(190deg);
+}
+
+#outboard2 {
+  position: relative;
+  top: 118px;
+  left: 725px;
+  opacity: 0.75;
+  width:120px;
+  height:70px;
+  transform: rotate(183deg);
+  }
+
+#tank-inBoard{
+  background: #5b52db;
+  width: 100v;
+  border-radius:10px;
+  
+}
+ #inboard1 {
+position: relative;
+left: 290px;
+opacity: 0.75;
+width:70px;
+height:80px;
+transform: rotate(190deg);
+}
+
+#inboard2 {
+  position: relative;
+  left: 533px;
+  bottom: 50px;
+  opacity: 0.75;
+  width:70px;
+  height:80px;
+  transform: rotate(183deg);
+  }
+
+
+  #tank-fuselage{
+    background: #db5264;
+    width: 100v;
+    border-radius:10px;
+    
+  }
+   #fuselage {
+  position: relative;
+  left: 370px;
+  bottom: 95px;
+  opacity: 0.75;
+  width:120px;
+  height:42px;
+  transform: rotate(186deg);
+  }
+  
+
+  
+
+
+#plane-tanks{
+  @apply  justify-center items-center ;
+
+  background-repeat:no-repeat;
+  background-size:100%;
+  width: 100%;
+  height: 35vh;
+ 
+}
+
 /* Input Variables CSS */
 
 #input-css {
@@ -163,21 +242,19 @@ input[type="range"] {
 
 /* next  */
 
-#modal-style{
-  position: relative;
-}
+
 #close{
   position: absolute;
   width: 1vw; 
   top: 10px;
-  right: -83px;
+  right: 5px;
 }
 
 #close-fuel{
   position: absolute;
   width: 1vw; 
   top: 10px;
-  right: -164px;
+  right: 5px;
 }
 /* first page image */
 

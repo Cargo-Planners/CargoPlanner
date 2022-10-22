@@ -13,8 +13,32 @@ const EditBasicDataButton = ({ img }) => {
       </button>
 
       <Modal
+        style={{
+          overlay: {
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "#3A3A35",
+            opacity: 0.97,
+          },
+          content: {
+            backgroundColor: "#CFA015",
+            display: "flex",
+            justifyContent: "center",
+            borderRadius: "20px",
+            height: "450px",
+            width: "580px",
+            margin: "auto",
+            marginTop: "15vh",
+            padding: "10px",
+            position: "relative",
+          },
+        }}
         isOpen={modalIsOpen}
-        className="modal"
+        // className="modal-basic-data"
+
         appElement={document.getElementById("root") || undefined}
       >
         <BasicData setModalIsOpen={setModalIsOpen} />
