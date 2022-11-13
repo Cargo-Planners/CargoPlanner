@@ -15,7 +15,7 @@ const Home = () => {
         <Options />
         <CGrid ref={fabricRef} />
         <SideBar ref={fabricRef}/>
-        <div className="flex justify-evenly ">
+        <div className="flex justify-evenly lower-portion">
           <DataCollection />
           <ObjectList />
         </div>
