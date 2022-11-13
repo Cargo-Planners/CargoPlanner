@@ -62,6 +62,19 @@ const DynamicObj = (props, fabricRef) => {
       }
     });
 
+    fabricRef.current.on("object:scaling", function(e) {
+      var target = e.target;
+      if (!target || target.type !== 'rect') {
+          return;
+      }
+      var sX = target.scaleX;
+      var sY = target.scaleY;
+      target.width *= sX;
+      target.height *= sY;
+      target.scaleX = 1;
+      target.scaleY = 1;
+    });
+
     eventBus.on("setFsValue", (data) => {
       if (fabricRef && data != null) {
         fabricRef.current._objects[fabricRef.current._objects.length - 1].left =
@@ -104,9 +117,9 @@ const DynamicObj = (props, fabricRef) => {
               {objectListItems.map(
                 (item, index) =>
                   fabricRef.current.getActiveObject().fill === item.fill && (
-                    <div key={index} className="flex justify-center h-52">
-                      <div className="grid grid-rows-2 place-items-center">
-                        <h1 className="self-end">Hight</h1>
+                    <div key={index} className="flex justify-center h-4rem">
+                      <div className="grid grid-rows-2 place-items-center my-0">
+                        <h1 className="self-end">Height</h1>
                         <input
                           name="item"
                           className="lengthData w-28 h-10 bg-red-200 rounded-xl self-start"
