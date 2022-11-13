@@ -30,7 +30,7 @@ const ObjectList = () => {
 
   return (
     <Fragment>
-      <div className="flex flex-col bg-[#FAC11A] w-1/3  my-6 rounded-t-3xl">
+      <div className="flex flex-col bg-[#FAC11A] w-1/3  my-6 rounded-t-3xl m-0">
         <h1 className="text-white text-2xl font-bold text-center my-2">
           Objects
         </h1>

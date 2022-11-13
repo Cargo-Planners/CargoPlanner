@@ -5,7 +5,6 @@ import Home from "./pages/Home";
 import ChoosePlatform from "./pages/ChoosePlatform";
 import BasicDataPage from "./pages/BasicDataPage";
 import FirstPage from "./pages/FirstPage";
-import "./App.css";
 
 function App() {
   return (
