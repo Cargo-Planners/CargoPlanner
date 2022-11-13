@@ -5,6 +5,7 @@ import {
   updateWidth,
   updateHeight,
   updateIndexObj,
+  updateWidthAndHeightByScale,
 } from "../../redux/ObjectsDataSlice";
 import PopUp from "./PopUp";
 import eventBus from "../Grid/eventBus";
@@ -15,15 +16,18 @@ const DynamicObj = (props, fabricRef) => {
   let currentObj = useRef(null);
   let currentFus = useRef(0);
   const dispatch = useDispatch();
+
   const objectListItems = useSelector(
     (state) => state.objectsData.objectListItems
   );
+
   const widthChangeHandler = (e, index) => {
     const value = e.target.value === "" ? 0 : parseInt(e.target.value);
     currentObj = fabricRef.current.getActiveObject();
     if (currentObj != null) {
       currentObj.set(
         "width",
+
         parseInt(e.target.value) / currentObj.getObjectScaling().scaleX
       );
       currentObj.setCoords();
@@ -31,6 +35,7 @@ const DynamicObj = (props, fabricRef) => {
     }
     dispatch(updateWidth({ value, index }));
   };
+
   const heightChangeHandler = (e, index) => {
     const value = e.target.value === "" ? 0 : parseInt(e.target.value);
     currentObj = fabricRef.current.getActiveObject();
@@ -44,10 +49,12 @@ const DynamicObj = (props, fabricRef) => {
     }
     dispatch(updateHeight({ value, index }));
   };
+
   const indexChangeHandler = (e, index) => {
     const value = e.target.value === "" ? 0 : parseInt(e.target.value);
     dispatch(updateIndexObj({ value, index }));
   };
+
   useEffect(() => {
     canvas.current = initCanvas();
     fabricRef.current.on("mouse:up", (e) => {
@@ -62,17 +69,35 @@ const DynamicObj = (props, fabricRef) => {
       }
     });
 
-    fabricRef.current.on("object:scaling", function(e) {
-      var target = e.target;
-      if (!target || target.type !== 'rect') {
-          return;
+    fabricRef.current.on("object:scaling", function (e) {
+      if (!e.target || e.target.type !== "rect") {
+        return;
       }
-      var sX = target.scaleX;
-      var sY = target.scaleY;
-      target.width *= sX;
-      target.height *= sY;
-      target.scaleX = 1;
-      target.scaleY = 1;
+
+      let updatedWidth = e.target.width * e.target.scaleX;
+      let updatedHeight = e.target.height * e.target.scaleY;
+
+      console.log(objectListItems);
+
+      // var index = -1;
+      // for (var i = 0; i < objectListItems.length; i++) {
+      //   if (
+      //     objectListItems[i].fill === fabricRef.current.getActiveObject().fill
+      //   ) {
+      //     index = i;
+      //     break;
+      //   }
+      // }
+
+      // console.log(index);
+
+      dispatch(
+        updateWidthAndHeightByScale({
+          updatedWidth: updatedWidth,
+          updatedHeight: updatedHeight,
+          index: 0,
+        })
+      );
     });
 
     eventBus.on("setFsValue", (data) => {

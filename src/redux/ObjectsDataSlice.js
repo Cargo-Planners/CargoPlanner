@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { current } from "@reduxjs/toolkit";
 
 const initialState = {
   objectListItems: [],
@@ -40,6 +41,13 @@ const ObjectsDataSlice = createSlice({
     updateIndexObj: (state, action) => {
       state.objectListItems[action.payload.index].index = action.payload.value;
     },
+    updateWidthAndHeightByScale: (state, action) => {
+      // console.log(current(state.objectListItems), action.payload);
+      state.objectListItems[action.payload.index].width =
+        action.payload.updatedWidth;
+      state.objectListItems[action.payload.index].height =
+        action.payload.updatedHeight;
+    },
   },
 });
 
@@ -51,4 +59,5 @@ export const {
   updateWidth,
   updateHeight,
   updateIndexObj,
+  updateWidthAndHeightByScale,
 } = ObjectsDataSlice.actions;
