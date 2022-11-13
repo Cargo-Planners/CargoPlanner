@@ -41,21 +41,21 @@ const SideBarItems = (props, fabricRef) => {
     <div className="min-h-full flex flex-col justify-between">
       <div className="mt-12 flex flex-col gap-5">
         <hr />
-        <button onClick={addRectangle}>
+        <div onClick={addRectangle}>
           <SiderBarItem Icon={GiCargoCrate} buttonText="New Object" />
-        </button>
+        </div>
         <hr />
         <div onClick={() => setShowDropDown((prev) => !prev)}>
           <SiderBarItem Icon={FaCaretDown} buttonText="Existing Objects" />
         </div>
         {showDropDown && <DropDown />}
-        <div className="flex  ">
-          <button className="font-bold text-black">Help</button>
+        <div className="flex  text-white">
+          <button className="font-bold ">Help</button>
           <img className="my-auto h-5 w-5" src={helpIcon} alt="helpIcon" />
         </div>
       </div>
-      <div className="flex ">
-        <button className="font-bold text-black">Settings</button>
+      <div className="flex text-white">
+        <button className="font-bold ">Settings</button>
         <img className="my-auto h-5 w-5" src={settingsIcon} alt="settingIcon" />
       </div>
     </div>

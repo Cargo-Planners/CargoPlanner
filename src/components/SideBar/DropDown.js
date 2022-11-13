@@ -19,27 +19,25 @@ const DropDown = () => {
           onClick={() => {
             addItemToObjectList({ type: "Car", weight: 0, fs: 0 });
           }}
-          className="flex justify-start items-center gap-2 hover:bg-[#1E1E22] cursor-pointer"
+          className="flex justify-start items-center gap-2 hover:bg-white text-white hover:text-black cursor-pointer"
         >
-          <AiFillCar size={25} /> <p className="text-lg text-black">Add Car</p>
+          <AiFillCar size={25} /> <p className="text-lg ">Add Car</p>
         </div>
         <div
           onClick={() => {
             addItemToObjectList({ type: "Cart", weight: 0, fs: 0 });
           }}
-          className="flex justify-start items-center gap-2 hover:bg-[#1E1E22] cursor-pointer"
+          className="flex justify-start items-center gap-2 hover:bg-white text-white hover:text-black cursor-pointer"
         >
-          <GiOldWagon size={25} />{" "}
-          <p className="text-lg text-black">Add Cart</p>
+          <GiOldWagon size={25} /> <p className="text-lg">Add Cart</p>
         </div>
         <div
           onClick={() => {
             addItemToObjectList({ type: "Board", weight: 0, fs: 0 });
           }}
-          className="flex justify-start items-center gap-2 hover:bg-[#1E1E22] cursor-pointer"
+          className="flex justify-start items-center gap-2 hover:bg-white text-white hover:text-black cursor-pointer"
         >
-          <TbOvalVertical size={25} />{" "}
-          <p className="text-lg text-black">Add Board</p>
+          <TbOvalVertical size={25} /> <p className="text-lg">Add Board</p>
         </div>
       </div>
     </div>
