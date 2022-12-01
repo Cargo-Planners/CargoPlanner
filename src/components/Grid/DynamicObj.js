@@ -64,7 +64,7 @@ const DynamicObj = (props, fabricRef) => {
       ) {
         setIsOpen(true);
       } else {
-        currentFus.current = fabricRef.current._activeObject.left;
+        //currentFus.current = fabricRef.current._activeObject.left;
         setIsOpen(false);
       }
     });

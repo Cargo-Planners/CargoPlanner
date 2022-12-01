@@ -1,5 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { current } from "@reduxjs/toolkit";
+import { createSlice , current} from "@reduxjs/toolkit";
 
 const initialState = {
   objectListItems: [],
@@ -19,7 +18,8 @@ const ObjectsDataSlice = createSlice({
   initialState,
   reducers: {
     addItem: (state, action) => {
-      state.objectListItems.push(action.payload);
+      state.objectListItems = [...state.objectListItems, action.payload];
+      console.log(current(state));
     },
     updateWeight: (state, action) => {
       state.objectListItems[action.payload.index].weight = action.payload.value;
