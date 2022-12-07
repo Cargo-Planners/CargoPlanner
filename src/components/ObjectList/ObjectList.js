@@ -30,7 +30,7 @@ const ObjectList = () => {
 
   return (
     <Fragment>
-      <div className="flex flex-col bg-[#FAC11A] w-1/3  my-6 rounded-t-3xl m-0">
+      <div className="flex flex-col bg-[#FAC11A] w-1/3   rounded-t-3xl ">
         <h1 className="text-white text-2xl font-bold text-center my-2">
           Objects
         </h1>
@@ -39,7 +39,7 @@ const ObjectList = () => {
             onClick={activeCalculateWeight}
             className="bg-[#FFE9A0] my-4 mx-auto py-2 px-4 rounded-lg" // Might not need this Button! ignore for now.
           >
-            Update Total Weight 
+            Update Total Weight
           </button>
           <button
             className="bg-[#FFE9A0] my-4 mx-auto py-2 px-4 rounded-lg"
@@ -69,14 +69,15 @@ const ObjectList = () => {
                     className="w-1/5 bg-[#FFE9A0] placeholder:text-center text-black"
                     placeholder="Weight"
                     onChange={(e) => weightChangeHandler(e, index)}
-                    type="number" min="0"
+                    type="number"
+                    min="0"
                   />
                   <input
                     className="w-1/5 bg-[#FFE9A0] placeholder:text-center text-black"
                     placeholder="FS"
                     onChange={(e) => (fsValue = e.target.value - 245)}
-                    type="number" min="0"
-                   
+                    type="number"
+                    min="0"
                   />
                   <p className="w-1/5 my-auto text-center">{index}</p>
                 </div>

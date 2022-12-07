@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import ChoosePlatform from "./pages/ChoosePlatform";
 import BasicDataPage from "./pages/BasicDataPage";
 import FirstPage from "./pages/FirstPage";
+import Graphs from "./pages/Graphs";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           path={routeConstants.BasicDataRoute}
           element={<BasicDataPage />}
         />
+        <Route path={routeConstants.GraphsRoute} element={<Graphs />} />
         <Route path={routeConstants.homeRoute} element={<Home />} />
       </Routes>
     </Fragment>

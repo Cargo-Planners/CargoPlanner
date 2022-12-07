@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaCaretDown } from "react-icons/fa";
+import { FaCaretDown, FaTimes } from "react-icons/fa";
 import { GiCargoCrate } from "react-icons/gi";
 import SiderBarItem from "./SiderBarItem";
 import DropDown from "./DropDown";
@@ -9,9 +9,13 @@ import { fabric } from "fabric";
 import { addItem } from "../../redux/ObjectsDataSlice";
 import { useDispatch } from "react-redux";
 import randomColor from "randomcolor";
+import eventBus from "../Grid/eventBus";
 
-const SideBarItems = (props, fabricRef) => {
+const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
   const [showDropDown, setShowDropDown] = useState(false);
+  const setSideBar = () => {
+    eventBus.dispatch("setSideBarValue", { message: "" });
+  };
 
   const dispatch = useDispatch();
   const addItemToObjectList = (item) => {
@@ -40,7 +44,23 @@ const SideBarItems = (props, fabricRef) => {
 
   return (
     <div className="min-h-full flex flex-col justify-between">
-      <div className="mt-12 flex flex-col gap-5">
+      <div className="flex flex-col gap-5">
+        <div className="flex">
+          {showSideBar ? (
+            <button
+              className="flex text-5xl text-[#1E1E22] items-center cursor-pointer"
+              onClick={() => {
+                setShowSideBar((prev) => !prev);
+                setSideBar();
+              }}
+            >
+              <div className="flex items-center gap-3 ">
+                <FaTimes size={40} />
+                <h2 className="text-xl font-bold text-[#1E1E22]">Gulliver</h2>
+              </div>
+            </button>
+          ) : null}
+        </div>
         <hr />
         <div onClick={addRectangle}>
           <SiderBarItem Icon={GiCargoCrate} buttonText="New Object" />

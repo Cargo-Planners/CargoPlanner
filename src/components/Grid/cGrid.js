@@ -1,11 +1,20 @@
-import React, { Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import DynamicObj from "./DynamicObj";
+import eventBus from "./eventBus";
 
 function CGrid(props, fabricRef) {
+  const [isSideBarOpen, setSideBarOpen] = useState(false);
+  eventBus.on("setSideBarValue", (data) => {
+    setSideBarOpen(!isSideBarOpen);
+  });
   return (
     <Fragment>
-      <div className="container flex justify-center mt-2 mx-auto h-[400px]">
-        <div className="gridContainer flex flex-col mt-10">
+      <div
+        className={`flex justify-center items-center w-4/5 min-h-[412.88px] ${
+          !isSideBarOpen ? "ml-auto" : ""
+        }`}
+      >
+        <div className="gridContainer flex flex-col mb-6">
           <div className="startEndGrid">
             <h2>245</h2>
             <h2>737</h2>
