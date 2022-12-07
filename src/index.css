@@ -52,12 +52,13 @@ input {
 #counter-css {
   @apply flex mt-4 justify-start grid grid-cols-2;
 }
+
 #counter-comp-css {
   @apply grid grid-cols-3 justify-items-center gap-0;
 }
 
 .box-item {
-  @apply my-1  grid grid-cols-2 text-left;
+  @apply my-1 grid grid-cols-2 text-left;
 }
 
 button {
@@ -86,6 +87,7 @@ button {
 * {
   box-sizing: border-box;
 }
+
 .custom-checkbox {
   width: 15px;
   height: 15px;
@@ -103,6 +105,7 @@ button {
 .custom-checkbox input {
   display: none;
 }
+
 /* Fuel Pod Data */
 
 #fuel-silders {
@@ -134,11 +137,13 @@ button {
   background-color: #1b1b1b;
   border-radius: 10px;
 }
+
 #tank-outBoard {
   background: #52db90;
   width: 100v;
   border-radius: 10px;
 }
+
 #outboard1 {
   position: relative;
   top: 98px;
@@ -164,6 +169,7 @@ button {
   width: 100v;
   border-radius: 10px;
 }
+
 #inboard1 {
   position: relative;
   left: 290px;
@@ -188,6 +194,7 @@ button {
   width: 100v;
   border-radius: 10px;
 }
+
 #fuselage {
   position: relative;
   left: 370px;
@@ -210,7 +217,7 @@ button {
 /* Input Variables CSS */
 
 #input-css {
-  @apply w-full h-11 place-items-stretch rounded-md  border border-[#d9d9d9] placeholder-gray-500;
+  @apply w-full h-11 place-items-stretch rounded-md border border-[#d9d9d9] placeholder-gray-500;
   margin: 0.4rem;
 }
 
@@ -239,6 +246,7 @@ button {
   top: 10px;
   right: 5px;
 }
+
 /* first page image */
 
 #background-color {
@@ -292,18 +300,21 @@ button {
   top: 0;
   left: 0;
 }
+
 #p2 {
   position: fixed;
   width: 7vw;
   top: 17vh;
   left: 17vw;
 }
+
 #p3 {
   position: fixed;
   width: 7vw;
   top: 28vh;
   left: 5vw;
 }
+
 #p4 {
   position: fixed;
   width: 7vw;
@@ -317,18 +328,21 @@ button {
   bottom: 20vh;
   right: 22vw;
 }
+
 #p6 {
   position: fixed;
   width: 8vw;
   bottom: 8vh;
   right: 5vw;
 }
+
 #p7 {
   position: fixed;
   width: 8vw;
   bottom: 0vh;
   right: 12vw;
 }
+
 #p8 {
   position: fixed;
   width: 4vw;
@@ -344,30 +358,39 @@ button {
   img#p1 {
     display: none;
   }
+
   img#p2 {
     display: none;
   }
+
   img#p3 {
     display: none;
   }
+
   img#p4 {
     display: none;
   }
+
   img#p5 {
     display: none;
   }
+
   img#p6 {
     display: none;
   }
+
   img#p7 {
     display: none;
   }
+
   img#p8 {
     display: none;
   }
+
   #airPlane1 {
     display: none;
   }
+
   #airPlane2 {
     display: none;
   }
@@ -381,24 +404,31 @@ button {
   img#p1 {
     display: none;
   }
+
   img#p2 {
     display: none;
   }
+
   img#p3 {
     display: none;
   }
+
   img#p4 {
     display: none;
   }
+
   img#p5 {
     display: none;
   }
+
   img#p6 {
     display: none;
   }
+
   img#p7 {
     display: none;
   }
+
   img#p8 {
     display: none;
   }
@@ -406,13 +436,16 @@ button {
   #airPlane1 {
     display: none;
   }
+
   #airPlane2 {
     display: none;
   }
+
   #background-image {
     background-image: none;
   }
 }
+
 /* Data Collection */
 
 #data-col-win1 {
@@ -438,11 +471,9 @@ body {
 /*first page gradiant*/
 
 .coolGrad {
-  background: linear-gradient(
-    180deg,
-    rgba(142, 219, 237, 1) 0%,
-    rgba(33, 147, 176, 1) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(142, 219, 237, 1) 0%,
+      rgba(33, 147, 176, 1) 100%);
 }
 
 #object_num_ {
@@ -455,21 +486,17 @@ body {
 }
 
 .gridContainer {
-  width: 492px;
-  height: 259.2px;
-  background-image: radial-gradient(
-    circle at 1px 1px,
-    black 1px,
-    transparent 0
-  );
-  background-size: 40px 40px;
+  width: 738px;
+  height: 388.8px;
+  background-image: url("../src/images/grid.png");
+  background-size: cover;
 }
 
 .modal {
   font-size: 12px;
 }
 
-.modal > .header {
+.modal>.header {
   width: 100%;
   border-bottom: 1px solid gray;
   font-size: 18px;
@@ -477,19 +504,19 @@ body {
   padding: 5px;
 }
 
-.modal > .content {
+.modal>.content {
   width: 100%;
   padding: 10px 5px;
 }
 
-.modal > .actions {
+.modal>.actions {
   width: 100%;
   padding: 10px 5px;
   margin: auto;
   text-align: center;
 }
 
-.modal > .close {
+.modal>.close {
   cursor: pointer;
   position: absolute;
   display: block;

@@ -64,7 +64,7 @@ const DynamicObj = (props, fabricRef) => {
       ) {
         setIsOpen(true);
       } else {
-        //currentFus.current = fabricRef.current._activeObject.left;
+        currentFus.current = fabricRef.current._activeObject.left;
         setIsOpen(false);
       }
     });
@@ -122,12 +122,12 @@ const DynamicObj = (props, fabricRef) => {
   };
 
   const initCanvas = () =>
-    (fabricRef.current = new fabric.Canvas("canvas", {
-      height: document.getElementsByClassName("gridContainer")[0].offsetHeight,
-      width: document.getElementsByClassName("gridContainer")[0].offsetWidth,
-      selection: false,
-      renderOnAddRemove: true,
-    }));
+  (fabricRef.current = new fabric.Canvas("canvas", {
+    height: document.getElementsByClassName("gridContainer")[0].offsetHeight,
+    width: document.getElementsByClassName("gridContainer")[0].offsetWidth,
+    selection: false,
+    renderOnAddRemove: true,
+  }));
 
   return (
     <div className="flex flex-col">
