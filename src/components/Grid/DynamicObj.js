@@ -71,6 +71,7 @@ const DynamicObj = (props, fabricRef) => {
       canvas.current.dispose();
       canvas.current = null;
     };
+    // eslint-disable-next-line
   }, []);
 
   const togglePopup = () => {
@@ -112,8 +113,8 @@ const DynamicObj = (props, fabricRef) => {
           updatedIndex = i;
           dispatch(
             updateWidthAndHeightByScale({
-              updatedWidth: updatedWidth,
-              updatedHeight: updatedHeight,
+              updatedWidth: updatedWidth.toFixed(2),
+              updatedHeight: updatedHeight.toFixed(2),
               index: updatedIndex,
             })
           );
