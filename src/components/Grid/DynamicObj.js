@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { fabric } from "fabric";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch} from "react-redux";
 import {
   updateWidth,
   updateHeight,
@@ -16,7 +16,6 @@ const DynamicObj = (props, fabricRef) => {
   let currentObj = useRef(null);
   let currentFus = useRef(0);
   const dispatch = useDispatch();
-
   const objectListItems = useSelector(
     (state) => state.objectsData.objectListItems
   );
@@ -57,49 +56,6 @@ const DynamicObj = (props, fabricRef) => {
 
   useEffect(() => {
     canvas.current = initCanvas();
-    fabricRef.current.on("mouse:up", (e) => {
-      if (
-        e.target != null &&
-        fabricRef.current._activeObject.left - currentFus.current === 0
-      ) {
-        setIsOpen(true);
-      } else {
-        currentFus.current = fabricRef.current._activeObject.left;
-        setIsOpen(false);
-      }
-    });
-
-    fabricRef.current.on("object:scaling", function (e) {
-      if (!e.target || e.target.type !== "rect") {
-        return;
-      }
-
-      let updatedWidth = e.target.width * e.target.scaleX;
-      let updatedHeight = e.target.height * e.target.scaleY;
-
-      console.log(objectListItems);
-
-      // var index = -1;
-      // for (var i = 0; i < objectListItems.length; i++) {
-      //   if (
-      //     objectListItems[i].fill === fabricRef.current.getActiveObject().fill
-      //   ) {
-      //     index = i;
-      //     break;
-      //   }
-      // }
-
-      // console.log(index);
-
-      dispatch(
-        updateWidthAndHeightByScale({
-          updatedWidth: updatedWidth,
-          updatedHeight: updatedHeight,
-          index: 0,
-        })
-      );
-    });
-
     eventBus.on("setFsValue", (data) => {
       if (fabricRef && data != null) {
         fabricRef.current._objects[fabricRef.current._objects.length - 1].left =
@@ -117,6 +73,9 @@ const DynamicObj = (props, fabricRef) => {
     };
   }, []);
 
+
+
+
   const togglePopup = () => {
     setIsOpen(!isOpen);
   };
@@ -128,6 +87,38 @@ const DynamicObj = (props, fabricRef) => {
     selection: false,
     renderOnAddRemove: true,
   }));
+
+  if(fabricRef.current != null) {
+      fabricRef.current.on("mouse:up", (e) => {
+      if (e.target != null &&fabricRef.current._activeObject.left - currentFus.current === 0) {
+        setIsOpen(true);
+      } else if(fabricRef.current._activeObject != null) {
+        currentFus.current = fabricRef.current._activeObject.left;
+        setIsOpen(false);
+      }
+    });
+  fabricRef.current.on("object:scaling", function (e) {
+      if (!e.target || e.target.type !== "rect") {
+        return;
+      }
+      console.log(objectListItems);
+
+      let updatedWidth = e.target.width * e.target.scaleX;
+      let updatedHeight = e.target.height * e.target.scaleY;
+      let updatedIndex = 0;
+      for(let i = 0; i<objectListItems.length;i++) {
+        if(fabricRef.current._activeObject.fill == objectListItems[i].fill)
+          updatedIndex = i;
+      }
+      dispatch(
+        updateWidthAndHeightByScale({
+          updatedWidth: updatedWidth,
+          updatedHeight: updatedHeight,
+          index: updatedIndex,
+        })
+      );
+    });
+}
 
   return (
     <div className="flex flex-col">

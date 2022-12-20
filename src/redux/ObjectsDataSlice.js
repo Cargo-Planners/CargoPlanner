@@ -19,7 +19,7 @@ const ObjectsDataSlice = createSlice({
   reducers: {
     addItem: (state, action) => {
       state.objectListItems = [...state.objectListItems, action.payload];
-      console.log(current(state));
+      //console.log(current(state));
     },
     updateWeight: (state, action) => {
       state.objectListItems[action.payload.index].weight = action.payload.value;
@@ -42,7 +42,8 @@ const ObjectsDataSlice = createSlice({
       state.objectListItems[action.payload.index].index = action.payload.value;
     },
     updateWidthAndHeightByScale: (state, action) => {
-      // console.log(current(state.objectListItems), action.payload);
+      //console.log(current(state.objectListItems[action.payload.index]));
+      //console.log(current(state.objectListItems), action.payload);
       state.objectListItems[action.payload.index].width =
         action.payload.updatedWidth;
       state.objectListItems[action.payload.index].height =
