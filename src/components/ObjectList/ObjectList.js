@@ -24,9 +24,9 @@ const ObjectList = () => {
     eventBus.dispatch("setFsValue", { message: fsValue });
   };
 
-  // const setPopUp = () => {
-  //   eventBus.dispatch("setPopup", {});
-  // };
+   const setPopUp = (index) => {
+     eventBus.dispatch("setPopup", {message: index});
+   };
 
   return (
     <Fragment>
@@ -50,7 +50,7 @@ const ObjectList = () => {
         </div>
         <div className="flex flex-col mt-2">
           <div className="flex mb-2 text-center">
-            <p className="w-1/5">Num</p>
+            <p className="w-1/5">ID</p>
             <p className="w-1/5">Name</p>
             <p className="w-1/5">Weight</p>
             <p className="w-1/5">FS</p>
@@ -60,9 +60,8 @@ const ObjectList = () => {
             {objectListItems.map((item, index) => (
               <div key={index} className="flex flex-col">
                 <div className="flex mb-2">
-                  {" "}
                   {/* onClick={setPopUp} What is this? */}
-                  <p className="w-1/5 my-auto text-center">{index}</p>
+                  <p className="w-1/5 my-auto text-center"  onClick={setPopUp(index)}>{index}</p>
                   <p className="w-1/5 my-auto text-center">{item.type}</p>
                   <input
                     name="item"
@@ -74,8 +73,8 @@ const ObjectList = () => {
                   />
                   <input
                     className="w-1/5 bg-[#FFE9A0] placeholder:text-center text-black"
-                    placeholder="FS"
-                    onChange={(e) => (fsValue = e.target.value - 245)}
+                    placeholder={objectListItems[index].fs}
+                    //onChange={(e) => (objectListItems[index].fs)}
                     type="number"
                     min="0"
                   />

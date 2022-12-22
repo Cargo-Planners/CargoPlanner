@@ -6,6 +6,7 @@ import {
   updateHeight,
   updateIndexObj,
   updateWidthAndHeightByScale,
+  updateFs
 } from "../../redux/ObjectsDataSlice";
 import PopUp from "./PopUp";
 import eventBus from "../Grid/eventBus";
@@ -15,6 +16,7 @@ const DynamicObj = (props, fabricRef) => {
   const canvas = useRef(null);
   let currentObj = useRef(null);
   let currentFus = useRef(0);
+  let updatedIndex = 0;
   const dispatch = useDispatch();
   const objectListItems = useSelector(
     (state) => state.objectsData.objectListItems
@@ -106,8 +108,7 @@ const DynamicObj = (props, fabricRef) => {
 
       let updatedWidth = e.target.width * e.target.scaleX;
       let updatedHeight = e.target.height * e.target.scaleY;
-      let updatedIndex = 0;
-
+      
       objectListItems.forEach((object, i) => {
         if (fabricRef.current._activeObject.fill === object.fill) {
           updatedIndex = i;
@@ -121,6 +122,20 @@ const DynamicObj = (props, fabricRef) => {
         }
       });
     });
+
+    fabricRef.current.on("object:moving", function(e) {
+      objectListItems.forEach((object, i) => {
+        if (fabricRef.current._activeObject.fill === object.fill) {
+          updatedIndex = i;
+          dispatch(
+            updateFs({
+              updatedFs:245 + fabricRef.current._activeObject.left,
+              index: updatedIndex
+            })
+          );
+        }
+      });
+    })
   }
 
   return (
@@ -165,11 +180,12 @@ const DynamicObj = (props, fabricRef) => {
                         />
                       </div>
                       <div className="grid grid-rows-2 place-items-center">
-                        <h1 className="self-end">Fusalge</h1>
+                        <h1 className="self-end">Fusealge</h1>
                         <input
                           className="w-28 h-10 bg-blue-200 p-1 m-1 rounded-xl self-start"
                           placeholder={
-                            245 + fabricRef.current._activeObject.left
+                            //245 + fabricRef.current._activeObject.left
+                            objectListItems[index].fs
                           }
                         />
                       </div>
