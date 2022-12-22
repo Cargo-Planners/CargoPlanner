@@ -6,7 +6,8 @@ import {
   updateHeight,
   updateIndexObj,
   updateWidthAndHeightByScale,
-  updateFs
+  updateFs,
+  updateWeightObj
 } from "../../redux/ObjectsDataSlice";
 import PopUp from "./PopUp";
 import eventBus from "../Grid/eventBus";
@@ -54,6 +55,21 @@ const DynamicObj = (props, fabricRef) => {
   const indexChangeHandler = (e, index) => {
     const value = e.target.value === "" ? 0 : parseInt(e.target.value);
     dispatch(updateIndexObj({ value, index }));
+  };
+
+  const weightChangeHandler = (e, index) => {
+    const value = e.target.value === "" ? 0 : parseInt(e.target.value);
+    objectListItems.forEach((object, i) => {
+        if (fabricRef.current._activeObject.fill === object.fill) {
+          updatedIndex = i;
+          dispatch(
+            updateWeightObj({
+              updatedWeight: value,
+              index: updatedIndex,
+            })
+          );
+        }
+      });
   };
 
   useEffect(() => {
@@ -187,6 +203,15 @@ const DynamicObj = (props, fabricRef) => {
                             //245 + fabricRef.current._activeObject.left
                             objectListItems[index].fs
                           }
+                        />
+                      </div>
+                      <div className="grid grid-rows-2 place-items-center">
+                        <h1 className="self-end">Weight</h1>
+                        <input
+                          name="item"
+                          className="heightData w-28 h-10 bg-green-200 p-1 m-1 rounded-xl self-start"
+                          placeholder={objectListItems[index].weight}
+                          onChange={(e) => weightChangeHandler(e, index)}
                         />
                       </div>
                     </div>

@@ -20,8 +20,8 @@ const ObjectsDataSlice = createSlice({
     addItem: (state, action) => {
       state.objectListItems = [...state.objectListItems, action.payload];
     },
-    updateWeight: (state, action) => {
-      state.objectListItems[action.payload.index].weight = action.payload.value;
+    updateWeightObj: (state, action) => {
+      state.objectListItems[action.payload.index].weight = action.payload.updatedWeight;
     },
     calculateWeight: (state, action) => {
       let total = 0;
@@ -56,6 +56,7 @@ export default ObjectsDataSlice.reducer;
 export const {
   addItem,
   updateWeight,
+  updateWeightObj,
   calculateWeight,
   updateWidth,
   updateHeight,
