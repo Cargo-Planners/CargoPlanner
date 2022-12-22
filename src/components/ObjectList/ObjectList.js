@@ -1,9 +1,13 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
+import PopUp from "../Grid/PopUp";
 import { useSelector, useDispatch } from "react-redux";
 import { calculateWeight, updateWeight } from "../../redux/ObjectsDataSlice";
 import eventBus from "../Grid/eventBus";
+import ObjectDetails from "./ObjectDetails";
 
-const ObjectList = () => {
+const ObjectList = (props, fabricRef) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState();
   const dispatch = useDispatch();
   const objectListItems = useSelector(
     (state) => state.objectsData.objectListItems
@@ -24,9 +28,10 @@ const ObjectList = () => {
     eventBus.dispatch("setFsValue", { message: fsValue });
   };
 
-   const setPopUp = (index) => {
-     eventBus.dispatch("setPopup", {message: index});
-   };
+  const togglePopup = (index) => {
+    setIsOpen(!isOpen);
+    setCurrentIndex(index);
+  };
 
   return (
     <Fragment>
@@ -61,7 +66,12 @@ const ObjectList = () => {
               <div key={index} className="flex flex-col">
                 <div className="flex mb-2">
                   {/* onClick={setPopUp} What is this? */}
-                  <p className="w-1/5 my-auto text-center"  onClick={setPopUp(index)}>{index}</p>
+                  <p
+                    className="w-1/5 my-auto text-center cursor-pointer"
+                    onClick={() => togglePopup(index)}
+                  >
+                    {index}
+                  </p>
                   <p className="w-1/5 my-auto text-center">{item.type}</p>
                   <input
                     name="item"
@@ -85,8 +95,15 @@ const ObjectList = () => {
           </div>
         </div>
       </div>
+      {isOpen ? (
+        <PopUp
+          content={<ObjectDetails item={objectListItems[currentIndex]} />}
+          handleClose={togglePopup}
+        />
+      ) : null}
     </Fragment>
   );
 };
 
-export default ObjectList;
+const ObjectListWithforwardedRef = React.forwardRef(ObjectList);
+export default ObjectListWithforwardedRef;

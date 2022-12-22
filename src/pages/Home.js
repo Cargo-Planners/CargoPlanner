@@ -26,7 +26,7 @@ const Home = () => {
           }`}
         >
           <DataCollection />
-          <ObjectList />
+          <ObjectList ref={fabricRef} />
         </div>
       </div>
     </div>

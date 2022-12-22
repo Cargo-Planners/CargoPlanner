@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 
-const PopUp = ({ content, handleClose }, fabricRef) => {
-  
+const PopUp = ({ content, handleClose }) => {
   return (
     <Fragment>
       <div className="popup-box">
