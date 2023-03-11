@@ -7,7 +7,7 @@ import {
   updateIndexObj,
   updateWidthAndHeightByScale,
   updateFs,
-  updateWeightObj
+  updateWeightObj,
 } from "../../redux/ObjectsDataSlice";
 import PopUp from "./PopUp";
 import eventBus from "../Grid/eventBus";
@@ -60,16 +60,16 @@ const DynamicObj = (props, fabricRef) => {
   const weightChangeHandler = (e, index) => {
     const value = e.target.value === "" ? 0 : parseInt(e.target.value);
     objectListItems.forEach((object, i) => {
-        if (fabricRef.current._activeObject.fill === object.fill) {
-          updatedIndex = i;
-          dispatch(
-            updateWeightObj({
-              updatedWeight: value,
-              index: updatedIndex,
-            })
-          );
-        }
-      });
+      if (fabricRef.current._activeObject.fill === object.fill) {
+        updatedIndex = i;
+        dispatch(
+          updateWeightObj({
+            updatedWeight: value,
+            index: updatedIndex,
+          })
+        );
+      }
+    });
   };
 
   useEffect(() => {
@@ -96,13 +96,27 @@ const DynamicObj = (props, fabricRef) => {
     setIsOpen(!isOpen);
   };
 
-  const initCanvas = () =>
-    (fabricRef.current = new fabric.Canvas("canvas", {
+  const initCanvas = () => {
+    fabricRef.current = new fabric.Canvas("canvas", {
       height: document.getElementsByClassName("gridContainer")[0].offsetHeight,
       width: document.getElementsByClassName("gridContainer")[0].offsetWidth,
       selection: false,
       renderOnAddRemove: true,
-    }));
+    });
+
+    objectListItems.forEach((object) => {
+      const rect = new fabric.Rect({
+        width: object.width,
+        height: object.height,
+        opacity: 0.5,
+        left: 0,
+        fill: object.fill,
+      });
+
+      fabricRef.current.add(rect);
+    });
+    return fabricRef.current;
+  };
 
   if (fabricRef.current != null) {
     fabricRef.current.on("mouse:up", (e) => {
@@ -124,7 +138,7 @@ const DynamicObj = (props, fabricRef) => {
 
       let updatedWidth = e.target.width * e.target.scaleX;
       let updatedHeight = e.target.height * e.target.scaleY;
-      
+
       objectListItems.forEach((object, i) => {
         if (fabricRef.current._activeObject.fill === object.fill) {
           updatedIndex = i;
@@ -139,19 +153,20 @@ const DynamicObj = (props, fabricRef) => {
       });
     });
 
-    fabricRef.current.on("object:moving", function(e) {
+    fabricRef.current.on("object:moving", function (e) {
       objectListItems.forEach((object, i) => {
         if (fabricRef.current._activeObject.fill === object.fill) {
           updatedIndex = i;
+          console.log(fabricRef.current._activeObject);
           dispatch(
             updateFs({
-              updatedFs:245 + fabricRef.current._activeObject.left,
-              index: updatedIndex
+              updatedFs: 245 + fabricRef.current._activeObject.left,
+              index: updatedIndex,
             })
           );
         }
       });
-    })
+    });
   }
 
   return (
