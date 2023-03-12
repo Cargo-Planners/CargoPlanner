@@ -105,69 +105,64 @@ const DynamicObj = (props, fabricRef) => {
     });
 
     objectListItems.forEach((object) => {
-      const rect = new fabric.Rect({
-        width: object.width,
-        height: object.height,
-        opacity: 0.5,
-        left: 0,
-        fill: object.fill,
+      fabricRef.current.add(object.canvasObj);
+    });
+
+    if (fabricRef.current != null) {
+      fabricRef.current.on("selection:updated", (e) => {
+        fabricRef.current.setActiveObject(e.selected[0]);
+        console.log(fabricRef.current._activeObject);
       });
 
-      fabricRef.current.add(rect);
-    });
+      // fabricRef.current.on("selection:cleared", () => {
+      //   fabricRef.current.setActiveObject(null);
+      // });
+
+      fabricRef.current.on("mouse:dblclick", (e) => {
+        if (e.target !== null) {
+          setIsOpen(true);
+        }
+      });
+
+      fabricRef.current.on("object:scaling", function (e) {
+        if (!e.target || e.target.type !== "rect") {
+          return;
+        }
+
+        let updatedWidth = e.target.width * e.target.scaleX;
+        let updatedHeight = e.target.height * e.target.scaleY;
+
+        objectListItems.forEach((object, i) => {
+          if (fabricRef.current._activeObject.fill === object.fill) {
+            updatedIndex = i;
+            dispatch(
+              updateWidthAndHeightByScale({
+                updatedWidth: updatedWidth.toFixed(2),
+                updatedHeight: updatedHeight.toFixed(2),
+                index: updatedIndex,
+              })
+            );
+          }
+        });
+      });
+
+      fabricRef.current.on("object:moving", function (e) {
+        objectListItems.forEach((object, i) => {
+          if (fabricRef.current._activeObject.id === object.id) {
+            updatedIndex = i;
+            dispatch(
+              updateFs({
+                updatedFs: 245 + fabricRef.current._activeObject.left,
+                index: updatedIndex,
+              })
+            );
+          }
+        });
+      });
+    }
+
     return fabricRef.current;
   };
-
-  if (fabricRef.current != null) {
-    fabricRef.current.on("mouse:up", (e) => {
-      if (
-        e.target != null &&
-        fabricRef.current._activeObject.left - currentFus.current === 0
-      ) {
-        setIsOpen(true);
-      } else if (fabricRef.current._activeObject != null) {
-        currentFus.current = fabricRef.current._activeObject.left;
-        setIsOpen(false);
-      }
-    });
-
-    fabricRef.current.on("object:scaling", function (e) {
-      if (!e.target || e.target.type !== "rect") {
-        return;
-      }
-
-      let updatedWidth = e.target.width * e.target.scaleX;
-      let updatedHeight = e.target.height * e.target.scaleY;
-
-      objectListItems.forEach((object, i) => {
-        if (fabricRef.current._activeObject.fill === object.fill) {
-          updatedIndex = i;
-          dispatch(
-            updateWidthAndHeightByScale({
-              updatedWidth: updatedWidth.toFixed(2),
-              updatedHeight: updatedHeight.toFixed(2),
-              index: updatedIndex,
-            })
-          );
-        }
-      });
-    });
-
-    fabricRef.current.on("object:moving", function (e) {
-      objectListItems.forEach((object, i) => {
-        if (fabricRef.current._activeObject.fill === object.fill) {
-          updatedIndex = i;
-          console.log(fabricRef.current._activeObject);
-          dispatch(
-            updateFs({
-              updatedFs: 245 + fabricRef.current._activeObject.left,
-              index: updatedIndex,
-            })
-          );
-        }
-      });
-    });
-  }
 
   return (
     <div className="flex flex-col">
