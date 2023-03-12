@@ -111,12 +111,7 @@ const DynamicObj = (props, fabricRef) => {
     if (fabricRef.current != null) {
       fabricRef.current.on("selection:updated", (e) => {
         fabricRef.current.setActiveObject(e.selected[0]);
-        console.log(fabricRef.current._activeObject);
       });
-
-      // fabricRef.current.on("selection:cleared", () => {
-      //   fabricRef.current.setActiveObject(null);
-      // });
 
       fabricRef.current.on("mouse:dblclick", (e) => {
         if (e.target !== null) {
