@@ -12,8 +12,8 @@ import randomColor from "randomcolor";
 import eventBus from "../Grid/eventBus";
 import { v4 } from "uuid";
 
-const X_ORIGIN = 22;
-const Y_ORIGIN = 265;
+export const X_ORIGIN = 22;
+export const Y_ORIGIN = 265;
 
 const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
   const [showDropDown, setShowDropDown] = useState(false);
@@ -48,6 +48,9 @@ const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
       height: 50,
       index: 0,
       fill: color,
+      x: rect.left - X_ORIGIN,
+      y: Math.abs(rect.top - Y_ORIGIN),
+      z: 0,
     });
   };
 
