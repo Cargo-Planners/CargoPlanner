@@ -13,7 +13,7 @@ import eventBus from "../Grid/eventBus";
 import { v4 } from "uuid";
 
 export const X_ORIGIN = 22;
-export const Y_ORIGIN = 265;
+export const Y_ORIGIN = 315;
 
 const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
   const [showDropDown, setShowDropDown] = useState(false);
@@ -32,9 +32,9 @@ const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
       id: id,
       width: 50,
       height: 50,
-      opacity: 0.5,
+      opacity: 1,
       left: X_ORIGIN,
-      top: Y_ORIGIN,
+      top: Y_ORIGIN - 50,
       fill: color,
     });
     fabricRef.current.add(rect);
@@ -52,6 +52,8 @@ const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
       y: Math.abs(rect.top - Y_ORIGIN),
       z: 0,
     });
+
+    fabricRef.current.setActiveObject(rect);
   };
 
   return (
