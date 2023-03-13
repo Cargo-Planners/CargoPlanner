@@ -8,9 +8,11 @@ import {
   updateWidthAndHeightByScale,
   updateFs,
   updateWeightObj,
+  updateObjectPosition,
 } from "../../redux/ObjectsDataSlice";
 import PopUp from "./PopUp";
 import eventBus from "../Grid/eventBus";
+import { X_ORIGIN, Y_ORIGIN } from "../SideBar/SideBarItems";
 
 const DynamicObj = (props, fabricRef) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -105,6 +107,7 @@ const DynamicObj = (props, fabricRef) => {
     });
 
     objectListItems.forEach((object) => {
+      console.log(object);
       fabricRef.current.add(object.canvasObj);
     });
 
@@ -144,11 +147,21 @@ const DynamicObj = (props, fabricRef) => {
       fabricRef.current.on("object:moving", function (e) {
         objectListItems.forEach((object, i) => {
           if (fabricRef.current._activeObject.id === object.id) {
-            updatedIndex = i;
+            const position = {
+              x: e.target.left - X_ORIGIN,
+              y: Math.abs(e.target.top - Y_ORIGIN),
+            };
+
             dispatch(
               updateFs({
                 updatedFs: 245 + fabricRef.current._activeObject.left,
-                index: updatedIndex,
+                index: i,
+              })
+            );
+            dispatch(
+              updateObjectPosition({
+                index: i,
+                position: position,
               })
             );
           }

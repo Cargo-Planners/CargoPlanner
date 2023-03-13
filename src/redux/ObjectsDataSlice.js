@@ -50,6 +50,12 @@ const ObjectsDataSlice = createSlice({
     updateFs: (state, action) => {
       state.objectListItems[action.payload.index].fs = action.payload.updatedFs;
     },
+    updateObjectPosition: (state, action) => {
+      state.objectListItems[action.payload.index] = {
+        ...state.objectListItems[action.payload.index],
+        ...action.payload.position,
+      };
+    },
   },
 });
 
@@ -64,4 +70,5 @@ export const {
   updateIndexObj,
   updateWidthAndHeightByScale,
   updateFs,
+  updateObjectPosition,
 } = ObjectsDataSlice.actions;
