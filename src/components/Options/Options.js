@@ -8,12 +8,23 @@ import baseDataIcon from "../../icons/baseDataIcon.png";
 import EditBasicDataButton from "../Grid/EditBasicDataButton";
 import { routeConstants } from "../../Routes/constants";
 import eventBus from "../Grid/eventBus";
+import { useSelector, useDispatch } from "react-redux";
 
 const Options = () => {
   const [isSideBarOpen, setSideBarOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const objectListItems = useSelector((state) => state.objectsData);
+  const basicData = useSelector((state) => state.basicData);
+
   eventBus.on("setSideBarValue", (data) => {
     setSideBarOpen(!isSideBarOpen);
   });
+  const togglePopUp = () => {
+    console.log("something?");
+    setModalOpen(true);
+    console.log("basic data is:", basicData);
+    console.log("objects are:", objectListItems);
+  };
   return (
     <div
       className={`flex text-center w-4/5 ${!isSideBarOpen ? "ml-auto" : ""}`}
@@ -49,14 +60,17 @@ const Options = () => {
             />
           </Link>
         </div>
-        <div>
-          <h2 className="mb-2 font-bold">Export to Loadsheet</h2>
-          <img
-            className="h-20 w-20 mx-auto"
-            src={loadSheetIcon}
-            alt="loadsheetIcon"
-          />
-        </div>
+
+        <button onClick={togglePopUp}>
+          <div>
+            <h2 className="mb-2 font-bold">Export to Loadsheet</h2>
+            <img
+              className="h-20 w-20 mx-auto"
+              src={loadSheetIcon}
+              alt="loadsheetIcon"
+            />
+          </div>
+        </button>
       </div>
     </div>
   );
