@@ -7,7 +7,7 @@ import {
   updateIndexObj,
   updateWidthAndHeightByScale,
   updateFs,
-  updateWeightObj
+  updateWeightObj,
 } from "../../redux/ObjectsDataSlice";
 import PopUp from "./PopUp";
 import eventBus from "../Grid/eventBus";
@@ -60,16 +60,16 @@ const DynamicObj = (props, fabricRef) => {
   const weightChangeHandler = (e, index) => {
     const value = e.target.value === "" ? 0 : parseInt(e.target.value);
     objectListItems.forEach((object, i) => {
-        if (fabricRef.current._activeObject.fill === object.fill) {
-          updatedIndex = i;
-          dispatch(
-            updateWeightObj({
-              updatedWeight: value,
-              index: updatedIndex,
-            })
-          );
-        }
-      });
+      if (fabricRef.current._activeObject.fill === object.fill) {
+        updatedIndex = i;
+        dispatch(
+          updateWeightObj({
+            updatedWeight: value,
+            index: updatedIndex,
+          })
+        );
+      }
+    });
   };
 
   useEffect(() => {
@@ -96,63 +96,68 @@ const DynamicObj = (props, fabricRef) => {
     setIsOpen(!isOpen);
   };
 
-  const initCanvas = () =>
-    (fabricRef.current = new fabric.Canvas("canvas", {
+  const initCanvas = () => {
+    fabricRef.current = new fabric.Canvas("canvas", {
       height: document.getElementsByClassName("gridContainer")[0].offsetHeight,
       width: document.getElementsByClassName("gridContainer")[0].offsetWidth,
       selection: false,
       renderOnAddRemove: true,
-    }));
-
-  if (fabricRef.current != null) {
-    fabricRef.current.on("mouse:up", (e) => {
-      if (
-        e.target != null &&
-        fabricRef.current._activeObject.left - currentFus.current === 0
-      ) {
-        setIsOpen(true);
-      } else if (fabricRef.current._activeObject != null) {
-        currentFus.current = fabricRef.current._activeObject.left;
-        setIsOpen(false);
-      }
     });
 
-    fabricRef.current.on("object:scaling", function (e) {
-      if (!e.target || e.target.type !== "rect") {
-        return;
-      }
-
-      let updatedWidth = e.target.width * e.target.scaleX;
-      let updatedHeight = e.target.height * e.target.scaleY;
-      
-      objectListItems.forEach((object, i) => {
-        if (fabricRef.current._activeObject.fill === object.fill) {
-          updatedIndex = i;
-          dispatch(
-            updateWidthAndHeightByScale({
-              updatedWidth: updatedWidth.toFixed(2),
-              updatedHeight: updatedHeight.toFixed(2),
-              index: updatedIndex,
-            })
-          );
-        }
-      });
+    objectListItems.forEach((object) => {
+      fabricRef.current.add(object.canvasObj);
     });
 
-    fabricRef.current.on("object:moving", function(e) {
-      objectListItems.forEach((object, i) => {
-        if (fabricRef.current._activeObject.fill === object.fill) {
-          updatedIndex = i;
-          dispatch(
-            updateFs({
-              updatedFs:245 + fabricRef.current._activeObject.left,
-              index: updatedIndex
-            })
-          );
+    if (fabricRef.current != null) {
+      fabricRef.current.on("selection:updated", (e) => {
+        fabricRef.current.setActiveObject(e.selected[0]);
+      });
+
+      fabricRef.current.on("mouse:dblclick", (e) => {
+        if (e.target !== null) {
+          setIsOpen(true);
         }
       });
-    })
-  }
+
+      fabricRef.current.on("object:scaling", function (e) {
+        if (!e.target || e.target.type !== "rect") {
+          return;
+        }
+
+        let updatedWidth = e.target.width * e.target.scaleX;
+        let updatedHeight = e.target.height * e.target.scaleY;
+
+        objectListItems.forEach((object, i) => {
+          if (fabricRef.current._activeObject.fill === object.fill) {
+            updatedIndex = i;
+            dispatch(
+              updateWidthAndHeightByScale({
+                updatedWidth: updatedWidth.toFixed(2),
+                updatedHeight: updatedHeight.toFixed(2),
+                index: updatedIndex,
+              })
+            );
+          }
+        });
+      });
+
+      fabricRef.current.on("object:moving", function (e) {
+        objectListItems.forEach((object, i) => {
+          if (fabricRef.current._activeObject.id === object.id) {
+            updatedIndex = i;
+            dispatch(
+              updateFs({
+                updatedFs: 245 + fabricRef.current._activeObject.left,
+                index: updatedIndex,
+              })
+            );
+          }
+        });
+      });
+    }
+
+    return fabricRef.current;
+  };
 
   return (
     <div className="flex flex-col">

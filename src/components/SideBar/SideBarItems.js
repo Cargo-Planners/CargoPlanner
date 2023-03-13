@@ -10,6 +10,10 @@ import { addItem } from "../../redux/ObjectsDataSlice";
 import { useDispatch } from "react-redux";
 import randomColor from "randomcolor";
 import eventBus from "../Grid/eventBus";
+import { v4 } from "uuid";
+
+const X_ORIGIN = 22;
+const Y_ORIGIN = 265;
 
 const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
   const [showDropDown, setShowDropDown] = useState(false);
@@ -23,16 +27,21 @@ const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
   };
   const addRectangle = () => {
     let color = randomColor();
+    const id = v4();
     const rect = new fabric.Rect({
+      id: id,
       width: 50,
       height: 50,
       opacity: 0.5,
-      left: 0,
+      left: X_ORIGIN,
+      top: Y_ORIGIN,
       fill: color,
     });
     fabricRef.current.add(rect);
     addItemToObjectList({
       type: "Object",
+      id: id,
+      canvasObj: rect,
       weight: 0,
       fs: 0,
       width: 50,
