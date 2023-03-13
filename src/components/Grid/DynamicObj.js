@@ -14,6 +14,9 @@ import PopUp from "./PopUp";
 import eventBus from "../Grid/eventBus";
 import { X_ORIGIN, Y_ORIGIN } from "../SideBar/SideBarItems";
 
+const MIN_Y_POSITION = 110;
+const MAX_X_POSITION = 737;
+
 const DynamicObj = (props, fabricRef) => {
   const [isOpen, setIsOpen] = useState(false);
   const canvas = useRef(null);
@@ -98,6 +101,20 @@ const DynamicObj = (props, fabricRef) => {
     setIsOpen(!isOpen);
   };
 
+  const getValidCoord = (val, min, max) => {
+    if (val >= min && val <= max) {
+      return val;
+    } else if (val < min) {
+      return min;
+    } else {
+      return max;
+    }
+  };
+
+  const getCurrObjectsList = () => {
+    return objectListItems;
+  };
+
   const initCanvas = () => {
     fabricRef.current = new fabric.Canvas("canvas", {
       height: document.getElementsByClassName("gridContainer")[0].offsetHeight,
@@ -107,11 +124,10 @@ const DynamicObj = (props, fabricRef) => {
     });
 
     objectListItems.forEach((object) => {
-      console.log(object);
       fabricRef.current.add(object.canvasObj);
     });
 
-    if (fabricRef.current != null) {
+    if (fabricRef.current !== null) {
       fabricRef.current.on("selection:updated", (e) => {
         fabricRef.current.setActiveObject(e.selected[0]);
       });
@@ -130,7 +146,9 @@ const DynamicObj = (props, fabricRef) => {
         let updatedWidth = e.target.width * e.target.scaleX;
         let updatedHeight = e.target.height * e.target.scaleY;
 
-        objectListItems.forEach((object, i) => {
+        const objectList = getCurrObjectsList();
+
+        objectList.forEach((object, i) => {
           if (fabricRef.current._activeObject.fill === object.fill) {
             updatedIndex = i;
             dispatch(
@@ -145,13 +163,27 @@ const DynamicObj = (props, fabricRef) => {
       });
 
       fabricRef.current.on("object:moving", function (e) {
-        objectListItems.forEach((object, i) => {
-          if (fabricRef.current._activeObject.id === object.id) {
-            const position = {
-              x: e.target.left - X_ORIGIN,
-              y: Math.abs(e.target.top - Y_ORIGIN),
-            };
+        const objectList = getCurrObjectsList();
 
+        e.target.top = getValidCoord(
+          e.target.top,
+          MIN_Y_POSITION,
+          Y_ORIGIN - e.target.height * e.target.scaleY
+        );
+
+        e.target.left = getValidCoord(
+          e.target.left,
+          X_ORIGIN,
+          MAX_X_POSITION - e.target.width * e.target.scaleX
+        );
+
+        const position = {
+          x: e.target.left - X_ORIGIN,
+          y: Math.abs(e.target.top - Y_ORIGIN),
+        };
+
+        objectList.forEach((object, i) => {
+          if (fabricRef.current._activeObject.id === object.id) {
             dispatch(
               updateFs({
                 updatedFs: 245 + fabricRef.current._activeObject.left,
