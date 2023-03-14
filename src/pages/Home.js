@@ -6,6 +6,9 @@ import ObjectList from "../components/ObjectList/ObjectList";
 import Options from "../components/Options/Options";
 import { useRef } from "react";
 import eventBus from "../components/Grid/eventBus";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fabric } from "fabric";
 
 const Home = () => {
   const fabricRef = useRef(null);

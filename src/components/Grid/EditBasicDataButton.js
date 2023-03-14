@@ -28,7 +28,7 @@ const EditBasicDataButton = ({ img }) => {
             display: "flex",
             justifyContent: "center",
             borderRadius: "20px",
-            height: "450px",
+            height: "auto",
             width: "580px",
             margin: "auto",
             marginTop: "15vh",
@@ -36,6 +36,7 @@ const EditBasicDataButton = ({ img }) => {
             position: "relative",
           },
         }}
+        id="modal-basic-data"
         isOpen={modalIsOpen}
         // className="modal-basic-data"
 

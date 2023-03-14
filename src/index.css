@@ -59,6 +59,7 @@ input {
 
 .box-item {
   @apply my-1 grid grid-cols-2 text-left;
+  margin: 10px 0;
 }
 
 button {
@@ -67,6 +68,9 @@ button {
 
 .label-font-b {
   @apply text-xl font-bold text-black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .label-font-w {
@@ -218,7 +222,28 @@ button {
 
 #input-css {
   @apply w-full h-11 place-items-stretch rounded-md border border-[#d9d9d9] placeholder-gray-500;
-  margin: 0.4rem;
+  /* margin: 0.4rem; */
+}
+
+#modal-basic-data::-webkit-scrollbar {
+  display: none;
+}
+
+.input-css {
+  margin: 0;
+  padding-left: 4%;
+  border: 1px solid hsl(0, 0%, 80%);
+  border-radius: 4px;
+  min-height: 38px;
+}
+
+.input-css:hover {
+  border-color: hsl(0, 0%, 70%);
+}
+
+.input-css:focus {
+  border: 2px solid #2684ff;
+  outline: none;
 }
 
 /* CheckBox CSS */
@@ -471,9 +496,11 @@ body {
 /*first page gradiant*/
 
 .coolGrad {
-  background: linear-gradient(180deg,
-      rgba(142, 219, 237, 1) 0%,
-      rgba(33, 147, 176, 1) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(142, 219, 237, 1) 0%,
+    rgba(33, 147, 176, 1) 100%
+  );
 }
 
 #object_num_ {
@@ -496,7 +523,7 @@ body {
   font-size: 12px;
 }
 
-.modal>.header {
+.modal > .header {
   width: 100%;
   border-bottom: 1px solid gray;
   font-size: 18px;
@@ -504,19 +531,19 @@ body {
   padding: 5px;
 }
 
-.modal>.content {
+.modal > .content {
   width: 100%;
   padding: 10px 5px;
 }
 
-.modal>.actions {
+.modal > .actions {
   width: 100%;
   padding: 10px 5px;
   margin: auto;
   text-align: center;
 }
 
-.modal>.close {
+.modal > .close {
   cursor: pointer;
   position: absolute;
   display: block;
@@ -592,6 +619,14 @@ body {
   display: flex;
   justify-content: space-between;
   background-color: white;
+}
+
+.blob {
+  position: absolute;
+  left: -36.04%;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }
 
 .blob {
