@@ -23,7 +23,7 @@ const Home = () => {
   return (
     <div>
       <SideBar ref={fabricRef} />
-      <div className="grid grid-cols-2 gap-4 w-4/5 ml-1/10 ml-auto bg-[#ffffff]" >
+      <div className="grid grid-cols-13 w-4/5 ml-1/10 ml-auto bg-[#fafafa] overflow-hidden">
         <CGrid ref={fabricRef} />
         <ObjectList ref={fabricRef} />
         <DataCollection />

@@ -80,12 +80,12 @@ const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
             >
               <div className="flex items-center gap-3 ">
                 <FaTimes size={40} />
-                <h2 className="text-xl font-bold text-white">Gulliver</h2>
+                <h2 className="text-xl font-bold text-[#000000]">Gulliver</h2>
               </div>
             </button>
           ) : null}
         </div>
-        <hr />
+        <hr className="border-[#000000]" />
         <div onClick={addRectangle}>
           <SiderBarItem Icon={GiCargoCrate} buttonText="New Object" />
         </div>
@@ -101,7 +101,7 @@ const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
         <div>
           <SiderBarItem Icon={FaFileExport} buttonText="Export To Loadsheet" />
         </div>
-        <hr />
+        <hr className="border-[#000000]" />
         <div onClick={() => setShowDropDown((prev) => !prev)}>
           <SiderBarItem Icon={FaCaretDown} buttonText="Existing Objects" />
         </div>
@@ -112,15 +112,7 @@ const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
         </div>
       </div>
       <div className="flex flex-row text-white">
-        <button className="buttonForSettings">
-          Settings &nbsp;
-          {/* <img
-            className="my-auto h-3 w-3"
-            src={settingsIcon}
-            alt="settingIcon"
-          /> */}
-          <SettingsIcon className="spinningSettingsIcons" />
-        </button>
+        <SettingsIcon className="spinningSettingsIcons cursor-pointer" />
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ function CGrid(props, fabricRef) {
   });
   return (
     <div
-      className="flex justify-center"
+      className="flex justify-center bg-[#fafafa] col-start-1 col-end-12"
       // className={`flex justify-center items-center w-4/5 min-h-[412.88px] ${
       //   !isSideBarOpen ? "ml-auto" : ""
       // }`}
