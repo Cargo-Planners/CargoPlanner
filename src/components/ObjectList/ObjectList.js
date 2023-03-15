@@ -34,20 +34,20 @@ const ObjectList = (props, fabricRef) => {
   };
 
   return (
-    <Fragment>
-      <div className="flex flex-col bg-[#FAC11A] w-1/3   rounded-t-3xl ">
+    <div className="flex justify-center self-center content-center col-span-1 row-span-2">
+      <div className="flex flex-col bg-[#0E7490] w-2/3 h-full  rounded-t-3xl rounded-3xl ">
         <h1 className="text-white text-2xl font-bold text-center my-2">
           Objects
         </h1>
         <div className="flex items-center">
           <button
             onClick={activeCalculateWeight}
-            className="bg-[#FFE9A0] my-4 mx-auto py-2 px-4 rounded-lg" // Might not need this Button! ignore for now.
+            className="bg-[#034152] my-4 mx-auto py-2 px-4 rounded-lg text-white" // Might not need this Button! ignore for now.
           >
             Update Total Weight
           </button>
           <button
-            className="bg-[#FFE9A0] my-4 mx-auto py-2 px-4 rounded-lg"
+            className="bg-[#034152] my-4 mx-auto py-2 px-4 rounded-lg text-white"
             onClick={setFs}
           >
             Update FS
@@ -55,40 +55,44 @@ const ObjectList = (props, fabricRef) => {
         </div>
         <div className="flex flex-col mt-2">
           <div className="flex mb-2 text-center">
-            <p className="w-1/5">ID</p>
-            <p className="w-1/5">Name</p>
-            <p className="w-1/5">Weight</p>
-            <p className="w-1/5">FS</p>
-            <p className="w-1/5">cell</p>
+            <p className="w-1/5 text-white">ID</p>
+            <p className="w-1/5 text-white">Name</p>
+            <p className="w-1/5 text-white">Weight</p>
+            <p className="w-1/5 text-white">FS</p>
+            <p className="w-1/5 text-white">cell</p>
           </div>
-          <div className="flex flex-col sidebar overflow-auto max-h-[230px] min-h-[50px] h-auto bg-[#FAC11A] text-right py-3 rounded-lg">
+          <div className="flex flex-col sidebar overflow-auto h-auto bg-[#034152] text-right py-3 rounded-3xl	overflow-hidden	">
             {objectListItems.map((item, index) => (
               <div key={index} className="flex flex-col">
                 <div className="flex mb-2">
                   {/* onClick={setPopUp} What is this? */}
                   <p
-                    className="w-1/5 my-auto text-center cursor-pointer"
+                    className="w-1/5 my-auto text-center cursor-pointer text-white"
                     onClick={() => togglePopup(index)}
                   >
                     {index}
                   </p>
-                  <p className="w-1/5 my-auto text-center">{item.type}</p>
+                  <p className="w-1/5 my-auto text-center text-white">
+                    {item.type}
+                  </p>
                   <input
                     name="item"
-                    className="w-1/5 bg-[#FFE9A0] placeholder:text-center text-black"
+                    className="w-1/5 bg-[#0E7490] placeholder:text-center text-white"
                     placeholder="Weight"
                     onChange={(e) => weightChangeHandler(e, index)}
                     type="number"
                     min="0"
                   />
                   <input
-                    className="w-1/5 bg-[#FFE9A0] placeholder:text-center text-black"
+                    className="w-1/5 bg-[#0E7490] placeholder:text-center text-white"
                     placeholder={objectListItems[index].fs}
                     //onChange={(e) => (objectListItems[index].fs)}
                     type="number"
                     min="0"
                   />
-                  <p className="w-1/5 my-auto text-center">{index}</p>
+                  <p className="w-1/5 my-auto text-center text-white">
+                    {index}
+                  </p>
                 </div>
               </div>
             ))}
@@ -101,7 +105,7 @@ const ObjectList = (props, fabricRef) => {
           handleClose={togglePopup}
         />
       ) : null}
-    </Fragment>
+    </div>
   );
 };
 

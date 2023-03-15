@@ -606,7 +606,7 @@ body {
 }
 
 .sidebar::-webkit-scrollbar-track {
-  background: #fac11a;
+  background: rgb(14 116 144);
   /* color of the tracking area */
 }
 
@@ -627,4 +627,53 @@ body {
   right: 0;
   top: 0;
   bottom: 0;
+}
+
+
+
+.buttonForSettings{
+  display:flex;
+  flex-direction: row;
+  font-weight: bold;
+  color: white;
+  animation-name: spin;
+
+}
+.buttonForSettings:hover{
+  display:flex;
+  flex-direction: row;
+  font-weight: bold;
+  color: white;
+  animation-name: spin;
+
+}
+
+.spinningSettingsIcons{
+  display:flex;
+  flex-direction: row;
+  font-weight: bold;
+  color: white;
+  background-color: #000a39;
+}
+
+.spinningSettingsIcons:hover{
+  display:flex;
+  flex-direction: row;
+  font-weight: bold;
+  animation-name: spin;
+  animation-duration: 5000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear; 
+  transition: transform 0.5s ease-in-out; 
+
+}
+
+@keyframes spin {
+  from {
+      transform:rotate(0deg);
+  }
+  to {
+      transform:rotate(360deg);
+  }
+
 }
