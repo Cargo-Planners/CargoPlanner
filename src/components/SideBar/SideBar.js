@@ -11,7 +11,7 @@ const SideBar = (props, fabricRef) => {
 
   return (
     <Fragment>
-      <div className="flex flex-col items-center justify-center h-0 z-0 bg-cyan-700">
+      <div className="flex flex-col items-center justify-center h-0 z-0">
         {!showSideBar ? (
           <button
             className="flex text-5xl absolute top-5 left-3 text-[#1E1E22] items-center cursor-pointer"
@@ -24,7 +24,7 @@ const SideBar = (props, fabricRef) => {
           </button>
         ) : null}
         <div
-          className={`sidebar fixed top-0 overflow-auto left-0 w-[15%] bg-cyan-700	 text-white h-full p-5 ease-in-out duration-100 ${
+          className={`sidebar fixed top-0 left-0 w-[20%] bg-[#f9d63a]	 text-white h-full p-5 ease-in-out duration-100 ${
             showSideBar ? "translate-x-0" : "translate-x-[-100%]"
           }`}
         >

@@ -637,7 +637,7 @@ body {
   font-weight: bold;
   color: white;
   animation-name: spin;
-
+  background-color: transparent;
 }
 .buttonForSettings:hover{
   display:flex;
@@ -653,7 +653,6 @@ body {
   flex-direction: row;
   font-weight: bold;
   color: white;
-  background-color: #000a39;
 }
 
 .spinningSettingsIcons:hover{
