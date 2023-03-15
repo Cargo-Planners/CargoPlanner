@@ -13,24 +13,20 @@ import { fabric } from "fabric";
 const Home = () => {
   const fabricRef = useRef(null);
   const [isSideBarOpen, setSideBarOpen] = useState(false);
-  eventBus.on("setSideBarValue", (data) => {
-    setSideBarOpen(!isSideBarOpen);
-  });
+  useEffect(() => {
+    eventBus.on("setSideBarValue", (data) => {
+      setSideBarOpen(!isSideBarOpen);
+      console.log(isSideBarOpen);
+    });
+  }, []);
 
   return (
     <div>
       <SideBar ref={fabricRef} />
-      <div className="min-h-screen flex flex-col justify-center gap-16 items-center">
-        <Options />
+      <div className="grid grid-cols-2 gap-4 w-4/5 ml-1/10 ml-auto">
         <CGrid ref={fabricRef} />
-        <div
-          className={`flex justify-evenly w-4/5 ${
-            !isSideBarOpen ? "ml-auto" : ""
-          }`}
-        >
-          <DataCollection />
-          <ObjectList ref={fabricRef} />
-        </div>
+        <ObjectList ref={fabricRef} />
+        <DataCollection />
       </div>
     </div>
   );

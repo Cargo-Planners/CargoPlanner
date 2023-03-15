@@ -9,24 +9,54 @@ const DataCollection = () => {
     setSideBarOpen(!isSideBarOpen);
   });
   return (
-    <Fragment>
-      <div id="data-col-win2">
-        <h1 id="data-col-h1">General Data Collection</h1>
+    <div className="flex justify-center content-center">
+      <div
+        id="data-col-win2"
+        className="flex justify-center self-center content-center items-center  rounded-3xl min-w-full"
+      >
+        <h1 id="data-col-h1" className="mb-10">
+          General Data Collection
+        </h1>
         <div
           id="data-col-h2"
-          className="grid grid-cols-2 gap-2 place-items-start ml-20 font-semibold text-2xl mb-0"
+          className="grid grid-cols-2 gap-2 place-items-start font-semibold text-white mb-0"
         >
-          <h2>ZFW : {objectsData.ZFW}</h2>
-          <h2>Take-Off Weight: {objectsData.takeOffWeight}</h2>
-          <h2>Total Fuel: {objectsData.fuel}</h2>
-          <h2> Index: {objectsData.totalIndex}</h2>
-          <h2> MAC: {objectsData.MAC}</h2>
-          <h2> AREA: {objectsData.areaGraph}</h2>
-          <h2>MAC Range: {objectsData.MACRange}</h2>{" "}
-          <h2>Total Cargo Weight: {objectsData.totalCargoWeight}</h2>
+          <h2 className="flex flex-row text-white font-bold	">
+            ZFW : &nbsp;<h1 className="font-normal">{objectsData.ZFW}</h1>
+          </h2>
+          <h2 className="flex flex-row text-white font-bold	">
+            Take-Off Weight : &nbsp;
+            <h1 className="font-normal">{objectsData.takeOffWeight}</h1>
+          </h2>
+          <h2 className="flex flex-row text-white font-bold	">
+            Total Fuel : &nbsp;
+            <h1 className="font-normal">{objectsData.fuel}</h1>
+          </h2>
+          <h2 className="flex flex-row text-white font-bold	">
+            {" "}
+            Index : &nbsp;
+            <h1 className="font-normal">{objectsData.totalIndex}</h1>
+          </h2>
+          <h2 className="flex flex-row text-white font-bold	">
+            {" "}
+            MAC &nbsp;<h1 className="font-normal">{objectsData.MAC}</h1>
+          </h2>
+          <h2 className="flex flex-row text-white font-bold	">
+            {" "}
+            AREA &nbsp;
+            <h1 className="font-normal">{objectsData.areaGraph}</h1>
+          </h2>
+          <h2 className="flex flex-row text-white font-bold	">
+            MAC Range : &nbsp;
+            <h1 className="font-normal">{objectsData.MACRange}</h1>
+          </h2>
+          <h2 className="flex flex-row text-white font-bold	 mb-10">
+            Total Cargo Weight : &nbsp;{" "}
+            <h1 className="font-normal">{objectsData.totalCargoWeight}</h1>
+          </h2>
         </div>
       </div>
-    </Fragment>
+    </div>
   );
 };
 

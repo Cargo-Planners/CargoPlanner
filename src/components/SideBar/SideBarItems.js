@@ -1,16 +1,26 @@
 import React, { useState } from "react";
-import { FaCaretDown, FaTimes } from "react-icons/fa";
+import {
+  FaCaretDown,
+  FaTimes,
+  FaTrash,
+  FaPlaneDeparture,
+  FaChartLine,
+  FaFileExport,
+} from "react-icons/fa";
 import { GiCargoCrate } from "react-icons/gi";
 import SiderBarItem from "./SiderBarItem";
 import DropDown from "./DropDown";
 import settingsIcon from "../../icons/settingsIcon.png";
 import helpIcon from "../../icons/helpIcon.png";
+
 import { fabric } from "fabric";
 import { addItem } from "../../redux/ObjectsDataSlice";
 import { useDispatch } from "react-redux";
 import randomColor from "randomcolor";
 import eventBus from "../Grid/eventBus";
 import { v4 } from "uuid";
+import SettingsIcon from "@mui/icons-material/Settings";
+// import "index.css";
 
 export const X_ORIGIN = 22;
 export const Y_ORIGIN = 315;
@@ -70,7 +80,7 @@ const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
             >
               <div className="flex items-center gap-3 ">
                 <FaTimes size={40} />
-                <h2 className="text-xl font-bold text-[#1E1E22]">Gulliver</h2>
+                <h2 className="text-xl font-bold text-white">Gulliver</h2>
               </div>
             </button>
           ) : null}
@@ -79,19 +89,38 @@ const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
         <div onClick={addRectangle}>
           <SiderBarItem Icon={GiCargoCrate} buttonText="New Object" />
         </div>
+        <div>
+          <SiderBarItem Icon={FaTrash} buttonText="Erase All" />
+        </div>
+        <div>
+          <SiderBarItem Icon={FaPlaneDeparture} buttonText="Basic Data" />
+        </div>
+        <div>
+          <SiderBarItem Icon={FaChartLine} buttonText="Show Infographics" />
+        </div>
+        <div>
+          <SiderBarItem Icon={FaFileExport} buttonText="Export To Loadsheet" />
+        </div>
         <hr />
         <div onClick={() => setShowDropDown((prev) => !prev)}>
           <SiderBarItem Icon={FaCaretDown} buttonText="Existing Objects" />
         </div>
         {showDropDown && <DropDown />}
         <div className="flex  text-white">
-          <button className="font-bold ">Help</button>
-          <img className="my-auto h-5 w-5" src={helpIcon} alt="helpIcon" />
+          {/* <button className="font-bold ">Help</button>
+          <img className="my-auto h-5 w-5" src={helpIcon} alt="helpIcon" /> */}
         </div>
       </div>
-      <div className="flex text-white">
-        <button className="font-bold ">Settings</button>
-        <img className="my-auto h-5 w-5" src={settingsIcon} alt="settingIcon" />
+      <div className="flex flex-row text-white">
+        <button className="buttonForSettings">
+          Settings &nbsp;
+          {/* <img
+            className="my-auto h-3 w-3"
+            src={settingsIcon}
+            alt="settingIcon"
+          /> */}
+          <SettingsIcon className="spinningSettingsIcons" />
+        </button>
       </div>
     </div>
   );
