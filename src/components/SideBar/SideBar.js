@@ -24,7 +24,7 @@ const SideBar = (props, fabricRef) => {
           </button>
         ) : null}
         <div
-          className={`sidebar fixed top-0 overflow-auto left-0 w-[15%] bg-[#FAC11A] text-white h-full p-5 ease-in-out duration-100 ${
+          className={`sidebar fixed top-0 left-0 w-[20%] bg-[#f9d63a]	 text-white h-full p-5 ease-in-out duration-100 ${
             showSideBar ? "translate-x-0" : "translate-x-[-100%]"
           }`}
         >

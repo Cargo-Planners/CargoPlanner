@@ -8,21 +8,23 @@ function CGrid(props, fabricRef) {
     setSideBarOpen(!isSideBarOpen);
   });
   return (
-    <Fragment>
+    <div
+      className="flex justify-center bg-[#fafafa] col-start-1 col-end-12"
+      // className={`flex justify-center items-center w-4/5 min-h-[412.88px] ${
+      //   !isSideBarOpen ? "ml-auto" : ""
+      // }`}
+    >
       <div
-        className={`flex justify-center items-center w-4/5 min-h-[412.88px] ${
-          !isSideBarOpen ? "ml-auto" : ""
-        }`}
+        // style={{ marginRight: "1.5vw", marginBottom: "5rem" }}
+        className="gridContainer flex flex-col mb-6"
       >
-        <div className="gridContainer flex flex-col mb-6">
-          <div className="startEndGrid">
-            <h2>245</h2>
-            <h2>737</h2>
-          </div>
-          <DynamicObj ref={fabricRef} />
+        <div className="startEndGrid">
+          <h2>245</h2>
+          <h2>737</h2>
         </div>
+        <DynamicObj ref={fabricRef} />
       </div>
-    </Fragment>
+    </div>
   );
 }
 

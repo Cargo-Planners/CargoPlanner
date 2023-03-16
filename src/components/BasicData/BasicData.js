@@ -20,6 +20,7 @@ import close from "../../icons/close.png";
 
 import { useState } from "react";
 import Modal from "react-modal";
+import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
 
 const configs = [
   { value: "1", label: "Option 1" },
@@ -38,7 +39,7 @@ const BasicData = ({ setModalIsOpen }) => {
   const dispatch = useDispatch();
 
   return (
-    <div>
+    <div className="p-20 bg-[#DEBD7D]">
       <button
         onClick={() => {
           setModalIsOpen(false);
@@ -47,7 +48,7 @@ const BasicData = ({ setModalIsOpen }) => {
       >
         <img src={close} alt="" />
       </button>
-      <h1 className="text-center text-5xl font-bold my-4  ">Basic Data</h1>
+      <h1 className="text-center text-5xl font-bold my-4 mb-10">Basic Data</h1>
 
       <label className="label-font-w">Aircraft:</label>
       <div className="box-item">
@@ -121,10 +122,14 @@ const BasicData = ({ setModalIsOpen }) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 mb-6 mt-4">
-        <label className="label-font-w">Fuel Distribution:</label>
+      <div className="grid grid-cols-2 mb-6 mt-4 ">
+        <label className="label-font-w w-max	">Fuel Distribution:</label>
         <button onClick={() => setFuelModalIsOpen(true)}>
-          <img src={Fuel} alt="" id="fuel-img" />
+          {/* <img src={Fuel} alt="" id="fuel-img" /> */}
+          <LocalGasStationIcon
+            // className="text-[#F0AD4A] h-[70px]	w-[70px]"
+            style={{ width: "70px", height: "70px", color: "#F0AD4A" }}
+          />
         </button>
 
         <label className="label-font-b">POD/NO POD:</label>

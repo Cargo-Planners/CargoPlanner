@@ -34,61 +34,65 @@ const ObjectList = (props, fabricRef) => {
   };
 
   return (
-    <Fragment>
-      <div className="flex flex-col bg-[#FAC11A] w-1/3   rounded-t-3xl ">
-        <h1 className="text-white text-2xl font-bold text-center my-2">
+    <div className="flex content-center col-span-1 row-span-2 bg-[#f7f7f7] col-start-12 col-end-14">
+      <div className="flex flex-col bg-[#fffae1] w-full h-screen rounded-tl-lg border-[#000000] border-2 overflow-hidden">
+        <h1 className="text-[#000000] text-2xl font-bold text-center my-2">
           Objects
         </h1>
         <div className="flex items-center">
           <button
             onClick={activeCalculateWeight}
-            className="bg-[#FFE9A0] my-4 mx-auto py-2 px-4 rounded-lg" // Might not need this Button! ignore for now.
+            className="bg-[#ffffff] hover:bg-[#f9d63a] my-4 mx-auto py-2 px-4 rounded-lg text-[#000000] font-bold border-[#000000] border-2" // Might not need this Button! ignore for now.
           >
             Update Total Weight
           </button>
           <button
-            className="bg-[#FFE9A0] my-4 mx-auto py-2 px-4 rounded-lg"
+            className="bg-[#ffffff] hover:bg-[#f9d63a] my-4 mx-auto py-2 px-4 rounded-lg text-[#000000] font-bold border-[#000000] border-2"
             onClick={setFs}
           >
             Update FS
           </button>
         </div>
-        <div className="flex flex-col mt-2">
+        <div className="flex flex-col mt-2 h-5/6">
           <div className="flex mb-2 text-center">
-            <p className="w-1/5">ID</p>
-            <p className="w-1/5">Name</p>
-            <p className="w-1/5">Weight</p>
-            <p className="w-1/5">FS</p>
-            <p className="w-1/5">cell</p>
+            <p className="w-1/5 text-[#000000] font-semibold">ID</p>
+            <p className="w-1/5 text-[#000000] font-semibold">Name</p>
+            <p className="w-1/5 text-[#000000] font-semibold">Weight</p>
+            <p className="w-1/5 text-[#000000] font-semibold">FS</p>
+            <p className="w-1/5 text-[#000000] font-semibold">cell</p>
           </div>
-          <div className="flex flex-col sidebar overflow-auto max-h-[230px] min-h-[50px] h-auto bg-[#FAC11A] text-right py-3 rounded-lg">
+          <div className="flex flex-col text-right py-3 rounded-b-lg overflow-auto h-full hide-scroll-bar">
             {objectListItems.map((item, index) => (
               <div key={index} className="flex flex-col">
                 <div className="flex mb-2">
                   {/* onClick={setPopUp} What is this? */}
                   <p
-                    className="w-1/5 my-auto text-center cursor-pointer"
+                    className="w-1/5 my-auto text-center cursor-pointer text-[#000000] font-medium"
                     onClick={() => togglePopup(index)}
                   >
                     {index}
                   </p>
-                  <p className="w-1/5 my-auto text-center">{item.type}</p>
+                  <p className="w-1/5 my-auto text-center text-[#000000] font-medium">
+                    {item.type}
+                  </p>
                   <input
                     name="item"
-                    className="w-1/5 bg-[#FFE9A0] placeholder:text-center text-black"
+                    className="w-1/5 bg-[#ffffff] text-center text-[#000000] pl-[10px] border-[#424242] border rounded"
                     placeholder="Weight"
                     onChange={(e) => weightChangeHandler(e, index)}
                     type="number"
                     min="0"
                   />
                   <input
-                    className="w-1/5 bg-[#FFE9A0] placeholder:text-center text-black"
+                    className="w-1/5 bg-[#ffffff] text-center text-[#000000] pl-[10px] border-[#424242] border rounded"
                     placeholder={objectListItems[index].fs}
                     //onChange={(e) => (objectListItems[index].fs)}
                     type="number"
                     min="0"
                   />
-                  <p className="w-1/5 my-auto text-center">{index}</p>
+                  <p className="w-1/5 my-auto text-center text-[#000000] font-medium">
+                    {index}
+                  </p>
                 </div>
               </div>
             ))}
@@ -101,7 +105,7 @@ const ObjectList = (props, fabricRef) => {
           handleClose={togglePopup}
         />
       ) : null}
-    </Fragment>
+    </div>
   );
 };
 
