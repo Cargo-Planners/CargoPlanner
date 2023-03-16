@@ -3,6 +3,7 @@ import { useState } from "react";
 
 import BasicData from "../BasicData/BasicData";
 import Modal from "react-modal";
+import { PropTypes } from "prop-types";
 
 const EditBasicDataButton = ({ img }) => {
   const [modalIsOpen, setModalIsOpen] = useState(true);
@@ -46,6 +47,12 @@ const EditBasicDataButton = ({ img }) => {
       </Modal>
     </Fragment>
   );
+};
+EditBasicDataButton.defaultProps = {
+  open: false,
+};
+EditBasicDataButton.prototype = {
+  open: PropTypes.bool,
 };
 
 export default EditBasicDataButton;

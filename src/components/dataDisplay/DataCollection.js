@@ -9,7 +9,7 @@ const DataCollection = () => {
     setSideBarOpen(!isSideBarOpen);
   });
   return (
-    <div className="flex justify-center content-center bg-[#fffae1] col-start-1 col-end-12 border-[#000000] border-2 rounded-[100px] w-4/5 ml-[100px]">
+    <div className="flex justify-center content-center bg-[#fffae1] col-start-1 col-end-12 border-[#000000]  rounded-[100px] w-4/5 ml-[100px] p-0">
       <div
         id="data-col-win2"
         className="flex justify-center self-center content-center items-center  rounded-3xl w-4/5"

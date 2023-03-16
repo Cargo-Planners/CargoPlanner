@@ -15,18 +15,34 @@ import helpIcon from "../../icons/helpIcon.png";
 
 import { fabric } from "fabric";
 import { addItem } from "../../redux/ObjectsDataSlice";
-import { useDispatch } from "react-redux";
 import randomColor from "randomcolor";
 import eventBus from "../Grid/eventBus";
 import { v4 } from "uuid";
 import SettingsIcon from "@mui/icons-material/Settings";
+import { useSelector, useDispatch } from "react-redux";
+import PopUp from "../Grid/PopUp";
+import { Fragment } from "react";
+import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
+import { routeConstants } from "../../Routes/constants";
+import EditBasicDataButton from "../Grid/EditBasicDataButton";
+import BasicData from "../BasicData/BasicData";
+import ActualPopup from "../ActualPopup/basicDataModal";
+
 // import "index.css";
 
 export const X_ORIGIN = 22;
 export const Y_ORIGIN = 315;
 
 const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
+  const [isOpen, setIsOpen] = useState(false);
   const [showDropDown, setShowDropDown] = useState(false);
+  const objectListItems = useSelector((state) => state.objectsData);
+  const basicData = useSelector((state) => state.basicData);
+  const [mathState, setMathState] = useState(2);
+  const [mathState2, setMathState2] = useState(3);
+  const [modalOpen, setModalOpen] = useState(false);
+
   const setSideBar = () => {
     eventBus.dispatch("setSideBarValue", { message: "" });
   };
@@ -66,8 +82,52 @@ const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
     fabricRef.current.setActiveObject(rect);
   };
 
+  const togglePopup = () => {
+    // console.log("something?");
+    // setIsOpen(!isOpen);
+    console.log("basic data is:", basicData);
+    console.log("objects are:", objectListItems);
+    if (mathState === mathState2) {
+      Swal.fire({
+        icon: "success",
+        title: "כל הכבוד עכשיו אפשר לייצא קובץ pdf",
+        // text: '',
+        // html: "<div><h1>{objectListItems}<h1> <h1>{basicData}</h1></div>",
+        text: `${objectListItems.fuel}${" "}${objectListItems.MAC}{" "}${
+          objectListItems.MACRange
+        }{" "}${objectListItems.ZFW}{" "}${objectListItems.fuel}{" "}${
+          objectListItems.areaGraph
+        }{" "}${objectListItems.index}{"inside the objectListItems"}${
+          objectListItems.objectListItems[0].fill
+        }{" "}${objectListItems.fuel}{" "}${objectListItems.fuel}{" "}${
+          objectListItems.fuel
+        }{" "}${basicData}`,
+      });
+    } else {
+      Swal.fire({
+        icon: "errpr",
+        title: "המתמטיקה שלך לא משהו חשבת להשלים בגרויות?",
+        text: "ניסית אולי בני גורן?",
+      });
+    }
+  };
+
+  const setModalIsOpen = () => {
+    setModalOpen(!modalOpen);
+  };
   return (
     <div className="min-h-full flex flex-col justify-between">
+      {/* {isOpen && (
+        <PopUp
+          content={
+            <div>
+              <h1>נתונים שלך עברו בהצלחה כל הכבוד</h1>
+            </div>
+          }
+          handleClose={togglePopup}
+        />
+      )} */}
+
       <div className="flex flex-col gap-5">
         <div className="flex">
           {showSideBar ? (
@@ -92,13 +152,21 @@ const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
         <div>
           <SiderBarItem Icon={FaTrash} buttonText="Erase All" />
         </div>
-        <div>
+        <div onClick={setModalIsOpen}>
           <SiderBarItem Icon={FaPlaneDeparture} buttonText="Basic Data" />
         </div>
-        <div>
-          <SiderBarItem Icon={FaChartLine} buttonText="Show Infographics" />
-        </div>
-        <div>
+        {modalOpen && (
+          // <BasicData setModalIsOpen={setModalIsOpen} />
+          <ActualPopup open={modalOpen}></ActualPopup>
+        )}
+
+        <Link to={routeConstants.GraphsRoute}>
+          <div>
+            <SiderBarItem Icon={FaChartLine} buttonText="Show Infographics" />
+          </div>
+        </Link>
+
+        <div onClick={togglePopup}>
           <SiderBarItem Icon={FaFileExport} buttonText="Export To Loadsheet" />
         </div>
         <hr className="border-[#000000]" />

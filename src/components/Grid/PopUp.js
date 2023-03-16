@@ -5,9 +5,9 @@ const PopUp = ({ content, handleClose }) => {
     <Fragment>
       <div className="popup-box">
         <div className="box">
-          <span className="close-icon" onClick={handleClose}>
+          {/* <span className="close-icon" onClick={handleClose}>
             x
-          </span>
+          </span> */}
           {content}
         </div>
       </div>
