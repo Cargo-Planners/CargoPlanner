@@ -12,11 +12,19 @@ export const CargoInputNumber = ({
   placeholder,
   value,
   label,
+  labelPosition,
+  labelSize,
+  labelTextPosition,
 }: Props) => {
   const arr = ['a', 'b'];
 
   return (
-    <CargoInput label={label}>
+    <CargoInput
+      label={label}
+      labelPosition={labelPosition}
+      labelSize={labelSize}
+      labelTextPosition={labelTextPosition}
+    >
       <input
         className='cargo-input'
         type='number'

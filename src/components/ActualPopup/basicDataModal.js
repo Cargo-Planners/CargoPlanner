@@ -38,11 +38,6 @@ import { SampleForm } from '../SampleContainer/SampleForm';
 function ActualPopup(props) {
   const { open } = props;
   const [isOpen, setIsOpen] = useState(open);
-  const [modalIsOpen, setModalIsOpen] = useState(true);
-
-  useEffect(() => {
-    console.log(props);
-  }, []);
 
   const handleClose = () => {
     setIsOpen(false);
@@ -51,8 +46,7 @@ function ActualPopup(props) {
   return (
     <Dialog
       open={isOpen}
-      keepMounted
-      onClose={() => handleClose()}
+      keepMounted={true}
       aia-describedly='alert-dialog-slide-description'
       style={{
         display: 'flex',

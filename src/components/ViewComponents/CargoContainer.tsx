@@ -1,15 +1,15 @@
 import { MdOutlineClose } from 'react-icons/md';
-import React, { Children, PropsWithChildren } from 'react';
+import React, { PropsWithChildren } from 'react';
 import './styles.css';
 
 type Props = {
-  showCloseIcon: boolean;
+  showCloseIcon?: boolean;
   close: () => void;
 };
 
 export const CargoContainer = ({
   children,
-  showCloseIcon,
+  showCloseIcon = true,
   close,
 }: PropsWithChildren<Props>) => {
   const content = children;
@@ -17,7 +17,7 @@ export const CargoContainer = ({
   return (
     <div className='container'>
       <MdOutlineClose
-        className='close-icon'
+        className='cargo-close-icon'
         style={{ display: showCloseIcon ? 'auto' : 'none' }}
         onClick={close}
       />

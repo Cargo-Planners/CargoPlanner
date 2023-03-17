@@ -1,6 +1,7 @@
 :root {
   --cargo-yello: #f9d63a;
   --popup-light-yellow: #fffae1;
+  --label-font-size: 1.25rem;
 }
 
 .container {
@@ -15,32 +16,36 @@
   border-radius: 10px;
 }
 
-.close-icon {
+.cargo-close-icon {
   position: absolute;
   top: 5%;
   right: 5%;
+  background-color: transparent;
+  width: 40px;
+  height: 40px;
+  border: none;
+  cursor: pointer;
 }
 
 .cargo-input-holder {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 100%;
-  margin: 10px;
+  width: 95%;
+  margin: 10px 0 10px 5%;
 }
 
 .input-label {
   font-weight: bold;
-  font-size: 1.25rem;
+  font-size: var(--label-font-size);
   display: flex;
   align-items: center;
   min-width: 50%;
   text-align: left;
-  padding-left: 5%;
 }
 
 .cargo-input {
-  margin: 0 0 0 10px;
+  margin: 5px 0 0 5px;
   padding-left: 4%;
   border: 1px solid hsl(0, 0%, 80%);
   border-radius: 4px;
