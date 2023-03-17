@@ -33,7 +33,8 @@ import {
   updateIndex,
   updateConfig,
 } from '../../redux/EditBasicDataSlice';
-import { SampleForm } from '../SampleContainer/SampleForm';
+import { BasicDataForm } from '../Popups/BasicDataForm';
+import './popup.css';
 
 function ActualPopup(props) {
   const { open } = props;
@@ -48,14 +49,8 @@ function ActualPopup(props) {
       open={isOpen}
       keepMounted={true}
       aia-describedly='alert-dialog-slide-description'
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignContent: 'center',
-        alignItems: 'center',
-      }}
     >
-      <SampleForm closeModal={handleClose} />
+      <BasicDataForm closeModal={handleClose} />
     </Dialog>
   );
 }

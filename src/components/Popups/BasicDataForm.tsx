@@ -3,22 +3,20 @@ import { CargoContainer } from '../ViewComponents/CargoContainer';
 import { CargoInputNumber } from '../ViewComponents/CargoInputNumber';
 import { CargoInputText } from '../ViewComponents/CargoInputText';
 import { CargoInputSelect } from '../ViewComponents/CargoInputSelect';
-import {
-  CargoInput,
-  labelPositionEnum,
-  labelTextPositionEnum,
-} from '../ViewComponents/CargoInput';
+import { CargoInput, labelPositionEnum } from '../ViewComponents/CargoInput';
+import { CargoInputRadio } from '../ViewComponents/CargoInputRadio';
+import { MdLocalGasStation } from 'react-icons/md';
 
 type Props = {
   closeModal: () => void;
 };
 
-export const SampleForm = ({ closeModal }: Props) => {
+export const BasicDataForm = ({ closeModal }: Props) => {
   return (
     <CargoContainer close={closeModal}>
       <div className='w-[60vh] '>
         <div className='flex justify-center'>
-          <h1 className='text-center text-5xl font-bold my-4 mb-10'>My Form</h1>
+          <h1 className='text-center text-5xl font-bold'>My Form</h1>
         </div>
         <div>
           <CargoInput
@@ -29,16 +27,16 @@ export const SampleForm = ({ closeModal }: Props) => {
             <div className='w-3/5'>
               <CargoInputNumber
                 placeholder='Empty Weight'
-                label='Empty Weight'
+                label='Empty Weight:'
               />
             </div>
             <div className='w-3/5'>
-              <CargoInputText placeholder='Index' label='Aircraft Index' />
+              <CargoInputText placeholder='Index' label='Aircraft Index:' />
             </div>
             <div className='w-3/5'>
               <CargoInputSelect
                 options={['Option1', 'Option2', 'Option3']}
-                label='Formation'
+                label='Formation:'
               />
             </div>
           </CargoInput>
@@ -53,19 +51,31 @@ export const SampleForm = ({ closeModal }: Props) => {
               <CargoInputNumber
                 minValue={0}
                 placeholder='0'
-                label='Cockpit Crew'
+                label='Cockpit Crew:'
               />
             </div>
             <div className='w-3/5'>
               <CargoInputNumber
                 minValue={0}
                 placeholder='0'
-                label='Inspectors Crew'
+                label='Inspectors Crew:'
               />
             </div>
           </CargoInput>
         </div>
+        <div>
+          <CargoInput
+            label='Fuel Distribution:'
+            labelPosition={labelPositionEnum.TOP}
+            labelSize={1.75}
+          >
+            <div className='w-3/5'>
+              <CargoInputRadio label='Pod/No Pod:' />
+            </div>
+          </CargoInput>
+        </div>
       </div>
+      <MdLocalGasStation className='absolute right-10 bottom-5 w-[40px] h-[40px] hover:text-[#f9d63a] cursor-pointer' />
     </CargoContainer>
   );
 };
