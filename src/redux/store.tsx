@@ -1,7 +1,13 @@
-import ObjectsDataSliceReducer from './ObjectsDataSlice';
-import EditBasicDataReducer from './EditBasicDataSlice';
+import ObjectsDataSliceReducer, { ObjectsDataState } from './ObjectsDataSlice';
+import EditBasicDataReducer, { BasicDataState } from './EditBasicDataSlice';
 import { configureStore } from '@reduxjs/toolkit';
-import PopupSliceReducer from './PopupSlice';
+import PopupSliceReducer, { PopupState } from './PopupSlice';
+
+export type State = {
+  objectsData: ObjectsDataState;
+  basicData: BasicDataState;
+  popupReducer: PopupState;
+};
 
 export const store = configureStore({
   reducer: {

@@ -5,7 +5,7 @@ export interface Popup {
   isOpen: boolean;
 }
 
-interface PopupState {
+export interface PopupState {
   popupList: Popup[];
 }
 
@@ -18,7 +18,7 @@ const PopupSliceReducer = createSlice({
   initialState: initialPopupState,
   reducers: {
     openPopup: (state: PopupState, action: { payload: string }) => {
-      if (state.popupList.find((popup) => popup.id !== action.payload)) {
+      if (!state.popupList.find((popup) => popup.id === action.payload)) {
         return {
           ...state,
           popupList: [...state.popupList, { id: action.payload, isOpen: true }],

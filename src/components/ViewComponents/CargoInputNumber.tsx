@@ -16,8 +16,6 @@ export const CargoInputNumber = ({
   labelSize,
   labelTextPosition,
 }: Props) => {
-  const arr = ['a', 'b'];
-
   return (
     <CargoInput
       label={label}

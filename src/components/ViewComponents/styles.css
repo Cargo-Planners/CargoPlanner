@@ -73,3 +73,11 @@
   color: var(--cargo-yello);
   cursor: pointer;
 }
+
+.MuiDialog-paper {
+  border-radius: 1rem;
+}
+
+.MuiDialog-container {
+  border-radius: 1rem;
+}

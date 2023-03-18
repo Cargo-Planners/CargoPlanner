@@ -1,20 +1,29 @@
 import React from 'react';
-import { CargoContainer } from '../ViewComponents/CargoContainer';
-import { CargoInputNumber } from '../ViewComponents/CargoInputNumber';
-import { CargoInputText } from '../ViewComponents/CargoInputText';
-import { CargoInputSelect } from '../ViewComponents/CargoInputSelect';
-import { CargoInput, labelPositionEnum } from '../ViewComponents/CargoInput';
-import { CargoInputRadio } from '../ViewComponents/CargoInputRadio';
+import {
+  CargoContainer,
+  CargoInputNumber,
+  CargoInputText,
+  CargoInputSelect,
+  CargoInput,
+  labelPositionEnum,
+  CargoInputRadio,
+} from '../ViewComponents';
 import { MdLocalGasStation } from 'react-icons/md';
 
 type Props = {
-  closeModal: () => void;
+  close: (id: string) => void;
 };
 
-export const BasicDataForm = ({ closeModal }: Props) => {
+export const basicDataId = 'BASIC_DATA';
+
+export const BasicDataForm = ({ close }: Props) => {
+  function handleClose() {
+    close(basicDataId);
+  }
+
   return (
-    <CargoContainer close={closeModal}>
-      <div className='w-[60vh] '>
+    <CargoContainer close={handleClose}>
+      <div className='w-[60vh]'>
         <div className='flex justify-center'>
           <h1 className='text-center text-5xl font-bold'>My Form</h1>
         </div>

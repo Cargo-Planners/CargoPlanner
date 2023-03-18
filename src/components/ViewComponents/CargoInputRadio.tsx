@@ -1,5 +1,5 @@
 import React from 'react';
-import { BasicInputProps, CargoInput, InputProps } from './CargoInput';
+import { BasicInputProps, CargoInput } from './CargoInput';
 
 type Props = {} & BasicInputProps;
 

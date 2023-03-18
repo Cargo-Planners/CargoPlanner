@@ -50,7 +50,7 @@ function ActualPopup(props) {
       keepMounted={true}
       aia-describedly='alert-dialog-slide-description'
     >
-      <BasicDataForm closeModal={handleClose} />
+      <BasicDataForm close={handleClose} />
     </Dialog>
   );
 }

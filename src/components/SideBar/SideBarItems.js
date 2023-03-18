@@ -28,7 +28,9 @@ import { routeConstants } from '../../Routes/constants';
 import EditBasicDataButton from '../Grid/EditBasicDataButton';
 import BasicData from '../BasicData/BasicData';
 import ActualPopup from '../ActualPopup/basicDataModal';
-import { openPopup } from '../../redux/PopupSlice';
+import { openPopup, closePopup } from '../../redux/PopupSlice';
+import { BasicDataForm, basicDataId } from '../Popups/BasicDataForm';
+import { PopupComponent } from '../ViewComponents';
 
 export const X_ORIGIN = 22;
 export const Y_ORIGIN = 315;
@@ -42,14 +44,26 @@ const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
   const [mathState2, setMathState2] = useState(3);
   const [modalOpen, setModalOpen] = useState(false);
 
+  const popupList = useSelector((state) => state.popupReducer.popupList);
+
   const setSideBar = () => {
     eventBus.dispatch('setSideBarValue', { message: '' });
   };
 
   const dispatch = useDispatch();
+
+  const dispatchOpenPopup = (id) => {
+    dispatch(openPopup(id));
+  };
+
+  const dispatchClosePopup = (id) => {
+    dispatch(closePopup(id));
+  };
+
   const addItemToObjectList = (item) => {
     dispatch(addItem(item));
   };
+
   const addRectangle = () => {
     let color = randomColor();
     const id = v4();
@@ -151,13 +165,20 @@ const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
         <div>
           <SiderBarItem Icon={FaTrash} buttonText='Erase All' />
         </div>
-        <div onClick={setModalIsOpen}>
+        <div
+          onClick={() => {
+            console.log(popupList);
+            dispatchOpenPopup(basicDataId);
+          }}
+        >
           <SiderBarItem Icon={FaPlaneDeparture} buttonText='Basic Data' />
         </div>
-        {modalOpen && (
+        {
           // <BasicData setModalIsOpen={setModalIsOpen} />
-          <ActualPopup open={modalOpen}></ActualPopup>
-        )}
+          <PopupComponent popupId={basicDataId}>
+            <BasicDataForm close={dispatchClosePopup} />
+          </PopupComponent>
+        }
 
         <Link to={routeConstants.GraphsRoute}>
           <div>
