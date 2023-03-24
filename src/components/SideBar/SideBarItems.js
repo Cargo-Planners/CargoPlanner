@@ -29,7 +29,7 @@ import EditBasicDataButton from '../Grid/EditBasicDataButton';
 import BasicData from '../BasicData/BasicData';
 import ActualPopup from '../ActualPopup/basicDataModal';
 import { openPopup, closePopup } from '../../redux/PopupSlice';
-import { BasicDataForm, basicDataId } from '../Popups/BasicDataForm';
+import { BasicDataForm, basicDataId } from '../Popups/BasicData/BasicDataForm';
 import { PopupComponent } from '../ViewComponents';
 
 export const X_ORIGIN = 22;
@@ -62,6 +62,11 @@ const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
 
   const addItemToObjectList = (item) => {
     dispatch(addItem(item));
+
+    const objectList = JSON.parse(localStorage.getItem('objects'))
+      ? [...JSON.parse(localStorage.getItem('objects')), item]
+      : [item];
+    localStorage.setItem('objects', JSON.stringify(objectList));
   };
 
   const addRectangle = () => {
@@ -175,8 +180,11 @@ const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
         </div>
         {
           // <BasicData setModalIsOpen={setModalIsOpen} />
-          <PopupComponent popupId={basicDataId}>
-            <BasicDataForm close={dispatchClosePopup} />
+          <PopupComponent popupId={basicDataId} width='35vw' height='70vh'>
+            <BasicDataForm
+              close={dispatchClosePopup}
+              open={dispatchOpenPopup}
+            />
           </PopupComponent>
         }
 

@@ -11,7 +11,6 @@ import { GiCargoCrate } from 'react-icons/gi';
 import settingsIcon from '../../icons/settingsIcon.png';
 import helpIcon from '../../icons/helpIcon.png';
 import { fabric } from 'fabric';
-import { addItem } from '../../redux/ObjectsDataSlice';
 import randomColor from 'randomcolor';
 import eventBus from '../Grid/eventBus';
 import { v4 } from 'uuid';
@@ -33,7 +32,7 @@ import {
   updateIndex,
   updateConfig,
 } from '../../redux/EditBasicDataSlice';
-import { BasicDataForm } from '../Popups/BasicDataForm';
+import { BasicDataForm } from '../Popups/BasicData/BasicDataForm';
 import './popup.css';
 
 function ActualPopup(props) {

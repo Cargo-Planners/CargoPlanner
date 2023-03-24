@@ -62,7 +62,7 @@ const ObjectList = (props, fabricRef) => {
             <p className='w-1/5 text-[#000000] font-semibold'>cell</p>
           </div>
           <div className='flex flex-col text-right py-3 rounded-b-lg overflow-auto h-full hide-scroll-bar'>
-            {objectListItems.map((item, index) => (
+            {objectListItems?.map((item, index) => (
               <div key={index} className='flex flex-col'>
                 <div className='flex mb-2'>
                   {/* onClick={setPopUp} What is this? */}

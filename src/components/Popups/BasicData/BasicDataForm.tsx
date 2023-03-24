@@ -7,23 +7,26 @@ import {
   CargoInput,
   labelPositionEnum,
   CargoInputRadio,
-} from '../ViewComponents';
+  PopupComponent,
+} from '../../ViewComponents';
 import { MdLocalGasStation } from 'react-icons/md';
+import { FuelDataId, FuelData } from '../FuelData/FuelData';
 
 type Props = {
   close: (id: string) => void;
+  open: (id: string) => void;
 };
 
 export const basicDataId = 'BASIC_DATA';
 
-export const BasicDataForm = ({ close }: Props) => {
+export const BasicDataForm = ({ close, open }: Props) => {
   function handleClose() {
     close(basicDataId);
   }
 
   return (
     <CargoContainer close={handleClose}>
-      <div className='w-[60vh]'>
+      <div className='w-full'>
         <div className='flex justify-center'>
           <h1 className='text-center text-5xl font-bold'>My Form</h1>
         </div>
@@ -84,7 +87,13 @@ export const BasicDataForm = ({ close }: Props) => {
           </CargoInput>
         </div>
       </div>
-      <MdLocalGasStation className='absolute right-10 bottom-5 w-[40px] h-[40px] hover:text-[#f9d63a] cursor-pointer' />
+      <MdLocalGasStation
+        className='absolute right-10 bottom-5 w-[40px] h-[40px] hover:text-[#f9d63a] cursor-pointer'
+        onClick={() => open(FuelDataId)}
+      />
+      <PopupComponent popupId={FuelDataId} width='60%' height='90%'>
+        <FuelData close={close} />
+      </PopupComponent>
     </CargoContainer>
   );
 };
