@@ -1,6 +1,20 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
+import { ObjectItem } from '../models/ObjectItem';
 
-const initialState = {
+export interface ObjectsDataState {
+  objectListItems: ObjectItem[];
+  takeOffWeight: number;
+  totalCargoWeight: number;
+  totalIndex: number;
+  ZFW: number;
+  fuel: number;
+  areaGraph: number;
+  MAC: number;
+  MACRange: number;
+  index: number;
+}
+
+const initialState: ObjectsDataState = {
   objectListItems: [],
   takeOffWeight: 0,
   totalCargoWeight: 0,
@@ -14,7 +28,7 @@ const initialState = {
 };
 
 const ObjectsDataSlice = createSlice({
-  name: "objectsData",
+  name: 'objectsData',
   initialState,
   reducers: {
     addItem: (state, action) => {
@@ -24,7 +38,7 @@ const ObjectsDataSlice = createSlice({
       state.objectListItems[action.payload.index].weight =
         action.payload.updatedWeight;
     },
-    calculateWeight: (state, action) => {
+    calculateWeight: (state) => {
       let total = 0;
       state.objectListItems.forEach((object) => {
         total += object.weight;
@@ -62,7 +76,6 @@ const ObjectsDataSlice = createSlice({
 export default ObjectsDataSlice.reducer;
 export const {
   addItem,
-  updateWeight,
   updateWeightObj,
   calculateWeight,
   updateWidth,
