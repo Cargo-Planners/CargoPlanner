@@ -10,14 +10,6 @@ import { useDispatch } from 'react-redux';
 import { setObjectsList } from './redux/ObjectsDataSlice';
 
 function App() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const listFromStorage = JSON.parse(localStorage.getItem('objects'));
-    // console.log(listFromStorage);
-    dispatch(setObjectsList(listFromStorage));
-  }, []);
-
   return (
     <Fragment>
       <Routes>

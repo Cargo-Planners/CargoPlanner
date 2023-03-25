@@ -34,8 +34,8 @@ const ObjectList = (props, fabricRef) => {
   };
 
   return (
-    <div className='flex content-center col-span-1 row-span-2 bg-[#f7f7f7] col-start-12 col-end-14'>
-      <div className='flex flex-col bg-[#fffae1] w-full h-screen rounded-tl-lg border-[#000000] border-2 overflow-hidden'>
+    <div className='flex content-center bg-[#f7f7f7] absolute right-0 top-0 w-[25vw] h-screen'>
+      <div className='flex flex-col bg-[#fffae1] w-full h-screen rounded-tl-lg  overflow-hidden'>
         <h1 className='text-[#000000] text-2xl font-bold text-center my-2'>
           Objects
         </h1>
@@ -85,7 +85,7 @@ const ObjectList = (props, fabricRef) => {
                   />
                   <input
                     className='w-1/5 bg-[#ffffff] text-center text-[#000000] pl-[10px] border-[#424242] border rounded'
-                    placeholder={objectListItems[index].fs}
+                    placeholder={item.fs}
                     //onChange={(e) => (objectListItems[index].fs)}
                     type='number'
                     min='0'

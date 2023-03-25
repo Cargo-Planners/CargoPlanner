@@ -185,9 +185,10 @@ const DynamicObj = (props, fabricRef) => {
 
         objectList.forEach((object, i) => {
           if (fabricRef.current._activeObject.id === object.id) {
+            console.log('papa');
             dispatch(
               updateFs({
-                updatedFs: 245 + fabricRef.current._activeObject.left,
+                updatedFs: 245 + position.x,
                 index: i,
               })
             );

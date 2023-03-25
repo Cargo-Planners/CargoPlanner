@@ -62,11 +62,6 @@ const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
 
   const addItemToObjectList = (item) => {
     dispatch(addItem(item));
-
-    const objectList = JSON.parse(localStorage.getItem('objects'))
-      ? [...JSON.parse(localStorage.getItem('objects')), item]
-      : [item];
-    localStorage.setItem('objects', JSON.stringify(objectList));
   };
 
   const addRectangle = () => {

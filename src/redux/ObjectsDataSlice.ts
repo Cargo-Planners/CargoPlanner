@@ -33,7 +33,6 @@ const ObjectsDataSlice = createSlice({
   reducers: {
     setObjectsList: (state, action) => {
       state.objectListItems = action.payload;
-      console.log(state.objectListItems);
     },
     addItem: (state, action) => {
       state.objectListItems = [...state.objectListItems, action.payload];

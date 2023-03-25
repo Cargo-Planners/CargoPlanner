@@ -197,6 +197,10 @@ button {
   transform: rotate(183deg);
 }
 
+.root {
+  height: 100vh;
+}
+
 #tank-fuselage {
   background: #f9d63a;
   width: 100v;
@@ -495,6 +499,7 @@ button {
 
 body {
   height: 100vh;
+  background-color: #fafafa;
 }
 
 /*first page gradiant*/
