@@ -9,6 +9,7 @@ import {
   updateFs,
   updateWeightObj,
   updateObjectPosition,
+  updateObjectById,
 } from '../../redux/ObjectsDataSlice';
 import PopUp from './PopUp';
 import eventBus from '../Grid/eventBus';
@@ -182,24 +183,28 @@ const DynamicObj = (props, fabricRef) => {
           x: e.target.left - X_ORIGIN,
           y: Math.abs(e.target.top - Y_ORIGIN),
         };
-
-        objectList.forEach((object, i) => {
-          if (fabricRef.current._activeObject.id === object.id) {
-            console.log('papa');
-            dispatch(
-              updateFs({
-                updatedFs: 245 + position.x,
-                index: i,
-              })
-            );
-            dispatch(
-              updateObjectPosition({
-                index: i,
-                position: position,
-              })
-            );
-          }
-        });
+        // console.log(fabricRef.current._activeObject.id);
+        dispatch(
+          updateObjectById({
+            id: fabricRef.current._activeObject.id,
+            changes: {
+              fs: 245 + position.x,
+              position: position,
+            },
+          })
+        );
+        // dispatch(
+        //   updateFs({
+        //     updatedFs: 245 + position.x,
+        //     id: fabricRef.current._activeObject.id,
+        //   })
+        // );
+        // dispatch(
+        //   updateObjectPosition({
+        //     index: id,
+        //     position: position,
+        //   })
+        // );
       });
     }
 

@@ -36,6 +36,8 @@ const ObjectsDataSlice = createSlice({
     },
     addItem: (state, action) => {
       state.objectListItems = [...state.objectListItems, action.payload];
+      console.log(action.payload.id);
+      console.log(action.payload);
     },
     updateWeightObj: (state, action) => {
       state.objectListItems[action.payload.index].weight =
@@ -65,13 +67,23 @@ const ObjectsDataSlice = createSlice({
         action.payload.updatedHeight;
     },
     updateFs: (state, action) => {
-      state.objectListItems[action.payload.index].fs = action.payload.updatedFs;
+      if (state.objectListItems.find((obj) => obj.id === action.payload.id)) {
+        state.objectListItems.find((obj) => obj.id === action.payload.id)!.fs =
+          action.payload.updatedFs;
+      }
     },
     updateObjectPosition: (state, action) => {
       state.objectListItems[action.payload.index] = {
         ...state.objectListItems[action.payload.index],
         ...action.payload.position,
       };
+    },
+    updateObjectById: (state, action) => {
+      state.objectListItems = state.objectListItems.map((obj) =>
+        obj.id === action.payload.id
+          ? { ...obj, ...action.payload.changes }
+          : obj
+      );
     },
   },
 });
@@ -88,4 +100,5 @@ export const {
   updateWidthAndHeightByScale,
   updateFs,
   updateObjectPosition,
+  updateObjectById,
 } = ObjectsDataSlice.actions;

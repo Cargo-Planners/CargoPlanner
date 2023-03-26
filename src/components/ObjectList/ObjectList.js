@@ -78,7 +78,7 @@ const ObjectList = (props, fabricRef) => {
                   <input
                     name='item'
                     className='w-1/5 bg-[#ffffff] text-center text-[#000000] pl-[10px] border-[#424242] border rounded'
-                    placeholder='Weight'
+                    placeholder={item.weight}
                     onChange={(e) => weightChangeHandler(e, index)}
                     type='number'
                     min='0'
