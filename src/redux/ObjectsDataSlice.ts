@@ -3,28 +3,32 @@ import { ObjectItem } from '../models/ObjectItem';
 
 export interface ObjectsDataState {
   objectListItems: ObjectItem[];
-  takeOffWeight: number;
-  totalCargoWeight: number;
-  totalIndex: number;
-  ZFW: number;
-  fuel: number;
-  areaGraph: number;
-  MAC: number;
-  MACRange: number;
-  index: number;
+  dataCollection: {
+    takeOffWeight: number;
+    totalCargoWeight: number;
+    totalIndex: number;
+    ZFW: number;
+    fuel: number;
+    areaGraph: number;
+    MAC: number;
+    MACRange: number;
+    index: number;
+  };
 }
 
 const initialState: ObjectsDataState = {
   objectListItems: [],
-  takeOffWeight: 0,
-  totalCargoWeight: 0,
-  totalIndex: 0,
-  ZFW: 0,
-  fuel: 0,
-  areaGraph: 0,
-  MAC: 0,
-  MACRange: 0,
-  index: 0,
+  dataCollection: {
+    takeOffWeight: 0,
+    totalCargoWeight: 0,
+    totalIndex: 0,
+    ZFW: 0,
+    fuel: 0,
+    areaGraph: 0,
+    MAC: 0,
+    MACRange: 0,
+    index: 0,
+  },
 };
 
 const ObjectsDataSlice = createSlice({
@@ -48,8 +52,8 @@ const ObjectsDataSlice = createSlice({
       state.objectListItems.forEach((object) => {
         total += object.weight;
       });
-      state.totalCargoWeight = total;
-      state.takeOffWeight = total;
+      state.dataCollection.totalCargoWeight = total;
+      state.dataCollection.takeOffWeight = total;
     },
     updateWidth: (state, action) => {
       state.objectListItems[action.payload.index].width = action.payload.value;

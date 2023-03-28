@@ -3,57 +3,31 @@ import { useSelector } from 'react-redux';
 import eventBus from '../Grid/eventBus';
 
 const DataCollection = () => {
-  const [isSideBarOpen, setSideBarOpen] = useState(false);
-  const objectsData = useSelector((state) => state.objectsData);
-  eventBus.on('setSideBarValue', (data) => {
-    setSideBarOpen(!isSideBarOpen);
-  });
+  const dataCollection = useSelector(
+    (state) => state.objectsData.dataCollection
+  );
+
   return (
-    <div className='flex justify-center content-center w-full w-full '>
+    <div className='flex justify-start w-full w-full '>
       <div
         id='data-col-win2'
-        className='flex justify-center self-center content-center items-center  rounded-3xl w-4/5'
+        className='flex justify-start self-center rounded-3xl w-4/5'
       >
         <h1 id='data-col-h1' className='mb-10'>
           General Data Collection
         </h1>
         <div
           id='data-col-h2'
-          className='grid grid-cols-2 gap-2 place-items-start font-semibold text-[#000000] mb-0'
+          className='font-semibold text-[#000000] mb-0 ml-[10px] '
         >
-          <h2 className='flex flex-row text-[#000000] font-bold	'>
-            ZFW : &nbsp;<h1 className='font-normal'>{objectsData.ZFW}</h1>
-          </h2>
-          <h2 className='flex flex-row text-[#000000] font-bold	'>
-            Take-Off Weight : &nbsp;
-            <h1 className='font-normal'>{objectsData.takeOffWeight}</h1>
-          </h2>
-          <h2 className='flex flex-row text-[#000000] font-bold	'>
-            Total Fuel : &nbsp;
-            <h1 className='font-normal'>{objectsData.fuel}</h1>
-          </h2>
-          <h2 className='flex flex-row text-[#000000] font-bold	'>
-            {' '}
-            Index : &nbsp;
-            <h1 className='font-normal'>{objectsData.totalIndex}</h1>
-          </h2>
-          <h2 className='flex flex-row text-[#000000] font-bold	'>
-            {' '}
-            MAC &nbsp;<h1 className='font-normal'>{objectsData.MAC}</h1>
-          </h2>
-          <h2 className='flex flex-row text-[#000000] font-bold	'>
-            {' '}
-            AREA &nbsp;
-            <h1 className='font-normal'>{objectsData.areaGraph}</h1>
-          </h2>
-          <h2 className='flex flex-row text-[#000000] font-bold	'>
-            MAC Range : &nbsp;
-            <h1 className='font-normal'>{objectsData.MACRange}</h1>
-          </h2>
-          <h2 className='flex flex-row text-[#000000] font-bold	 mb-10'>
-            Total Cargo Weight : &nbsp;{' '}
-            <h1 className='font-normal'>{objectsData.totalCargoWeight}</h1>
-          </h2>
+          {Object.keys(dataCollection).map((key) => {
+            return (
+              <h2 className='flex flex-row text-[#000000] font-bold	text-[1.5rem] mb-[10px]'>
+                {key}: &nbsp;
+                <span className='font-normal'>{dataCollection[key]}</span>
+              </h2>
+            );
+          })}
         </div>
       </div>
     </div>

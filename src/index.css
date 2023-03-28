@@ -490,7 +490,7 @@ button {
 }
 
 #data-col-h1 {
-  @apply text-center text-3xl font-bold text-[#000000] mt-5;
+  @apply text-3xl font-bold text-[#000000] mt-5 ml-[10px];
 }
 
 #data-col-h2 {
