@@ -132,7 +132,7 @@ const FuelData = ({ setFuelModalIsOpen }: Props) => {
           }}
         />
       </div>
-      <h1 id='podState'>{fuelPod ? 'POD' : 'NO POD'}</h1>{' '}
+      <h1 id='podState'>{fuelPod ? 'POD' : 'NO POD'}</h1>
       <div id='plane-tanks' style={{ backgroundImage: `url(${fuelTank})` }}>
         <div id='outboard1' className='tank-container'>
           <div id='tank-outBoard' style={s1Height}></div>

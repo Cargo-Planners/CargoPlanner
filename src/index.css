@@ -136,7 +136,7 @@ button {
 
 #podState {
   text-align: center;
-  color: #ffff;
+  color: #000000;
   font-size: 4vh;
   font-weight: 500;
 }
@@ -486,7 +486,7 @@ button {
 }
 
 #data-col-win2 {
-  @apply flex flex-col w-1/2;
+  @apply flex flex-col w-1/2 ml-[20px];
 }
 
 #data-col-h1 {

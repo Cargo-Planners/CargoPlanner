@@ -11,7 +11,7 @@ const DataCollection = () => {
     <div className='flex justify-start w-full w-full '>
       <div
         id='data-col-win2'
-        className='flex justify-start self-center rounded-3xl w-4/5'
+        className='flex justify-start self-center w-4/5 mt-[15px]'
       >
         <h1 id='data-col-h1' className='mb-10'>
           General Data Collection
@@ -22,7 +22,10 @@ const DataCollection = () => {
         >
           {Object.keys(dataCollection).map((key) => {
             return (
-              <h2 className='flex flex-row text-[#000000] font-bold	text-[1.5rem] mb-[10px]'>
+              <h2
+                className='flex flex-row text-[#000000] font-bold	text-[1.4rem] mb-[10px]'
+                key={key}
+              >
                 {key}: &nbsp;
                 <span className='font-normal'>{dataCollection[key]}</span>
               </h2>
