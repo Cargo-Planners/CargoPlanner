@@ -34,8 +34,8 @@ const ObjectList = (props, fabricRef) => {
   };
 
   return (
-    <div className='flex content-center bg-[#f7f7f7] absolute right-0 top-0 w-[25vw] h-screen'>
-      <div className='flex flex-col bg-[#fffae1] w-full h-screen rounded-tl-lg  overflow-hidden'>
+    <div className='flex content-center bg-[#f7f7f7] absolute right-0 bottom-0 w-[25vw] h-[50vh]'>
+      <div className='flex flex-col bg-[#fffae1] w-full rounded-tl-lg  overflow-hidden'>
         <h1 className='text-[#000000] text-2xl font-bold text-center my-2'>
           Objects
         </h1>

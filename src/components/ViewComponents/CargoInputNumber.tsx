@@ -15,9 +15,17 @@ export const CargoInputNumber = ({
   labelPosition,
   labelSize,
   labelTextPosition,
+  onChange,
 }: Props) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (onChange) {
+      onChange(+event.target.value);
+    }
+  };
+
   return (
     <CargoInput
+      onChange={onChange}
       label={label}
       labelPosition={labelPosition}
       labelSize={labelSize}
@@ -26,10 +34,11 @@ export const CargoInputNumber = ({
       <input
         className='cargo-input'
         type='number'
-        placeholder={placeholder}
+        placeholder={`${placeholder}`}
         min={minValue}
         max={maxValue}
         value={value}
+        onChange={handleChange}
       />
     </CargoInput>
   );

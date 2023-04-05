@@ -193,18 +193,6 @@ const DynamicObj = (props, fabricRef) => {
             },
           })
         );
-        // dispatch(
-        //   updateFs({
-        //     updatedFs: 245 + position.x,
-        //     id: fabricRef.current._activeObject.id,
-        //   })
-        // );
-        // dispatch(
-        //   updateObjectPosition({
-        //     index: id,
-        //     position: position,
-        //   })
-        // );
       });
     }
 

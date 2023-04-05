@@ -16,12 +16,19 @@ function CGrid(props, fabricRef) {
     >
       <div
         // style={{ marginRight: "1.5vw", marginBottom: "5rem" }}
-        className='gridContainer flex flex-col mb-6'
+        className='gridContainer flex flex-col mb-6 mt-[25px]'
       >
-        <div className='startEndGrid'>
-          <h2>245</h2>
-          <h2>737</h2>
-        </div>
+        <h2 id='gridStart'>245</h2>
+        <h2
+          id='gridEnd'
+          style={{
+            left:
+              document.getElementsByClassName('gridContainer')[0]?.clientWidth *
+              0.79,
+          }}
+        >
+          737
+        </h2>
         <DynamicObj ref={fabricRef} />
       </div>
     </div>
