@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   FaCaretDown,
   FaTimes,
@@ -6,30 +6,31 @@ import {
   FaPlaneDeparture,
   FaChartLine,
   FaFileExport,
-} from "react-icons/fa";
-import { GiCargoCrate } from "react-icons/gi";
-import SiderBarItem from "./SiderBarItem";
-import DropDown from "./DropDown";
-import settingsIcon from "../../icons/settingsIcon.png";
-import helpIcon from "../../icons/helpIcon.png";
+} from 'react-icons/fa';
+import { GiCargoCrate } from 'react-icons/gi';
+import SiderBarItem from './SiderBarItem';
+import DropDown from './DropDown';
+import settingsIcon from '../../icons/settingsIcon.png';
+import helpIcon from '../../icons/helpIcon.png';
 
-import { fabric } from "fabric";
-import { addItem } from "../../redux/ObjectsDataSlice";
-import randomColor from "randomcolor";
-import eventBus from "../Grid/eventBus";
-import { v4 } from "uuid";
-import SettingsIcon from "@mui/icons-material/Settings";
-import { useSelector, useDispatch } from "react-redux";
-import PopUp from "../Grid/PopUp";
-import { Fragment } from "react";
-import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
-import { routeConstants } from "../../Routes/constants";
-import EditBasicDataButton from "../Grid/EditBasicDataButton";
-import BasicData from "../BasicData/BasicData";
-import ActualPopup from "../ActualPopup/basicDataModal";
-
-// import "index.css";
+import { fabric } from 'fabric';
+import { addItem } from '../../redux/ObjectsDataSlice';
+import randomColor from 'randomcolor';
+import eventBus from '../Grid/eventBus';
+import { v4 } from 'uuid';
+import SettingsIcon from '@mui/icons-material/Settings';
+import { useSelector, useDispatch } from 'react-redux';
+import PopUp from '../Grid/PopUp';
+import { Fragment } from 'react';
+import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
+import { routeConstants } from '../../Routes/constants';
+import EditBasicDataButton from '../Grid/EditBasicDataButton';
+import BasicData from '../BasicData/BasicData';
+import ActualPopup from '../ActualPopup/basicDataModal';
+import { openPopup, closePopup } from '../../redux/PopupSlice';
+import { BasicDataForm, basicDataId } from '../Popups/BasicData/BasicDataForm';
+import { PopupComponent } from '../ViewComponents';
 
 export const X_ORIGIN = 22;
 export const Y_ORIGIN = 315;
@@ -43,14 +44,26 @@ const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
   const [mathState2, setMathState2] = useState(3);
   const [modalOpen, setModalOpen] = useState(false);
 
+  const popupList = useSelector((state) => state.popupReducer.popupList);
+
   const setSideBar = () => {
-    eventBus.dispatch("setSideBarValue", { message: "" });
+    eventBus.dispatch('setSideBarValue', { message: '' });
   };
 
   const dispatch = useDispatch();
+
+  const dispatchOpenPopup = (id) => {
+    dispatch(openPopup(id));
+  };
+
+  const dispatchClosePopup = (id) => {
+    dispatch(closePopup(id));
+  };
+
   const addItemToObjectList = (item) => {
     dispatch(addItem(item));
   };
+
   const addRectangle = () => {
     let color = randomColor();
     const id = v4();
@@ -65,7 +78,7 @@ const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
     });
     fabricRef.current.add(rect);
     addItemToObjectList({
-      type: "Object",
+      type: 'Object',
       id: id,
       canvasObj: rect,
       weight: 0,
@@ -85,15 +98,15 @@ const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
   const togglePopup = () => {
     // console.log("something?");
     // setIsOpen(!isOpen);
-    console.log("basic data is:", basicData);
-    console.log("objects are:", objectListItems);
+    console.log('basic data is:', basicData);
+    console.log('objects are:', objectListItems);
     if (mathState === mathState2) {
       Swal.fire({
-        icon: "success",
-        title: "כל הכבוד עכשיו אפשר לייצא קובץ pdf",
+        icon: 'success',
+        title: 'כל הכבוד עכשיו אפשר לייצא קובץ pdf',
         // text: '',
         // html: "<div><h1>{objectListItems}<h1> <h1>{basicData}</h1></div>",
-        text: `${objectListItems.fuel}${" "}${objectListItems.MAC}{" "}${
+        text: `${objectListItems.fuel}${' '}${objectListItems.MAC}{" "}${
           objectListItems.MACRange
         }{" "}${objectListItems.ZFW}{" "}${objectListItems.fuel}{" "}${
           objectListItems.areaGraph
@@ -105,9 +118,9 @@ const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
       });
     } else {
       Swal.fire({
-        icon: "errpr",
-        title: "המתמטיקה שלך לא משהו חשבת להשלים בגרויות?",
-        text: "ניסית אולי בני גורן?",
+        icon: 'error',
+        title: 'המתמטיקה שלך לא משהו חשבת להשלים בגרויות?',
+        text: 'ניסית אולי בני גורן?',
       });
     }
   };
@@ -116,7 +129,7 @@ const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
     setModalOpen(!modalOpen);
   };
   return (
-    <div className="min-h-full flex flex-col justify-between">
+    <div className='min-h-full flex flex-col justify-between'>
       {/* {isOpen && (
         <PopUp
           content={
@@ -128,59 +141,69 @@ const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
         />
       )} */}
 
-      <div className="flex flex-col gap-5">
-        <div className="flex">
+      <div className='flex flex-col gap-5'>
+        <div className='flex'>
           {showSideBar ? (
             <button
-              className="flex text-5xl text-[#1E1E22] items-center cursor-pointer"
+              className='flex text-5xl text-[#1E1E22] items-center cursor-pointer'
               onClick={() => {
                 setShowSideBar((prev) => !prev);
                 setSideBar();
               }}
             >
-              <div className="flex items-center gap-3 ">
+              <div className='flex items-center gap-3 '>
                 <FaTimes size={40} />
-                <h2 className="text-xl font-bold text-[#000000]">Gulliver</h2>
+                <h2 className='text-xl font-bold text-[#000000]'>Gulliver</h2>
               </div>
             </button>
           ) : null}
         </div>
-        <hr className="border-[#000000]" />
+        <hr className='border-[#000000]' />
         <div onClick={addRectangle}>
-          <SiderBarItem Icon={GiCargoCrate} buttonText="New Object" />
+          <SiderBarItem Icon={GiCargoCrate} buttonText='New Object' />
         </div>
         <div>
-          <SiderBarItem Icon={FaTrash} buttonText="Erase All" />
+          <SiderBarItem Icon={FaTrash} buttonText='Erase All' />
         </div>
-        <div onClick={setModalIsOpen}>
-          <SiderBarItem Icon={FaPlaneDeparture} buttonText="Basic Data" />
+        <div
+          onClick={() => {
+            console.log(popupList);
+            dispatchOpenPopup(basicDataId);
+          }}
+        >
+          <SiderBarItem Icon={FaPlaneDeparture} buttonText='Basic Data' />
         </div>
-        {modalOpen && (
+        {
           // <BasicData setModalIsOpen={setModalIsOpen} />
-          <ActualPopup open={modalOpen}></ActualPopup>
-        )}
+          <PopupComponent popupId={basicDataId} width='35vw' height='70vh'>
+            <BasicDataForm
+              close={dispatchClosePopup}
+              open={dispatchOpenPopup}
+            />
+          </PopupComponent>
+        }
 
         <Link to={routeConstants.GraphsRoute}>
           <div>
-            <SiderBarItem Icon={FaChartLine} buttonText="Show Infographics" />
+            <SiderBarItem Icon={FaChartLine} buttonText='Show Infographics' />
           </div>
         </Link>
 
         <div onClick={togglePopup}>
-          <SiderBarItem Icon={FaFileExport} buttonText="Export To Loadsheet" />
+          <SiderBarItem Icon={FaFileExport} buttonText='Export To Loadsheet' />
         </div>
-        <hr className="border-[#000000]" />
+        <hr className='border-[#000000]' />
         <div onClick={() => setShowDropDown((prev) => !prev)}>
-          <SiderBarItem Icon={FaCaretDown} buttonText="Existing Objects" />
+          <SiderBarItem Icon={FaCaretDown} buttonText='Existing Objects' />
         </div>
         {showDropDown && <DropDown />}
-        <div className="flex  text-white">
+        <div className='flex  text-white'>
           {/* <button className="font-bold ">Help</button>
           <img className="my-auto h-5 w-5" src={helpIcon} alt="helpIcon" /> */}
         </div>
       </div>
-      <div className="flex flex-row text-white">
-        <SettingsIcon className="spinningSettingsIcons cursor-pointer" />
+      <div className='flex flex-row text-white'>
+        <SettingsIcon className='spinningSettingsIcons cursor-pointer' />
       </div>
     </div>
   );

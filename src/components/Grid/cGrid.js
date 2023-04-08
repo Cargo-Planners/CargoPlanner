@@ -1,24 +1,24 @@
-import React, { useState, Fragment } from "react";
-import DynamicObj from "./DynamicObj";
-import eventBus from "./eventBus";
+import React, { useState, Fragment } from 'react';
+import DynamicObj from './DynamicObj';
+import eventBus from './eventBus';
 
 function CGrid(props, fabricRef) {
   const [isSideBarOpen, setSideBarOpen] = useState(false);
-  eventBus.on("setSideBarValue", (data) => {
+  eventBus.on('setSideBarValue', (data) => {
     setSideBarOpen(!isSideBarOpen);
   });
   return (
     <div
-      className="flex justify-center bg-[#fafafa] col-start-1 col-end-12"
+      className='flex justify-center bg-[#fafafa]'
       // className={`flex justify-center items-center w-4/5 min-h-[412.88px] ${
       //   !isSideBarOpen ? "ml-auto" : ""
       // }`}
     >
       <div
         // style={{ marginRight: "1.5vw", marginBottom: "5rem" }}
-        className="gridContainer flex flex-col mb-6"
+        className='gridContainer flex flex-col mb-6'
       >
-        <div className="startEndGrid">
+        <div className='startEndGrid'>
           <h2>245</h2>
           <h2>737</h2>
         </div>

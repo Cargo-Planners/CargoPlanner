@@ -1,36 +1,59 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
+import { ObjectItem } from '../models/ObjectItem';
 
-const initialState = {
+export interface ObjectsDataState {
+  objectListItems: ObjectItem[];
+  dataCollection: {
+    takeOffWeight: number;
+    totalCargoWeight: number;
+    totalIndex: number;
+    ZFW: number;
+    fuel: number;
+    areaGraph: number;
+    MAC: number;
+    MACRange: number;
+    index: number;
+  };
+}
+
+const initialState: ObjectsDataState = {
   objectListItems: [],
-  takeOffWeight: 0,
-  totalCargoWeight: 0,
-  totalIndex: 0,
-  ZFW: 0,
-  fuel: 0,
-  areaGraph: 0,
-  MAC: 0,
-  MACRange: 0,
-  index: 0,
+  dataCollection: {
+    takeOffWeight: 0,
+    totalCargoWeight: 0,
+    totalIndex: 0,
+    ZFW: 0,
+    fuel: 0,
+    areaGraph: 0,
+    MAC: 0,
+    MACRange: 0,
+    index: 0,
+  },
 };
 
 const ObjectsDataSlice = createSlice({
-  name: "objectsData",
+  name: 'objectsData',
   initialState,
   reducers: {
+    setObjectsList: (state, action) => {
+      state.objectListItems = action.payload;
+    },
     addItem: (state, action) => {
       state.objectListItems = [...state.objectListItems, action.payload];
+      console.log(action.payload.id);
+      console.log(action.payload);
     },
     updateWeightObj: (state, action) => {
       state.objectListItems[action.payload.index].weight =
         action.payload.updatedWeight;
     },
-    calculateWeight: (state, action) => {
+    calculateWeight: (state) => {
       let total = 0;
       state.objectListItems.forEach((object) => {
         total += object.weight;
       });
-      state.totalCargoWeight = total;
-      state.takeOffWeight = total;
+      state.dataCollection.totalCargoWeight = total;
+      state.dataCollection.takeOffWeight = total;
     },
     updateWidth: (state, action) => {
       state.objectListItems[action.payload.index].width = action.payload.value;
@@ -48,7 +71,10 @@ const ObjectsDataSlice = createSlice({
         action.payload.updatedHeight;
     },
     updateFs: (state, action) => {
-      state.objectListItems[action.payload.index].fs = action.payload.updatedFs;
+      if (state.objectListItems.find((obj) => obj.id === action.payload.id)) {
+        state.objectListItems.find((obj) => obj.id === action.payload.id)!.fs =
+          action.payload.updatedFs;
+      }
     },
     updateObjectPosition: (state, action) => {
       state.objectListItems[action.payload.index] = {
@@ -56,13 +82,20 @@ const ObjectsDataSlice = createSlice({
         ...action.payload.position,
       };
     },
+    updateObjectById: (state, action) => {
+      state.objectListItems = state.objectListItems.map((obj) =>
+        obj.id === action.payload.id
+          ? { ...obj, ...action.payload.changes }
+          : obj
+      );
+    },
   },
 });
 
 export default ObjectsDataSlice.reducer;
 export const {
+  setObjectsList,
   addItem,
-  updateWeight,
   updateWeightObj,
   calculateWeight,
   updateWidth,
@@ -71,4 +104,5 @@ export const {
   updateWidthAndHeightByScale,
   updateFs,
   updateObjectPosition,
+  updateObjectById,
 } = ObjectsDataSlice.actions;
