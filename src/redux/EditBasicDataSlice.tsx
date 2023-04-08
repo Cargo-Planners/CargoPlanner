@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
 
 export interface BasicDataState {
   cockpitCrew: number;
   inspectorsCrew: number;
   emptyWeight: number;
   index: number;
-  config: number;
+  config: string;
   fuelPod: boolean;
   slider1: number;
   slider2: number;
@@ -14,12 +15,26 @@ export interface BasicDataState {
   slider5: number;
 }
 
+export interface BasicDataChanges {
+  cockpitCrew?: number;
+  inspectorsCrew?: number;
+  emptyWeight?: number;
+  index?: number;
+  config?: string;
+  fuelPod?: boolean;
+  slider1?: number;
+  slider2?: number;
+  slider3?: number;
+  slider4?: number;
+  slider5?: number;
+}
+
 const initialState = {
   cockpitCrew: 0,
   inspectorsCrew: 0,
   emptyWeight: 0,
   index: 0,
-  config: 1,
+  config: '',
   fuelPod: false,
   slider1: 0,
   slider2: 0,
@@ -30,7 +45,6 @@ const initialState = {
 
 const EditBasicDataSlice = createSlice({
   name: 'basicData',
-
   initialState,
   reducers: {
     incrementCockpitCrew: (state) => {
@@ -108,6 +122,12 @@ const EditBasicDataSlice = createSlice({
         return state;
       }
     },
+    updateBasicData: (
+      state,
+      action: PayloadAction<{ changes: BasicDataChanges }>
+    ) => {
+      return { ...state, ...action.payload.changes };
+    },
   },
 });
 
@@ -125,5 +145,6 @@ export const {
   updateSlider3,
   updateSlider4,
   updateSlider5,
+  updateBasicData,
 } = EditBasicDataSlice.actions;
 export default EditBasicDataSlice.reducer;

@@ -6,10 +6,16 @@ type Props = {
   defaultOption?: string | number;
 } & BasicInputProps;
 
-export const CargoInputSelect = ({ options, label }: Props) => {
+export const CargoInputSelect = ({ options, label, onChange }: Props) => {
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    if (onChange) {
+      onChange(event.target.value);
+    }
+  };
+
   return (
     <CargoInput label={label}>
-      <select className='cargo-input'>
+      <select className='cargo-input' onChange={handleChange}>
         {options.map((option) => {
           return <option key={option}>{option}</option>;
         })}

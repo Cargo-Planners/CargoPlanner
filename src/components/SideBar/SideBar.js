@@ -29,7 +29,7 @@ const SideBar = (props, fabricRef) => {
           }`}
         >
           <SideBarItems
-            ref={fabricRef}
+            fabricRef={fabricRef}
             showSideBar={showSideBar}
             setShowSideBar={setShowSideBar}
           />

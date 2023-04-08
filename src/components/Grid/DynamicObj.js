@@ -6,15 +6,16 @@ import {
   updateHeight,
   updateIndexObj,
   updateWidthAndHeightByScale,
-  updateFs,
   updateWeightObj,
-  updateObjectPosition,
   updateObjectById,
+  updateObjectScaleById,
 } from '../../redux/ObjectsDataSlice';
 import PopUp from './PopUp';
-import eventBus from '../Grid/eventBus';
+import eventBus from './eventBus';
 import { X_ORIGIN, Y_ORIGIN } from '../SideBar/SideBarItems';
-import { MdCMdOutlineCloselose, MdOutlineClose } from 'react-icons/md';
+import { MdOutlineClose } from 'react-icons/md';
+import { State } from '../../redux/store';
+import UnitsService from '../../services/UnitsService';
 
 const MIN_Y_POSITION = 110;
 const MAX_X_POSITION = 737;
@@ -23,7 +24,6 @@ const DynamicObj = (props, fabricRef) => {
   const [isOpen, setIsOpen] = useState(false);
   const canvas = useRef(null);
   let currentObj = useRef(null);
-  let currentFus = useRef(0);
   let updatedIndex = 0;
   const dispatch = useDispatch();
   const objectListItems = useSelector(
@@ -31,32 +31,25 @@ const DynamicObj = (props, fabricRef) => {
   );
 
   const widthChangeHandler = (e, index) => {
-    const value = e.target.value === '' ? 0 : parseInt(e.target.value);
+    const width = e.target.value === '' ? 0 : parseInt(e.target.value);
     currentObj = fabricRef.current.getActiveObject();
-    if (currentObj != null) {
-      currentObj.set(
-        'width',
-
-        parseInt(e.target.value) / currentObj.getObjectScaling().scaleX
-      );
+    if (currentObj !== null) {
+      currentObj.scaleX = width / UnitsService.ONE_UNIT_IN_INCHES;
       currentObj.setCoords();
       fabricRef.current.requestRenderAll();
     }
-    dispatch(updateWidth({ value, index }));
+    dispatch(updateWidth({ value: width, index }));
   };
 
   const heightChangeHandler = (e, index) => {
-    const value = e.target.value === '' ? 0 : parseInt(e.target.value);
+    const length = e.target.value === '' ? 0 : parseInt(e.target.value);
     currentObj = fabricRef.current.getActiveObject();
-    if (currentObj != null) {
-      currentObj.set(
-        'height',
-        parseInt(e.target.value) / currentObj.getObjectScaling().scaleX
-      );
+    if (currentObj !== null) {
+      currentObj.scaleY = length / UnitsService.ONE_UNIT_IN_INCHES;
       currentObj.setCoords();
       fabricRef.current.requestRenderAll();
     }
-    dispatch(updateHeight({ value, index }));
+    dispatch(updateHeight({ value: length, index }));
   };
 
   const indexChangeHandler = (e, index) => {
@@ -136,37 +129,22 @@ const DynamicObj = (props, fabricRef) => {
 
       fabricRef.current.on('mouse:dblclick', (e) => {
         if (e.target !== null) {
+          console.log(e.target);
           setIsOpen(true);
         }
       });
 
       fabricRef.current.on('object:scaling', function (e) {
-        if (!e.target || e.target.type !== 'rect') {
-          return;
-        }
-
-        let updatedWidth = e.target.width * e.target.scaleX;
-        let updatedHeight = e.target.height * e.target.scaleY;
-
-        const objectList = getCurrObjectsList();
-
-        objectList.forEach((object, i) => {
-          if (fabricRef.current._activeObject.fill === object.fill) {
-            updatedIndex = i;
-            dispatch(
-              updateWidthAndHeightByScale({
-                updatedWidth: updatedWidth.toFixed(2),
-                updatedHeight: updatedHeight.toFixed(2),
-                index: updatedIndex,
-              })
-            );
-          }
-        });
+        dispatch(
+          updateObjectScaleById({
+            id: fabricRef.current._activeObject.id,
+            scaleX: e.target.scaleX,
+            scaleY: e.target.scaleY,
+          })
+        );
       });
 
       fabricRef.current.on('object:moving', function (e) {
-        const objectList = getCurrObjectsList();
-
         e.target.top = getValidCoord(
           e.target.top,
           MIN_Y_POSITION,
@@ -193,18 +171,6 @@ const DynamicObj = (props, fabricRef) => {
             },
           })
         );
-        // dispatch(
-        //   updateFs({
-        //     updatedFs: 245 + position.x,
-        //     id: fabricRef.current._activeObject.id,
-        //   })
-        // );
-        // dispatch(
-        //   updateObjectPosition({
-        //     index: id,
-        //     position: position,
-        //   })
-        // );
       });
     }
 
@@ -234,7 +200,9 @@ const DynamicObj = (props, fabricRef) => {
                         <input
                           name='item'
                           className='lengthData w-28 h-10 bg-red-200 rounded-xl self-start'
-                          placeholder={objectListItems[index].height}
+                          placeholder={`${objectListItems[index].height.toFixed(
+                            3
+                          )}`}
                           onChange={(e) => heightChangeHandler(e, index)}
                         />
                       </div>
@@ -243,7 +211,9 @@ const DynamicObj = (props, fabricRef) => {
                         <input
                           name='item'
                           className='heightData w-28 h-10 bg-green-200 p-1 m-1 rounded-xl self-start'
-                          placeholder={objectListItems[index].width}
+                          placeholder={`${objectListItems[index].width.toFixed(
+                            3
+                          )}`}
                           onChange={(e) => widthChangeHandler(e, index)}
                         />
                       </div>
@@ -252,7 +222,7 @@ const DynamicObj = (props, fabricRef) => {
                         <input
                           name='item'
                           className='w-28 h-10 bg-yellow-200 p-1 m-1 rounded-xl self-start'
-                          placeholder={objectListItems[index].index}
+                          placeholder={`${objectListItems[index].index}`}
                           onChange={(e) => indexChangeHandler(e, index)}
                         />
                       </div>
@@ -262,7 +232,7 @@ const DynamicObj = (props, fabricRef) => {
                           className='w-28 h-10 bg-blue-200 p-1 m-1 rounded-xl self-start'
                           placeholder={
                             //245 + fabricRef.current._activeObject.left
-                            objectListItems[index].fs
+                            `${objectListItems[index].fs}`
                           }
                         />
                       </div>
@@ -271,7 +241,7 @@ const DynamicObj = (props, fabricRef) => {
                         <input
                           name='item'
                           className='heightData w-28 h-10 bg-green-200 p-1 m-1 rounded-xl self-start'
-                          placeholder={objectListItems[index].weight}
+                          placeholder={`${objectListItems[index].weight}`}
                           onChange={(e) => weightChangeHandler(e, index)}
                         />
                       </div>

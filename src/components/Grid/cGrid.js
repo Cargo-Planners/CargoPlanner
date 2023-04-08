@@ -8,20 +8,22 @@ function CGrid(props, fabricRef) {
     setSideBarOpen(!isSideBarOpen);
   });
   return (
-    <div
-      className='flex justify-center bg-[#fafafa]'
-      // className={`flex justify-center items-center w-4/5 min-h-[412.88px] ${
-      //   !isSideBarOpen ? "ml-auto" : ""
-      // }`}
-    >
+    <div className='flex justify-center bg-[#fafafa]'>
       <div
         // style={{ marginRight: "1.5vw", marginBottom: "5rem" }}
-        className='gridContainer flex flex-col mb-6'
+        className='gridContainer flex flex-col mb-6 mt-[25px]'
       >
-        <div className='startEndGrid'>
-          <h2>245</h2>
-          <h2>737</h2>
-        </div>
+        <h2 id='gridStart'>245</h2>
+        <h2
+          id='gridEnd'
+          style={{
+            left:
+              document.getElementsByClassName('gridContainer')[0]?.clientWidth *
+              0.79,
+          }}
+        >
+          737
+        </h2>
         <DynamicObj ref={fabricRef} />
       </div>
     </div>
