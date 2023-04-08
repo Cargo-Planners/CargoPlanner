@@ -41,8 +41,6 @@ const SideBarItems = ({ showSideBar, setShowSideBar, fabricRef }: Props) => {
   const objectListItems = useSelector((state: State) => state.objectsData);
   const basicData = useSelector((state: State) => state.basicData);
 
-  const popupList = useSelector((state: State) => state.popupReducer.popupList);
-
   const [showDropDown, setShowDropDown] = useState(false);
 
   const setSideBar = () => {
@@ -74,8 +72,8 @@ const SideBarItems = ({ showSideBar, setShowSideBar, fabricRef }: Props) => {
       id: id,
       width: oneUnitInPixels,
       height: oneUnitInPixels,
-      scaleX: 2,
-      scaleY: 2,
+      scaleX: 1,
+      scaleY: 1,
       opacity: 1,
       left: X_ORIGIN,
       top: Y_ORIGIN - oneUnitInPixels,
@@ -159,7 +157,6 @@ const SideBarItems = ({ showSideBar, setShowSideBar, fabricRef }: Props) => {
         </div>
         <div
           onClick={() => {
-            console.log(popupList);
             dispatchOpenPopup(basicDataId);
           }}
         >

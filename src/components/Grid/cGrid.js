@@ -8,12 +8,7 @@ function CGrid(props, fabricRef) {
     setSideBarOpen(!isSideBarOpen);
   });
   return (
-    <div
-      className='flex justify-center bg-[#fafafa]'
-      // className={`flex justify-center items-center w-4/5 min-h-[412.88px] ${
-      //   !isSideBarOpen ? "ml-auto" : ""
-      // }`}
-    >
+    <div className='flex justify-center bg-[#fafafa]'>
       <div
         // style={{ marginRight: "1.5vw", marginBottom: "5rem" }}
         className='gridContainer flex flex-col mb-6 mt-[25px]'

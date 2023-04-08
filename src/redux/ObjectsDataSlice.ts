@@ -1,5 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ObjectItem } from '../models/ObjectItem';
+import UnitsService from '../services/UnitsService';
 
 export interface ObjectsDataState {
   objectListItems: ObjectItem[];
@@ -40,8 +41,6 @@ const ObjectsDataSlice = createSlice({
     },
     addItem: (state, action) => {
       state.objectListItems = [...state.objectListItems, action.payload];
-      console.log(action.payload.id);
-      console.log(action.payload);
     },
     updateWeightObj: (state, action) => {
       state.objectListItems[action.payload.index].weight =
@@ -82,6 +81,25 @@ const ObjectsDataSlice = createSlice({
         ...action.payload.position,
       };
     },
+    updateObjectScaleById: (
+      state,
+      action: PayloadAction<{ id: string; scaleX: number; scaleY: number }>
+    ) => {
+      state.objectListItems = state.objectListItems.map((obj) =>
+        obj.id === action.payload.id
+          ? {
+              ...obj,
+              width: UnitsService.ONE_UNIT_IN_INCHES * action.payload.scaleX,
+              height: UnitsService.ONE_UNIT_IN_INCHES * action.payload.scaleY,
+              // canvasObj: {
+              //   ...obj.canvasObj,
+              //   scaleX: action.payload.scaleX,
+              //   scaleY: action.payload.scaleY,
+              // },
+            }
+          : obj
+      );
+    },
     updateObjectById: (state, action) => {
       state.objectListItems = state.objectListItems.map((obj) =>
         obj.id === action.payload.id
@@ -105,4 +123,5 @@ export const {
   updateFs,
   updateObjectPosition,
   updateObjectById,
+  updateObjectScaleById,
 } = ObjectsDataSlice.actions;

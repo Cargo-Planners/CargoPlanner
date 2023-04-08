@@ -1,3 +1,5 @@
+import { ObjectItem } from '../models/ObjectItem';
+
 export default class UnitsService {
   static ONE_UNIT_AS_IMAGE_PERCENT = 0.03422;
   static ONE_UNIT_IN_INCHES = 20;
@@ -20,5 +22,27 @@ export default class UnitsService {
 
   static oneUnitInPixels(canvasWidth: number) {
     return canvasWidth * UnitsService.ONE_UNIT_AS_IMAGE_PERCENT;
+  }
+
+  static pixelToInchObjectPipe(
+    objectItem: ObjectItem,
+    canvasWidth: number
+  ): ObjectItem {
+    return {
+      ...objectItem,
+      width: this.pixelsToInches(objectItem.width, canvasWidth),
+      height: this.pixelsToInches(objectItem.height, canvasWidth),
+    };
+  }
+
+  static inchToPixelObjectPipe(
+    objectItem: ObjectItem,
+    canvasWidth: number
+  ): ObjectItem {
+    return {
+      ...objectItem,
+      width: this.inchesToPixels(objectItem.width, canvasWidth),
+      height: this.inchesToPixels(objectItem.height, canvasWidth),
+    };
   }
 }

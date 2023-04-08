@@ -11,12 +11,11 @@ import { useEffect } from 'react';
 import { fabric } from 'fabric';
 
 const Home = () => {
-  const fabricRef = useRef(null);
+  const fabricRef = useRef({ current: {} });
   const [isSideBarOpen, setSideBarOpen] = useState(false);
   useEffect(() => {
     eventBus.on('setSideBarValue', (data) => {
       setSideBarOpen(!isSideBarOpen);
-      console.log(isSideBarOpen);
     });
   }, []);
 
