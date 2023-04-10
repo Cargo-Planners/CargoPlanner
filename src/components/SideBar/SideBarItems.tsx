@@ -67,18 +67,23 @@ const SideBarItems = ({ showSideBar, setShowSideBar, fabricRef }: Props) => {
     const oneUnitInPixels = UnitsService.oneUnitInPixels(
       fabricRef.current.width
     );
+
+    const startPoint = UnitsService.startingPosition(
+      fabricRef.current.width,
+      fabricRef.current.height
+    );
+
     const rect = new fabric.Rect({
-      //@ts-ignore
-      id: id,
+      name: id,
       width: oneUnitInPixels,
       height: oneUnitInPixels,
       scaleX: 1,
       scaleY: 1,
       opacity: 1,
-      left: X_ORIGIN,
-      top: Y_ORIGIN - oneUnitInPixels,
+      ...startPoint,
       fill: color,
     });
+
     fabricRef.current.add(rect);
     addItemToObjectList({
       type: 'Object',
@@ -95,6 +100,10 @@ const SideBarItems = ({ showSideBar, setShowSideBar, fabricRef }: Props) => {
         x: rect.left! - X_ORIGIN,
         y: Math.abs(rect.top! - Y_ORIGIN),
         z: 0,
+      },
+      centerOfGravity: {
+        x: rect.left! - X_ORIGIN - UnitsService.ONE_UNIT_IN_INCHES / 2,
+        y: Math.abs(rect.top! - Y_ORIGIN) - UnitsService.ONE_UNIT_IN_INCHES / 2,
       },
     });
 

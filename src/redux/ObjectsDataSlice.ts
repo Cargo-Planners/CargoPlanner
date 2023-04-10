@@ -40,7 +40,7 @@ const ObjectsDataSlice = createSlice({
       state.objectListItems = action.payload;
     },
     addItem: (state, action) => {
-      state.objectListItems = [...state.objectListItems, action.payload];
+      state.objectListItems.push(action.payload);
     },
     updateWeightObj: (state, action) => {
       state.objectListItems[action.payload.index].weight =

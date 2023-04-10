@@ -6,17 +6,26 @@ import ObjectList from '../components/ObjectList/ObjectList';
 import Options from '../components/Options/Options';
 import { useRef } from 'react';
 import eventBus from '../components/Grid/eventBus';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { fabric } from 'fabric';
+import { setObjectsList } from '../redux/ObjectsDataSlice';
 
 const Home = () => {
   const fabricRef = useRef({ current: {} });
   const [isSideBarOpen, setSideBarOpen] = useState(false);
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
     eventBus.on('setSideBarValue', (data) => {
       setSideBarOpen(!isSideBarOpen);
     });
+
+    let objectsList = JSON.parse(localStorage.getItem('objectsList'));
+    objectsList = objectsList ?? [];
+    // console.log(objectsList);
+    dispatch(setObjectsList(objectsList));
   }, []);
 
   return (
