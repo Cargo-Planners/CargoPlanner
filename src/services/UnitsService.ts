@@ -1,7 +1,7 @@
 import { ObjectItem } from '../models/ObjectItem';
 
 export default class UnitsService {
-  static ONE_UNIT_AS_IMAGE_PERCENT = 0.03422;
+  static ONE_UNIT_AS_IMAGE_WIDTH_PERCENT = 0.03422;
   static ONE_UNIT_IN_INCHES = 20;
   static Y_START_POSITION_AS_CANVAS_PERCENT = 0.3477;
   static X_START_POSITION_AS_CANVAS_PERCENT = 0.011977;
@@ -9,14 +9,14 @@ export default class UnitsService {
   static CARGO_WIDTH_AS_CANVAS_PERCENT = 0.97247533667854;
 
   static pixelsToInches(dimensionInPixels: number, canvasWidth: number) {
-    return Math.round(
-      dimensionInPixels * this.getPixelToInchRatio(canvasWidth)
+    return +(dimensionInPixels * this.getPixelToInchRatio(canvasWidth)).toFixed(
+      3
     );
   }
 
   static inchesToPixels(dimensionInInches: number, canvasWidth: number) {
-    return Math.round(
-      dimensionInInches / this.getPixelToInchRatio(canvasWidth)
+    return +(dimensionInInches / this.getPixelToInchRatio(canvasWidth)).toFixed(
+      3
     );
   }
 
@@ -25,7 +25,7 @@ export default class UnitsService {
   }
 
   static oneUnitInPixels(canvasWidth: number) {
-    return canvasWidth * UnitsService.ONE_UNIT_AS_IMAGE_PERCENT;
+    return canvasWidth * UnitsService.ONE_UNIT_AS_IMAGE_WIDTH_PERCENT;
   }
 
   static pixelToInchObjectPipe(

@@ -89,7 +89,6 @@ const SideBarItems = ({ showSideBar, setShowSideBar, fabricRef }: Props) => {
       type: 'Object',
       name: '',
       id: id,
-      canvasObj: rect,
       weight: 0,
       fs: 0,
       width: UnitsService.ONE_UNIT_IN_INCHES,
@@ -97,8 +96,8 @@ const SideBarItems = ({ showSideBar, setShowSideBar, fabricRef }: Props) => {
       index: 0,
       fill: color,
       position: {
-        x: rect.left! - X_ORIGIN,
-        y: Math.abs(rect.top! - Y_ORIGIN),
+        x: 0,
+        y: 0,
         z: 0,
       },
       centerOfGravity: {

@@ -17,9 +17,6 @@ import { MdOutlineClose } from 'react-icons/md';
 import { State } from '../../redux/store';
 import UnitsService from '../../services/UnitsService';
 
-const MIN_Y_POSITION = 110;
-const MAX_X_POSITION = 737;
-
 const DynamicObj = (props, fabricRef) => {
   const [isOpen, setIsOpen] = useState(false);
   const canvas = useRef(null);
@@ -121,6 +118,11 @@ const DynamicObj = (props, fabricRef) => {
       fabricRef.current.on('mouse:dblclick', (e) => {
         if (e.target !== null) {
           setIsOpen(true);
+          console.log(
+            objectListItems.find(
+              (objectItem) => objectItem.id === e.target.name
+            )
+          );
         }
       });
 
@@ -160,8 +162,14 @@ const DynamicObj = (props, fabricRef) => {
         );
 
         const position = {
-          x: e.target.left - X_ORIGIN,
-          y: Math.abs(e.target.top - Y_ORIGIN),
+          x: UnitsService.pixelsToInches(
+            e.target.left - startingPosition.left,
+            fabricRef.current.width
+          ),
+          y: UnitsService.pixelsToInches(
+            e.target.top - startingPosition.top,
+            fabricRef.current.width
+          ),
         };
 
         dispatch(
@@ -184,26 +192,6 @@ const DynamicObj = (props, fabricRef) => {
       selection: false,
       renderOnAddRemove: true,
     });
-
-    console.log(fabricRef.current);
-
-    objectListItems
-      .map((object) => {
-        return new fabric.Rect({
-          name: object.canvasObj.name,
-          width: object.canvasObj.width,
-          height: object.canvasObj.height,
-          scaleX: object.canvasObj.scaleX,
-          scaleY: object.canvasObj.scaleY,
-          opacity: object.canvasObj.opacity,
-          left: object.canvasObj.left,
-          top: object.canvasObj.top,
-          fill: object.canvasObj.color,
-        });
-      })
-      .forEach((canvasObj) => {
-        fabricRef.current.add(canvasObj);
-      });
 
     refreshCanvasListeners();
 

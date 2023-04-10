@@ -10,7 +10,6 @@ export interface ObjectItem {
   type: string;
   name: string;
   id: string;
-  canvasObj: fabric.Object;
   weight: number;
   fs: number;
   width: number;

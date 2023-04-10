@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { fabric } from 'fabric';
 import { setObjectsList } from '../redux/ObjectsDataSlice';
+import UnitsService from '../services/UnitsService';
 
 const Home = () => {
   const fabricRef = useRef({ current: {} });
@@ -24,8 +25,40 @@ const Home = () => {
 
     let objectsList = JSON.parse(localStorage.getItem('objectsList'));
     objectsList = objectsList ?? [];
-    // console.log(objectsList);
     dispatch(setObjectsList(objectsList));
+    const startingPoint = UnitsService.startingPosition(
+      fabricRef.current.width,
+      fabricRef.current.height
+    );
+    objectsList.forEach((objectItem) => {
+      fabricRef.current.add(
+        new fabric.Rect({
+          name: objectItem.id,
+          width: UnitsService.inchesToPixels(
+            objectItem.width,
+            fabricRef.current.width
+          ),
+          height: UnitsService.inchesToPixels(
+            objectItem.height,
+            fabricRef.current.width
+          ),
+          scaleX: objectItem.width / UnitsService.ONE_UNIT_IN_INCHES,
+          scaleY: objectItem.height / UnitsService.ONE_UNIT_IN_INCHES,
+          opacity: objectItem.opacity,
+          left:
+            UnitsService.inchesToPixels(
+              objectItem.position.x,
+              fabricRef.current.width
+            ) + startingPoint.left,
+          top:
+            UnitsService.inchesToPixels(
+              objectItem.position.y,
+              fabricRef.current.width
+            ) + startingPoint.top,
+          fill: objectItem.fill,
+        })
+      );
+    });
   }, []);
 
   return (
