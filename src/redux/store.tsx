@@ -1,6 +1,13 @@
 import ObjectsDataSliceReducer, { ObjectsDataState } from './ObjectsDataSlice';
 import EditBasicDataReducer, { BasicDataState } from './EditBasicDataSlice';
-import { Action, configureStore, Dispatch, Middleware } from '@reduxjs/toolkit';
+import {
+  Action,
+  AnyAction,
+  configureStore,
+  Dispatch,
+  Middleware,
+  MiddlewareAPI,
+} from '@reduxjs/toolkit';
 import PopupSliceReducer, { PopupState } from './PopupSlice';
 
 export type State = {
@@ -9,17 +16,22 @@ export type State = {
   popupReducer: PopupState;
 };
 
-const logger: Middleware = (store) => (next: Dispatch) => (action: Action) => {
-  console.group(action.type);
-  console.log(action.type);
-  let result = next(action);
-  console.log(store.getState());
-  console.groupEnd();
-  return result;
-};
+const logger: Middleware =
+  (store: MiddlewareAPI<Dispatch<AnyAction>, State>) =>
+  (next: Dispatch) =>
+  (action: Action) => {
+    console.group(action.type);
+    console.log(action.type);
+    let result = next(action);
+    console.log(store.getState());
+    console.groupEnd();
+    return result;
+  };
 
 const objectsDataToLocalStorage: Middleware =
-  (store: any) => (next: Dispatch) => (action: Action) => {
+  (store: MiddlewareAPI<Dispatch<AnyAction>, State>) =>
+  (next: Dispatch) =>
+  (action: Action) => {
     let result = next(action);
 
     if (action.type.includes('objectsData')) {
