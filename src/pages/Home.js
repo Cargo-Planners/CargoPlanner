@@ -34,14 +34,8 @@ const Home = () => {
       fabricRef.current.add(
         new fabric.Rect({
           name: objectItem.id,
-          width: UnitsService.inchesToPixels(
-            objectItem.width,
-            fabricRef.current.width
-          ),
-          height: UnitsService.inchesToPixels(
-            objectItem.height,
-            fabricRef.current.width
-          ),
+          width: UnitsService.oneUnitInPixels(fabricRef.current.width),
+          height: UnitsService.oneUnitInPixels(fabricRef.current.width),
           scaleX: objectItem.width / UnitsService.ONE_UNIT_IN_INCHES,
           scaleY: objectItem.height / UnitsService.ONE_UNIT_IN_INCHES,
           opacity: objectItem.opacity,
