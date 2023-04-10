@@ -27,6 +27,9 @@ const DynamicObj = (props, fabricRef) => {
     (state) => state.objectsData.objectListItems
   );
 
+  let isObjectModified = false;
+  let dispatchFunction = () => {};
+
   const widthChangeHandler = (e, index) => {
     const width = e.target.value === '' ? 0 : parseInt(e.target.value);
     currentObj = fabricRef.current.getActiveObject();
@@ -115,6 +118,13 @@ const DynamicObj = (props, fabricRef) => {
         fabricRef.current.setActiveObject(e.selected[0]);
       });
 
+      fabricRef.current.on('mouse:up', function (e) {
+        if (isObjectModified) {
+          isObjectModified = false;
+          dispatchFunction();
+        }
+      });
+
       fabricRef.current.on('mouse:dblclick', (e) => {
         if (e.target !== null) {
           setIsOpen(true);
@@ -127,16 +137,22 @@ const DynamicObj = (props, fabricRef) => {
       });
 
       fabricRef.current.on('object:scaling', function (e) {
-        dispatch(
-          updateObjectScaleById({
-            id: fabricRef.current._activeObject.name,
-            scaleX: e.target.scaleX,
-            scaleY: e.target.scaleY,
-          })
-        );
+        isObjectModified = true;
+
+        dispatchFunction = () => {
+          dispatch(
+            updateObjectScaleById({
+              id: fabricRef.current._activeObject.name,
+              scaleX: e.target.scaleX,
+              scaleY: e.target.scaleY,
+            })
+          );
+        };
       });
 
       fabricRef.current.on('object:moving', function (e) {
+        isObjectModified = true;
+
         const startingPosition = UnitsService.startingPosition(
           fabricRef.current.width,
           fabricRef.current.height
@@ -172,15 +188,17 @@ const DynamicObj = (props, fabricRef) => {
           ),
         };
 
-        dispatch(
-          updateObjectById({
-            id: fabricRef.current._activeObject.name,
-            changes: {
-              fs: 245 + position.x,
-              position: position,
-            },
-          })
-        );
+        dispatchFunction = () => {
+          dispatch(
+            updateObjectById({
+              id: fabricRef.current._activeObject.name,
+              changes: {
+                fs: 245 + position.x,
+                position: position,
+              },
+            })
+          );
+        };
       });
     }
   };
