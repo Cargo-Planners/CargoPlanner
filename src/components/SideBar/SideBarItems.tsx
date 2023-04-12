@@ -101,8 +101,8 @@ const SideBarItems = ({ showSideBar, setShowSideBar, fabricRef }: Props) => {
         z: 0,
       },
       centerOfGravity: {
-        x: rect.left! - X_ORIGIN - UnitsService.ONE_UNIT_IN_INCHES / 2,
-        y: Math.abs(rect.top! - Y_ORIGIN) - UnitsService.ONE_UNIT_IN_INCHES / 2,
+        x: 10,
+        y: 10,
       },
     });
 

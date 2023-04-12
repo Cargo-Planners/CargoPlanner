@@ -9,6 +9,7 @@ import {
   updateItemWeight,
   updateItemPosition,
   updateItemFs,
+  updateItemCenterOfGravity,
 } from '../../redux/ObjectsDataSlice';
 import PopUp from './PopUp';
 import eventBus from './eventBus';
@@ -29,7 +30,7 @@ const DynamicObj = (props, fabricRef) => {
   let isObjectModified = false;
   let dispatchFunction = () => {};
 
-  const widthChangeHandler = (e, index) => {
+  const widthChangeHandler = (e) => {
     const width = e.target.value === '' ? 0 : parseInt(e.target.value);
     currentObj = fabricRef.current.getActiveObject();
     if (currentObj !== null) {
@@ -45,7 +46,7 @@ const DynamicObj = (props, fabricRef) => {
     );
   };
 
-  const heightChangeHandler = (e, index) => {
+  const heightChangeHandler = (e) => {
     const length = e.target.value === '' ? 0 : parseInt(e.target.value);
     currentObj = fabricRef.current.getActiveObject();
     if (currentObj !== null) {
@@ -73,6 +74,21 @@ const DynamicObj = (props, fabricRef) => {
       updateItemWeight({
         id: fabricRef.current._activeObject.name,
         updatedWeight: value,
+      })
+    );
+  };
+
+  const centerOfGravityChangeHandler = (e, whichCoord) => {
+    const changes = {
+      [whichCoord]: e.target.value === '' ? 0 : +e.target.value,
+    };
+
+    const currentObj = fabricRef.current.getActiveObject();
+
+    dispatch(
+      updateItemCenterOfGravity({
+        id: currentObj.name,
+        updatedCenterOfGravity: changes,
       })
     );
   };
@@ -250,7 +266,7 @@ const DynamicObj = (props, fabricRef) => {
                           placeholder={`${objectListItems[index].height.toFixed(
                             3
                           )}`}
-                          onChange={(e) => heightChangeHandler(e, index)}
+                          onChange={(e) => heightChangeHandler(e)}
                         />
                       </div>
                       <div className='grid grid-rows-2 place-items-center'>
@@ -261,7 +277,7 @@ const DynamicObj = (props, fabricRef) => {
                           placeholder={`${objectListItems[index].width.toFixed(
                             3
                           )}`}
-                          onChange={(e) => widthChangeHandler(e, index)}
+                          onChange={(e) => widthChangeHandler(e)}
                         />
                       </div>
                       <div className='grid grid-rows-2 place-items-center'>
@@ -287,13 +303,19 @@ const DynamicObj = (props, fabricRef) => {
                             name='item'
                             className='w-28 h-10 bg-green-200 p-1 m-1 rounded-xl self-start'
                             placeholder='Y'
-                            // onChange={(e) => weightChangeHandler(e, index)}
+                            value={objectListItems[index].centerOfGravity.y}
+                            onChange={(e) =>
+                              centerOfGravityChangeHandler(e, 'y')
+                            }
                           />
                           <input
                             name='item'
                             className='w-28 h-10 bg-green-200 p-1 m-1 rounded-xl self-start'
                             placeholder='X'
-                            // onChange={(e) => weightChangeHandler(e, index)}
+                            value={objectListItems[index].centerOfGravity.x}
+                            onChange={(e) =>
+                              centerOfGravityChangeHandler(e, 'x')
+                            }
                           />
                         </div>
                       </div>

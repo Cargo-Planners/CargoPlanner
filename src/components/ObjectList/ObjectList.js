@@ -1,16 +1,13 @@
 import React, { Fragment, useState } from 'react';
 import PopUp from '../Grid/PopUp';
 import { useSelector } from 'react-redux';
-import { calculateWeight } from '../../redux/ObjectsDataSlice';
 import eventBus from '../Grid/eventBus';
 import ObjectDetails from './ObjectDetails';
 
 const ObjectList = (props, fabricRef) => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState();
-  const objectListItems = useSelector(
-    (state) => state.objectsData.objectListItems
-  );
+  const itemList = useSelector((state) => state.objectsData.itemList);
 
   const togglePopup = (index) => {
     setIsOpen(!isOpen);
@@ -32,7 +29,7 @@ const ObjectList = (props, fabricRef) => {
             <p className='w-1/5 text-[#000000] font-semibold'>cell</p>
           </div>
           <div className='flex flex-col text-right py-3 rounded-b-lg overflow-auto h-full hide-scroll-bar'>
-            {objectListItems?.map((item, index) => (
+            {itemList?.map((item, index) => (
               <div key={index} className='flex flex-col'>
                 <div className='flex mb-2'>
                   {/* onClick={setPopUp} What is this? */}
@@ -49,14 +46,12 @@ const ObjectList = (props, fabricRef) => {
                     name='item'
                     className='w-1/5 bg-[#ffffff] text-center text-[#000000] pl-[10px] border-[#424242] border rounded'
                     placeholder={item.weight}
-                    onChange={(e) => weightChangeHandler(e, index)}
                     type='number'
                     min='0'
                   />
                   <input
                     className='w-1/5 bg-[#ffffff] text-center text-[#000000] pl-[10px] border-[#424242] border rounded'
                     placeholder={item.fs}
-                    //onChange={(e) => (objectListItems[index].fs)}
                     type='number'
                     min='0'
                   />
@@ -71,7 +66,7 @@ const ObjectList = (props, fabricRef) => {
       </div>
       {isOpen ? (
         <PopUp
-          content={<ObjectDetails item={objectListItems[currentIndex]} />}
+          content={<ObjectDetails item={itemList[currentIndex]} />}
           handleClose={togglePopup}
         />
       ) : null}

@@ -17,6 +17,12 @@ export interface ObjectsDataState {
   };
 }
 
+export interface PositionChanges {
+  x?: number;
+  y?: number;
+  z?: number;
+}
+
 const initialState: ObjectsDataState = {
   itemList: [],
   dataCollection: {
@@ -134,6 +140,25 @@ const ObjectsDataSlice = createSlice({
           : obj
       );
     },
+    updateItemCenterOfGravity: (
+      state,
+      action: PayloadAction<{
+        id: string;
+        updatedCenterOfGravity: PositionChanges;
+      }>
+    ) => {
+      state.itemList = state.itemList.map((obj) =>
+        obj.id === action.payload.id
+          ? {
+              ...obj,
+              centerOfGravity: {
+                ...obj.centerOfGravity,
+                ...action.payload.updatedCenterOfGravity,
+              },
+            }
+          : obj
+      );
+    },
     updateItem: (state, action) => {
       state.itemList = state.itemList.map((obj) =>
         obj.id === action.payload.id
@@ -155,4 +180,5 @@ export const {
   updateItemFs,
   updateItemPosition,
   updateItemScale,
+  updateItemCenterOfGravity,
 } = ObjectsDataSlice.actions;

@@ -165,7 +165,7 @@ function sumFule(basicData) {
 
 function sumBsicWeightAndCargo(objectsData, basicData) {
   let weight = basicData.emptyWeight;
-  objectsData.objectListItems.forEach((element) => {
+  objectsData.itemList.forEach((element) => {
     weight += element.weight;
   });
   // console.log(`The sumBsicWeightAndCargo function returns: ${weight}`)
