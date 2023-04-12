@@ -22,7 +22,7 @@ import { openPopup, closePopup } from '../../redux/PopupSlice';
 import { BasicDataForm, basicDataId } from '../Popups/BasicData/BasicDataForm';
 import UnitsService from '../../services/UnitsService';
 import { State } from '../../redux/store';
-import { ObjectItem } from '../../models/ObjectItem';
+import { Item } from '../../models/ObjectItem';
 import SiderBarItem from './SiderBarItem';
 import { PopupComponent } from '../ViewComponents';
 import DropDown from './DropDown';
@@ -57,7 +57,7 @@ const SideBarItems = ({ showSideBar, setShowSideBar, fabricRef }: Props) => {
     dispatch(closePopup(id));
   };
 
-  const addItemToObjectList = (item: ObjectItem) => {
+  const addItemToObjectList = (item: Item) => {
     dispatch(addItem(item));
   };
 
@@ -123,7 +123,7 @@ const SideBarItems = ({ showSideBar, setShowSideBar, fabricRef }: Props) => {
         }{" "}${
           objectListItems.dataCollection.index
         }{"inside the objectListItems"}${
-          objectListItems.objectListItems[0].fill
+          objectListItems.itemList[0].fill
         }{" "}${objectListItems.dataCollection.fuel}{" "}${
           objectListItems.dataCollection.fuel
         }{" "}${objectListItems.dataCollection.fuel}{" "}${basicData}`,

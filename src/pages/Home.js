@@ -9,7 +9,7 @@ import eventBus from '../components/Grid/eventBus';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { fabric } from 'fabric';
-import { setObjectsList } from '../redux/ObjectsDataSlice';
+import { setItemsList } from '../redux/ObjectsDataSlice';
 import UnitsService from '../services/UnitsService';
 
 const Home = () => {
@@ -25,7 +25,7 @@ const Home = () => {
 
     let objectsList = JSON.parse(localStorage.getItem('objectsList'));
     objectsList = objectsList ?? [];
-    dispatch(setObjectsList(objectsList));
+    dispatch(setItemsList(objectsList));
     const startingPoint = UnitsService.startingPosition(
       fabricRef.current.width,
       fabricRef.current.height

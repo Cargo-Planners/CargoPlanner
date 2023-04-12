@@ -6,7 +6,7 @@ export interface Position {
   z?: number;
 }
 
-export interface ObjectItem {
+export interface Item {
   type: string;
   name: string;
   id: string;

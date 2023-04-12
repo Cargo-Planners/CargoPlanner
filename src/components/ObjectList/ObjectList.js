@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import PopUp from '../Grid/PopUp';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { calculateWeight } from '../../redux/ObjectsDataSlice';
 import eventBus from '../Grid/eventBus';
 import ObjectDetails from './ObjectDetails';
@@ -8,25 +8,9 @@ import ObjectDetails from './ObjectDetails';
 const ObjectList = (props, fabricRef) => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState();
-  const dispatch = useDispatch();
   const objectListItems = useSelector(
     (state) => state.objectsData.objectListItems
   );
-  let fsValue = '';
-
-  const weightChangeHandler = (e, index) => {
-    const value = e.target.value === '' ? 0 : parseInt(e.target.value);
-    // dispatch(updateWeight({ value, index }));
-    dispatch(calculateWeight());
-  };
-
-  const activeCalculateWeight = () => {
-    dispatch(calculateWeight());
-  };
-
-  const setFs = () => {
-    eventBus.dispatch('setFsValue', { message: fsValue });
-  };
 
   const togglePopup = (index) => {
     setIsOpen(!isOpen);
@@ -39,20 +23,6 @@ const ObjectList = (props, fabricRef) => {
         <h1 className='text-[#000000] text-2xl font-bold text-center my-2'>
           Objects
         </h1>
-        <div className='flex items-center'>
-          <button
-            onClick={activeCalculateWeight}
-            className='bg-[#ffffff] hover:bg-[#f9d63a] my-4 mx-auto py-2 px-4 rounded-lg text-[#000000] font-bold border-[#000000] border-2' // Might not need this Button! ignore for now.
-          >
-            Update Total Weight
-          </button>
-          <button
-            className='bg-[#ffffff] hover:bg-[#f9d63a] my-4 mx-auto py-2 px-4 rounded-lg text-[#000000] font-bold border-[#000000] border-2'
-            onClick={setFs}
-          >
-            Update FS
-          </button>
-        </div>
         <div className='flex flex-col mt-2 h-5/6'>
           <div className='flex mb-2 text-center'>
             <p className='w-1/5 text-[#000000] font-semibold'>ID</p>

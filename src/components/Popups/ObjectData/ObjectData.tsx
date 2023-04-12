@@ -1,5 +1,5 @@
 import React from 'react';
-import { ObjectItem } from '../../../models/ObjectItem';
+import { Item } from '../../../models/ObjectItem';
 import {
   CargoContainer,
   CargoInputNumber,
@@ -9,7 +9,7 @@ import {
 
 type Props = {
   close: (id: string) => void;
-  object: ObjectItem;
+  object: Item;
 };
 
 export const objectsDataId = 'OBJECT_POPUP';

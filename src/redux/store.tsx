@@ -1,5 +1,5 @@
 import ObjectsDataSliceReducer, { ObjectsDataState } from './ObjectsDataSlice';
-import EditBasicDataReducer, { BasicDataState } from './EditBasicDataSlice';
+import EditBasicDataReducer, { BasicDataState } from './BasicDataSlice';
 import {
   Action,
   AnyAction,
@@ -37,7 +37,7 @@ const objectsDataToLocalStorage: Middleware =
     if (action.type.includes('objectsData')) {
       localStorage.setItem(
         'objectsList',
-        JSON.stringify(store.getState().objectsData.objectListItems)
+        JSON.stringify(store.getState().objectsData.itemList)
       );
     }
 

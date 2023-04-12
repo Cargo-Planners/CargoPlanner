@@ -2,13 +2,13 @@ import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { fabric } from 'fabric';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  updateWidth,
-  updateHeight,
-  updateIndexObj,
-  updateWidthAndHeightByScale,
-  updateWeightObj,
-  updateObjectById,
-  updateObjectScaleById,
+  updateItemWidth,
+  updateItemHeight,
+  updateItemIndex,
+  updateItemScale,
+  updateItemWeight,
+  updateItemPosition,
+  updateItemFs,
 } from '../../redux/ObjectsDataSlice';
 import PopUp from './PopUp';
 import eventBus from './eventBus';
@@ -16,6 +16,7 @@ import { X_ORIGIN, Y_ORIGIN } from '../SideBar/SideBarItems';
 import { MdOutlineClose } from 'react-icons/md';
 import { State } from '../../redux/store';
 import UnitsService from '../../services/UnitsService';
+import { current } from '@reduxjs/toolkit';
 
 const DynamicObj = (props, fabricRef) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,9 +24,7 @@ const DynamicObj = (props, fabricRef) => {
   let currentObj = useRef(null);
   let updatedIndex = 0;
   const dispatch = useDispatch();
-  const objectListItems = useSelector(
-    (state) => state.objectsData.objectListItems
-  );
+  const objectListItems = useSelector((state) => state.objectsData.itemList);
 
   let isObjectModified = false;
   let dispatchFunction = () => {};
@@ -38,7 +37,12 @@ const DynamicObj = (props, fabricRef) => {
       currentObj.setCoords();
       fabricRef.current.requestRenderAll();
     }
-    dispatch(updateWidth({ value: width, index }));
+    dispatch(
+      updateItemWidth({
+        id: currentObj.id,
+        updatedWidth: width,
+      })
+    );
   };
 
   const heightChangeHandler = (e, index) => {
@@ -49,27 +53,28 @@ const DynamicObj = (props, fabricRef) => {
       currentObj.setCoords();
       fabricRef.current.requestRenderAll();
     }
-    dispatch(updateHeight({ value: length, index }));
+    dispatch(
+      updateItemHeight({
+        id: currentObj.name,
+        updatedHeight: length,
+      })
+    );
   };
 
   const fsChangeHandler = (e, index) => {
     const value = e.target.value === '' ? 0 : parseInt(e.target.value);
-    dispatch(updateIndexObj({ value, index }));
+    dispatch(updateItemIndex({ value, index }));
   };
 
-  const weightChangeHandler = (e, index) => {
+  const weightChangeHandler = (e) => {
     const value = e.target.value === '' ? 0 : parseInt(e.target.value);
-    objectListItems.forEach((object, i) => {
-      if (fabricRef.current._activeObject.fill === object.fill) {
-        updatedIndex = i;
-        dispatch(
-          updateWeightObj({
-            updatedWeight: value,
-            index: updatedIndex,
-          })
-        );
-      }
-    });
+    console.log(fabricRef.current._activeObject.name);
+    dispatch(
+      updateItemWeight({
+        id: fabricRef.current._activeObject.name,
+        updatedWeight: value,
+      })
+    );
   };
 
   useEffect(() => {
@@ -141,7 +146,7 @@ const DynamicObj = (props, fabricRef) => {
 
         dispatchFunction = () => {
           dispatch(
-            updateObjectScaleById({
+            updateItemScale({
               id: fabricRef.current._activeObject.name,
               scaleX: e.target.scaleX,
               scaleY: e.target.scaleY,
@@ -190,12 +195,15 @@ const DynamicObj = (props, fabricRef) => {
 
         dispatchFunction = () => {
           dispatch(
-            updateObjectById({
+            updateItemPosition({
               id: fabricRef.current._activeObject.name,
-              changes: {
-                fs: 245 + position.x,
-                position: position,
-              },
+              updatedPosition: position,
+            })
+          );
+          dispatch(
+            updateItemFs({
+              id: fabricRef.current._activeObject.name,
+              updatedFs: position.x + 245,
             })
           );
         };
@@ -232,7 +240,7 @@ const DynamicObj = (props, fabricRef) => {
               </h1>
               {objectListItems.map(
                 (item, index) =>
-                  fabricRef.current.getActiveObject().name === item.id && (
+                  fabricRef.current.getActiveObject()?.name === item.id && (
                     <div key={index} className='flex justify-center h-4rem'>
                       <div className='grid grid-rows-2 place-items-center my-0'>
                         <h1 className='self-end'>Height</h1>
@@ -269,23 +277,25 @@ const DynamicObj = (props, fabricRef) => {
                           name='item'
                           className='w-28 h-10 bg-green-200 p-1 m-1 rounded-xl self-start'
                           placeholder={`${objectListItems[index].weight}`}
-                          onChange={(e) => weightChangeHandler(e, index)}
+                          onChange={(e) => weightChangeHandler(e)}
                         />
                       </div>
                       <div className='grid grid-rows-2 place-items-center'>
                         <h1 className='self-end'>Center Gravity</h1>
-                        <input
-                          name='item'
-                          className='w-28 h-10 bg-green-200 p-1 m-1 rounded-xl self-start'
-                          placeholder={`${objectListItems[index].centerOfGravity}`}
-                          // onChange={(e) => weightChangeHandler(e, index)}
-                        />
-                        <input
-                          name='item'
-                          className='w-28 h-10 bg-green-200 p-1 m-1 rounded-xl self-start'
-                          placeholder={`${objectListItems[index].centerOfGravity}`}
-                          // onChange={(e) => weightChangeHandler(e, index)}
-                        />
+                        <div className='flex flex-row-reverse items-start m-0'>
+                          <input
+                            name='item'
+                            className='w-28 h-10 bg-green-200 p-1 m-1 rounded-xl self-start'
+                            placeholder='Y'
+                            // onChange={(e) => weightChangeHandler(e, index)}
+                          />
+                          <input
+                            name='item'
+                            className='w-28 h-10 bg-green-200 p-1 m-1 rounded-xl self-start'
+                            placeholder='X'
+                            // onChange={(e) => weightChangeHandler(e, index)}
+                          />
+                        </div>
                       </div>
                     </div>
                   )
