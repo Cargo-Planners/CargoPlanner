@@ -185,10 +185,6 @@ const SideBarItems = ({ showSideBar, setShowSideBar, fabricRef }: Props) => {
           <SiderBarItem Icon={FaCaretDown} buttonText='Existing Objects' />
         </div>
         {showDropDown && <DropDown />}
-        <div className='flex  text-white'>
-          {/* <button className="font-bold ">Help</button>
-          <img className="my-auto h-5 w-5" src={helpIcon} alt="helpIcon" /> */}
-        </div>
       </div>
       <div className='flex flex-row text-white'>
         <SettingsIcon className='spinningSettingsIcons cursor-pointer' />
