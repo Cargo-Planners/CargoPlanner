@@ -11,7 +11,7 @@ import {
 import { MdLocalGasStation } from 'react-icons/md';
 import { FuelDataId, FuelData } from '../FuelData/FuelData';
 import { useDispatch } from 'react-redux';
-import { updateBasicData } from '../../../redux/EditBasicDataSlice';
+import { updateBasicData } from '../../../redux/BasicDataSlice';
 
 type Props = {
   close: (id: string) => void;

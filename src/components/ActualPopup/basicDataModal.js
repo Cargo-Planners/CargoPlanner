@@ -31,7 +31,7 @@ import {
   updateEmptyWeight,
   updateIndex,
   updateConfig,
-} from '../../redux/EditBasicDataSlice';
+} from '../../redux/BasicDataSlice';
 import { BasicDataForm } from '../Popups/BasicData/BasicDataForm';
 import './popup.css';
 
