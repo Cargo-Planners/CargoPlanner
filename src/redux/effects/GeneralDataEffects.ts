@@ -7,6 +7,7 @@ import {
 } from '@reduxjs/toolkit';
 import { State } from '../store';
 import { changeGeneralData } from '../GeneralDataSlice';
+import { CalcService } from '../../services/CalcService';
 
 export const updateTotalWeightEffect: Middleware =
   (store: MiddlewareAPI<Dispatch<AnyAction>, State>) =>
@@ -17,9 +18,38 @@ export const updateTotalWeightEffect: Middleware =
     const triggerActions = [
       'objectsData/updateItemWeight',
       'basicData/updateEmptyWeight',
+      'basicData/updateSlider1',
+      'basicData/updateSlider2',
+      'basicData/updateSlider3',
+      'basicData/updateSlider4',
+      'basicData/updateSlider5',
     ];
 
     if (triggerActions.includes(action.type)) {
-      store.dispatch(changeGeneralData({ totalCargoWeight: 0 }));
+      const state = store.getState();
+      store.dispatch(
+        changeGeneralData({
+          totalCargoWeight: CalcService.calculateTotalWeight(
+            state.basicData,
+            state.objectsData.itemList
+          ),
+        })
+      );
+    }
+  };
+
+export const updateTotalIndex: Middleware =
+  (store: MiddlewareAPI<Dispatch<AnyAction>, State>) =>
+  (next: Dispatch) =>
+  (action: Action) => {
+    next(action);
+
+    const triggerActions = [
+      'objectsData/updateItemIndex',
+      'basicData/updateIndex',
+    ];
+
+    if (triggerActions.includes(action.type)) {
+      store.dispatch(changeGeneralData({ totalIndex: 0 }));
     }
   };

@@ -3,9 +3,7 @@ import { useSelector } from 'react-redux';
 import eventBus from '../Grid/eventBus';
 
 const DataCollection = () => {
-  const dataCollection = useSelector(
-    (state) => state.objectsData.dataCollection
-  );
+  const dataCollection = useSelector((state) => state.generalData);
 
   return (
     <div className='flex justify-start w-full w-full '>

@@ -4,17 +4,6 @@ import UnitsService from '../services/UnitsService';
 
 export interface ObjectsDataState {
   itemList: Item[];
-  dataCollection: {
-    takeOffWeight: number;
-    totalCargoWeight: number;
-    totalIndex: number;
-    ZFW: number;
-    fuel: number;
-    areaGraph: number;
-    MAC: number;
-    MACRange: number;
-    index: number;
-  };
 }
 
 export interface PositionChanges {
@@ -25,17 +14,6 @@ export interface PositionChanges {
 
 const initialState: ObjectsDataState = {
   itemList: [],
-  dataCollection: {
-    takeOffWeight: 0,
-    totalCargoWeight: 0,
-    totalIndex: 0,
-    ZFW: 0,
-    fuel: 0,
-    areaGraph: 0,
-    MAC: 0,
-    MACRange: 0,
-    index: 0,
-  },
 };
 
 const ObjectsDataSlice = createSlice({

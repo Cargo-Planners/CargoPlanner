@@ -9,11 +9,13 @@ import {
   MiddlewareAPI,
 } from '@reduxjs/toolkit';
 import PopupSliceReducer, { PopupState } from './PopupSlice';
+import { GeneralDataState } from './GeneralDataSlice';
 
 export type State = {
   objectsData: ObjectsDataState;
   basicData: BasicDataState;
   popupReducer: PopupState;
+  generalDataReducer: GeneralDataState;
 };
 
 const logger: Middleware =
