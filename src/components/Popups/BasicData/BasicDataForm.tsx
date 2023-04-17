@@ -35,7 +35,7 @@ export const BasicDataForm = ({ close, open }: Props) => {
     <CargoContainer close={handleClose}>
       <div className='w-full'>
         <div className='flex justify-center'>
-          <h1 className='text-center text-5xl font-bold'>My Form</h1>
+          <h1 className='text-center text-5xl font-bold'>Basic Data</h1>
         </div>
         <div>
           <CargoInput
@@ -112,7 +112,9 @@ export const BasicDataForm = ({ close, open }: Props) => {
             <div className='w-3/5'>
               <CargoInputRadio
                 label='Pod/No Pod:'
-                onChange={dispatchChangeBasicData}
+                onChange={(value) =>
+                  dispatchChangeBasicData({ key: 'fuelPod', value: value })
+                }
               />
             </div>
           </CargoInput>
