@@ -58,11 +58,9 @@ const Home = () => {
   return (
     <div>
       <SideBar ref={fabricRef} />
-      <div className=' ml-[20vw] w-[55vw] bg-[#fafafa] overflow-hidden '>
+      <div className='ml-[20vw] bg-[#fafafa] w-[60%] aspect-[1/0.36]'>
         <CGrid ref={fabricRef} />
-        <DataCollection />
       </div>
-      <ObjectList ref={fabricRef} />
     </div>
   );
 };

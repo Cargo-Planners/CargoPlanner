@@ -241,7 +241,7 @@ const DynamicObj = (props, fabricRef) => {
   };
 
   return (
-    <div className='flex flex-col'>
+    <div>
       <canvas id='canvas' />
       {isOpen && (
         <PopUp
