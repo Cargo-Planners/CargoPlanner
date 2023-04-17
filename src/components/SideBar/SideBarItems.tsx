@@ -40,6 +40,7 @@ type Props = {
 const SideBarItems = ({ showSideBar, setShowSideBar, fabricRef }: Props) => {
   const objectListItems = useSelector((state: State) => state.objectsData);
   const basicData = useSelector((state: State) => state.basicData);
+  const generalData = useSelector((state: State) => state.generalData);
 
   const [showDropDown, setShowDropDown] = useState(false);
 
@@ -114,19 +115,15 @@ const SideBarItems = ({ showSideBar, setShowSideBar, fabricRef }: Props) => {
       Swal.fire({
         icon: 'success',
         title: 'כל הכבוד עכשיו אפשר לייצא קובץ pdf',
-        text: `${objectListItems.dataCollection.fuel}${' '}${
-          objectListItems.dataCollection.MAC
-        }{" "}${objectListItems.dataCollection.MACRange}{" "}${
-          objectListItems.dataCollection.ZFW
-        }{" "}${objectListItems.dataCollection.fuel}{" "}${
-          objectListItems.dataCollection.areaGraph
-        }{" "}${
-          objectListItems.dataCollection.index
-        }{"inside the objectListItems"}${
+        text: `${generalData.fuel}${' '}${generalData.MAC}{" "}${
+          generalData.MACRange
+        }{" "}${generalData.ZFW}{" "}${generalData.fuel}{" "}${
+          generalData.areaGraph
+        }{" "}${generalData.index}{"inside the objectListItems"}${
           objectListItems.itemList[0].fill
-        }{" "}${objectListItems.dataCollection.fuel}{" "}${
-          objectListItems.dataCollection.fuel
-        }{" "}${objectListItems.dataCollection.fuel}{" "}${basicData}`,
+        }{" "}${generalData.fuel}{" "}${generalData.fuel}{" "}${
+          generalData.fuel
+        }{" "}${basicData}`,
       });
     } else {
       Swal.fire({
