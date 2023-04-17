@@ -36,7 +36,7 @@ const initialState = {
   index: 0,
 };
 
-const GeneralDataSLice = createSlice({
+const GeneralDataReducer = createSlice({
   name: 'generalData',
   initialState,
   reducers: {
@@ -52,5 +52,5 @@ const GeneralDataSLice = createSlice({
   },
 });
 
-export default GeneralDataSLice.reducer;
-export const { changeGeneralData } = GeneralDataSLice.actions;
+export default GeneralDataReducer.reducer;
+export const { changeGeneralData } = GeneralDataReducer.actions;
