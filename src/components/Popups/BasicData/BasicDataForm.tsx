@@ -84,6 +84,15 @@ export const BasicDataForm = ({ close, open }: Props) => {
             <div className='w-3/5'>
               <CargoInputRadio label='Pod/No Pod:' />
             </div>
+            <div className='w-3/5'>
+              <CargoInputText label='outboard:' />
+            </div>
+            <div className='w-3/5'>
+              <CargoInputText label='inboard:' />
+            </div>
+            <div className='w-3/5'>
+              <CargoInputText label='fuselage:' />
+            </div>
           </CargoInput>
         </div>
       </div>

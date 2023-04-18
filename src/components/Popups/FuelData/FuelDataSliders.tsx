@@ -36,7 +36,7 @@ export const FuelDataSliders = ({ sliderData, fuelPod }: Props) => {
   };
 
   return (
-    <div className='w-[900px] h-[600px]'>
+    <div className='flex flex-col w-[80vh] h-[90vw] '>
       <h1 id='podState'>{fuelPod ? 'POD' : 'NO POD'}</h1>{' '}
       <div id='plane-tanks' style={{ backgroundImage: `url(${fuelTank})` }}>
         <div id='outboard1' className='tank-container'>

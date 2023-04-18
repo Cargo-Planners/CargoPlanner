@@ -1,8 +1,8 @@
-import React from "react";
-import Select from "react-select";
-import FuelData from "./FuelData";
-import Radio from "./Radio";
-import { useDispatch, useSelector } from "react-redux";
+import React from 'react';
+import Select from 'react-select';
+import FuelData from './FuelData';
+import Radio from './Radio';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   incrementCockpitCrew,
   decrementCockpitCrew,
@@ -11,27 +11,36 @@ import {
   updateEmptyWeight,
   updateIndex,
   updateConfig,
-} from "../../redux/EditBasicDataSlice";
+} from '../../redux/EditBasicDataSlice';
 
-import plus from "../../icons/plusIcon.png";
-import minus from "../../icons/minusIcon.png";
-import Fuel from "../../icons/Fuel.png";
-import close from "../../icons/close.png";
+import plus from '../../icons/plusIcon.png';
+import minus from '../../icons/minusIcon.png';
+import Fuel from '../../icons/Fuel.png';
+import close from '../../icons/close.png';
 
-import { useState } from "react";
-import Modal from "react-modal";
-import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
+import { useState } from 'react';
+import Modal from 'react-modal';
+import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
 
 const configs = [
-  { value: "1", label: "Option 1" },
-  { value: "2", label: "Option 2" },
-  { value: "3", label: "Option 3" },
-  { value: "4", label: "Option 4" },
+  { value: '1', label: 'Option 1' },
+  { value: '2', label: 'Option 2' },
+  { value: '3', label: 'Option 3' },
+  { value: '4', label: 'Option 4' },
 ];
 
 const BasicData = ({ setModalIsOpen }) => {
-  const { cockpitCrew, inspectorsCrew, emptyWeight, index, config, fuelPod } =
-    useSelector((state) => state.basicData);
+  const {
+    cockpitCrew,
+    inspectorsCrew,
+    emptyWeight,
+    index,
+    config,
+    fuelPod,
+    outboard,
+    inboard,
+    fuselage,
+  } = useSelector((state) => state.basicData);
 
   const [Config, setConfig] = useState(null);
   const [fuelModalIsOpen, setFuelModalIsOpen] = useState(false);
@@ -39,42 +48,42 @@ const BasicData = ({ setModalIsOpen }) => {
   const dispatch = useDispatch();
 
   return (
-    <div className="p-20 bg-[#DEBD7D]">
+    <div className='p-20 bg-[#DEBD7D]'>
       <button
         onClick={() => {
           setModalIsOpen(false);
         }}
-        id="close"
+        id='close'
       >
-        <img src={close} alt="" />
+        <img src={close} alt='' />
       </button>
-      <h1 className="text-center text-5xl font-bold my-4 mb-10">Basic Data</h1>
+      <h1 className='text-center text-5xl font-bold my-4 mb-10'>Basic Data</h1>
 
-      <label className="label-font-w">Aircraft:</label>
-      <div className="box-item">
-        <label className="label-font-b">Empty Weight:</label>
+      <label className='label-font-w'>Aircraft:</label>
+      <div className='box-item'>
+        <label className='label-font-b'>Empty Weight:</label>
         <input
-          className="input-css"
-          type="text"
+          className='input-css'
+          type='text'
           placeholder={emptyWeight}
           onChange={(event) => {
             dispatch(updateEmptyWeight(event.target.value));
           }}
         />
       </div>
-      <div className="box-item">
-        <label className="label-font-b">Aircraft Index:</label>
+      <div className='box-item'>
+        <label className='label-font-b'>Aircraft Index:</label>
         <input
-          className="input-css"
-          type="text"
+          className='input-css'
+          type='text'
           placeholder={index}
           onChange={(event) => {
             dispatch(updateIndex(event.target.value));
           }}
         />
       </div>
-      <div className="box-item">
-        <label className="label-font-b">Formation:</label>
+      <div className='box-item'>
+        <label className='label-font-b'>Formation:</label>
         <Select
           options={configs}
           defaultValue={config}
@@ -83,82 +92,81 @@ const BasicData = ({ setModalIsOpen }) => {
             dispatch(updateConfig(Config.value));
             console.log(Config.value);
           }}
-          placeholder={"Option " + config}
+          placeholder={'Option ' + config}
         />
       </div>
-      <label className="label-font-w">Crew:</label>
+      <label className='label-font-w'>Crew:</label>
 
-      <div id="counter-css">
-        <label className="label-font-b">Cockpit Crew:</label>
-        <div id="counter-comp-css">
+      <div id='counter-css'>
+        <label className='label-font-b'>Cockpit Crew:</label>
+        <div id='counter-comp-css'>
           <button
             onClick={() => {
               if (cockpitCrew > 0) dispatch(decrementCockpitCrew());
             }}
           >
-            <img src={minus} alt="" className="plus-minus" />
+            <img src={minus} alt='' className='plus-minus' />
           </button>
-          <h1 className="text-xl">{cockpitCrew}</h1>
+          <h1 className='text-xl'>{cockpitCrew}</h1>
           <button onClick={() => dispatch(incrementCockpitCrew())}>
-            <img src={plus} alt="" className="plus-minus" />
+            <img src={plus} alt='' className='plus-minus' />
           </button>
         </div>
       </div>
 
-      <div id="counter-css">
-        <label className="label-font-b">Inspectors Crew:</label>
-        <div id="counter-comp-css">
+      <div id='counter-css'>
+        <label className='label-font-b'>Inspectors Crew:</label>
+        <div id='counter-comp-css'>
           <button
             onClick={() => {
               if (inspectorsCrew > 0) dispatch(decrementInspectorsCrew());
             }}
           >
-            <img src={minus} alt="" className="plus-minus" />
+            <img src={minus} alt='' className='plus-minus' />
           </button>
-          <h1 className="text-xl">{inspectorsCrew}</h1>
+          <h1 className='text-xl'>{inspectorsCrew}</h1>
           <button onClick={() => dispatch(incrementInspectorsCrew())}>
-            <img src={plus} alt="" className="plus-minus" />
+            <img src={plus} alt='' className='plus-minus' />
           </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 mb-6 mt-4 ">
-        <label className="label-font-w w-max	">Fuel Distribution:</label>
+      <div className='grid grid-cols-2 mb-6 mt-4 '>
+        <label className='label-font-w w-max	'>Fuel Distribution:</label>
         <button onClick={() => setFuelModalIsOpen(true)}>
           {/* <img src={Fuel} alt="" id="fuel-img" /> */}
           <LocalGasStationIcon
             // className="text-[#F0AD4A] h-[70px]	w-[70px]"
-            style={{ width: "70px", height: "70px", color: "#F0AD4A" }}
+            style={{ width: '70px', height: '70px', color: '#F0AD4A' }}
           />
         </button>
-
-        <label className="label-font-b">POD/NO POD:</label>
+        <label className='label-font-b'>POD/NO POD:</label>
         <Radio />
       </div>
 
       <Modal
         isOpen={fuelModalIsOpen}
-        appElement={document.getElementById("root") || undefined}
+        appElement={document.getElementById('root') || undefined}
         style={{
           overlay: {
-            position: "fixed",
+            position: 'fixed',
             top: 0,
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: "#3A3A35",
+            backgroundColor: '#3A3A35',
           },
           content: {
-            backgroundColor: "#3D3E43",
-            display: "flex",
-            justifyContent: "center",
-            borderRadius: "20px",
-            width: "1050px",
-            height: "800px",
-            margin: "auto",
-            marginTop: "3vh",
-            padding: "10px",
-            position: "relative",
+            backgroundColor: '#3D3E43',
+            display: 'flex',
+            justifyContent: 'center',
+            borderRadius: '20px',
+            width: '1050px',
+            height: '800px',
+            margin: 'auto',
+            marginTop: '3vh',
+            padding: '10px',
+            position: 'relative',
           },
         }}
       >

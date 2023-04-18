@@ -7,11 +7,9 @@ export interface BasicDataState {
   index: number;
   config: number;
   fuelPod: boolean;
-  slider1: number;
-  slider2: number;
-  slider3: number;
-  slider4: number;
-  slider5: number;
+  outboard: number;
+  inboard: number;
+  fuselage: number;
 }
 
 const initialState = {
