@@ -1,22 +1,58 @@
 import ObjectsDataSliceReducer, { ObjectsDataState } from './ObjectsDataSlice';
-import EditBasicDataReducer, { BasicDataState } from './EditBasicDataSlice';
-import { configureStore } from '@reduxjs/toolkit';
+import EditBasicDataReducer, { BasicDataState } from './BasicDataSlice';
+import {
+  Action,
+  AnyAction,
+  configureStore,
+  Dispatch,
+  Middleware,
+  MiddlewareAPI,
+} from '@reduxjs/toolkit';
 import PopupSliceReducer, { PopupState } from './PopupSlice';
+import GeneralDataSlice, { GeneralDataState } from './GeneralDataSlice';
 
 export type State = {
   objectsData: ObjectsDataState;
   basicData: BasicDataState;
-  popupReducer: PopupState;
+  popupData: PopupState;
+  generalData: GeneralDataState;
 };
+
+const logger: Middleware =
+  (store: MiddlewareAPI<Dispatch<AnyAction>, State>) =>
+  (next: Dispatch) =>
+  (action: Action) => {
+    console.group(action.type);
+    console.log(action.type);
+    let result = next(action);
+    console.log(store.getState());
+    console.groupEnd();
+    return result;
+  };
+
+const objectsDataToLocalStorage: Middleware =
+  (store: MiddlewareAPI<Dispatch<AnyAction>, State>) =>
+  (next: Dispatch) =>
+  (action: Action) => {
+    let result = next(action);
+
+    if (action.type.includes('objectsData')) {
+      localStorage.setItem(
+        'objectsList',
+        JSON.stringify(store.getState().objectsData.itemList)
+      );
+    }
+
+    return result;
+  };
 
 export const store = configureStore({
   reducer: {
     objectsData: ObjectsDataSliceReducer,
     basicData: EditBasicDataReducer,
-    popupReducer: PopupSliceReducer,
+    popupData: PopupSliceReducer,
+    generalData: GeneralDataSlice,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }),
+    getDefaultMiddleware().concat(logger, objectsDataToLocalStorage),
 });

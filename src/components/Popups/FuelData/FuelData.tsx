@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -7,7 +7,7 @@ import {
   updateSlider3,
   updateSlider4,
   updateSlider5,
-} from '../../../redux/EditBasicDataSlice';
+} from '../../../redux/BasicDataSlice';
 
 //@ts-ignore
 import Slider from '../../BasicData/Slider';
@@ -37,14 +37,6 @@ export const FuelData = ({ close }: Props) => {
   const handleClose = () => {
     close(FuelDataId);
   };
-
-  useEffect(() => {
-    console.log(Slider1);
-    console.log(Slider2);
-    console.log(Slider3);
-    console.log(Slider4);
-    console.log(Slider5);
-  }, []);
 
   return (
     <CargoContainer close={handleClose}>

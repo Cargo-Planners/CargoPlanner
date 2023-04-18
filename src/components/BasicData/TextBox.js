@@ -1,15 +1,15 @@
-import React from "react";
-import Select from "react-select";
+import React from 'react';
+import Select from 'react-select';
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import {
   increment,
   decrement,
   updateEmptyWeight,
   updateIndex,
-} from "../../redux/EditBasicDataSlice";
+} from '../../redux/BasicDataSlice';
 
-import { useState } from "react";
+import { useState } from 'react';
 
 const TextBox = ({ func, label, placeholder }) => {
   const [EmptyWeight, setEmptyWeight] = useState(0);
@@ -20,12 +20,12 @@ const TextBox = ({ func, label, placeholder }) => {
   );
   return (
     <div>
-      <div id="text-box-item">
-        <label className="text-lg">{label}</label>
+      <div id='text-box-item'>
+        <label className='text-lg'>{label}</label>
         <input
-          id="input-css"
+          id='input-css'
           placeholder={placeholder}
-          type="text"
+          type='text'
           onChange={(event) => {
             func(event.target.value);
           }}

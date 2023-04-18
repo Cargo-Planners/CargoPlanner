@@ -2,15 +2,17 @@ import React from 'react';
 import {
   CargoContainer,
   CargoInputNumber,
-  CargoInputText,
   CargoInputSelect,
   CargoInput,
+  CargoInputText,
   labelPositionEnum,
   CargoInputRadio,
   PopupComponent,
 } from '../../ViewComponents';
 import { MdLocalGasStation } from 'react-icons/md';
 import { FuelDataId, FuelData } from '../FuelData/FuelData';
+import { useDispatch } from 'react-redux';
+import { updateBasicData } from '../../../redux/BasicDataSlice';
 
 type Props = {
   close: (id: string) => void;
@@ -20,15 +22,21 @@ type Props = {
 export const basicDataId = 'BASIC_DATA';
 
 export const BasicDataForm = ({ close, open }: Props) => {
+  const dispatch = useDispatch();
+
   function handleClose() {
     close(basicDataId);
   }
+
+  const dispatchChangeBasicData = (data: { key: string; value: any }): void => {
+    dispatch(updateBasicData({ changes: { [data.key]: data.value } }));
+  };
 
   return (
     <CargoContainer close={handleClose}>
       <div className='w-full'>
         <div className='flex justify-center'>
-          <h1 className='text-center text-5xl font-bold'>My Form</h1>
+          <h1 className='text-center text-5xl font-bold'>Basic Data</h1>
         </div>
         <div>
           <CargoInput
@@ -40,15 +48,27 @@ export const BasicDataForm = ({ close, open }: Props) => {
               <CargoInputNumber
                 placeholder='Empty Weight'
                 label='Empty Weight:'
+                onChange={(value) =>
+                  dispatchChangeBasicData({ key: 'emptyWeight', value: value })
+                }
               />
             </div>
             <div className='w-3/5'>
-              <CargoInputText placeholder='Index' label='Aircraft Index:' />
+              <CargoInputNumber
+                placeholder='Index'
+                label='Aircraft Index:'
+                onChange={(value) =>
+                  dispatchChangeBasicData({ key: 'index', value: value })
+                }
+              />
             </div>
             <div className='w-3/5'>
               <CargoInputSelect
                 options={['Option1', 'Option2', 'Option3']}
-                label='Formation:'
+                label='Configuration:'
+                onChange={(value) =>
+                  dispatchChangeBasicData({ key: 'config', value: value })
+                }
               />
             </div>
           </CargoInput>
@@ -64,6 +84,9 @@ export const BasicDataForm = ({ close, open }: Props) => {
                 minValue={0}
                 placeholder='0'
                 label='Cockpit Crew:'
+                onChange={(value) =>
+                  dispatchChangeBasicData({ key: 'cockpitCrew', value: value })
+                }
               />
             </div>
             <div className='w-3/5'>
@@ -71,6 +94,12 @@ export const BasicDataForm = ({ close, open }: Props) => {
                 minValue={0}
                 placeholder='0'
                 label='Inspectors Crew:'
+                onChange={(value) =>
+                  dispatchChangeBasicData({
+                    key: 'inspectorsCrew',
+                    value: value,
+                  })
+                }
               />
             </div>
           </CargoInput>
@@ -82,7 +111,12 @@ export const BasicDataForm = ({ close, open }: Props) => {
             labelSize={1.75}
           >
             <div className='w-3/5'>
-              <CargoInputRadio label='Pod/No Pod:' />
+              <CargoInputRadio
+                label='Pod/No Pod:'
+                onChange={(value) =>
+                  dispatchChangeBasicData({ key: 'fuelPod', value: value })
+                }
+              />
             </div>
             <div className='w-3/5'>
               <CargoInputText label='outboard:' />

@@ -198,8 +198,9 @@ button {
   transform: rotate(183deg);
 }
 
-.root {
-  height: 100vh;
+#root {
+  height: 100%;
+  position: relative;
 }
 
 #tank-fuselage {
@@ -525,10 +526,21 @@ body {
 }
 
 .gridContainer {
-  width: 738px;
-  height: 388.8px;
   background-image: url('../src/images/grid.png');
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+}
+
+#gridEnd {
+  position: absolute;
+  margin-top: -25px;
+}
+
+#gridStart {
+  position: absolute;
+  margin-top: -25px;
 }
 
 .modal {

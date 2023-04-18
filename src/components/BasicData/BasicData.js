@@ -11,7 +11,7 @@ import {
   updateEmptyWeight,
   updateIndex,
   updateConfig,
-} from '../../redux/EditBasicDataSlice';
+} from '../../redux/BasicDataSlice';
 
 import plus from '../../icons/plusIcon.png';
 import minus from '../../icons/minusIcon.png';
@@ -90,7 +90,7 @@ const BasicData = ({ setModalIsOpen }) => {
           onChange={(Config) => {
             setConfig(Config.value);
             dispatch(updateConfig(Config.value));
-            console.log(Config.value);
+            // console.log(Config.value);
           }}
           placeholder={'Option ' + config}
         />

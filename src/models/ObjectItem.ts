@@ -3,13 +3,13 @@ import { fabric } from 'fabric/index';
 export interface Position {
   x: number;
   y: number;
-  z: number;
+  z?: number;
 }
 
-export interface ObjectItem {
+export interface Item {
   type: string;
+  name: string;
   id: string;
-  canvasObj: fabric.Object;
   weight: number;
   fs: number;
   width: number;
@@ -17,4 +17,5 @@ export interface ObjectItem {
   index: number;
   fill: fabric.Color;
   position: Position;
+  centerOfGravity: Position;
 }

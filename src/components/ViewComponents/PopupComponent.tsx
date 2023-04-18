@@ -18,7 +18,7 @@ export function PopupComponent({
 }: PropsWithChildren<Props>) {
   const isOpen = useSelector(
     (state: State) =>
-      state.popupReducer.popupList.find(({ id }) => id === popupId)?.isOpen ??
+      state.popupData.popupList.find(({ id }) => id === popupId)?.isOpen ??
       false
   );
 

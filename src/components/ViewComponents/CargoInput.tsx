@@ -6,10 +6,11 @@ export type BasicInputProps = {
   labelPosition?: labelPositionEnum;
   labelSize?: number;
   labelTextPosition?: labelTextPositionEnum;
+  onChange?: (data: any) => void;
 };
 
 export type InputProps = {
-  placeholder?: string;
+  placeholder?: string | number;
   value?: string | number | readonly string[];
 } & BasicInputProps;
 

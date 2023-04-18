@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   updateSlider1,
@@ -7,7 +6,7 @@ import {
   updateSlider3,
   updateSlider4,
   updateSlider5,
-} from '../../redux/EditBasicDataSlice';
+} from '../../redux/BasicDataSlice';
 
 //@ts-ignore
 import fuelTank from '../../images/fuelTank.png';
@@ -24,20 +23,6 @@ const FuelData = ({ setFuelModalIsOpen }: Props) => {
   const { slider1, slider2, slider3, slider4, slider5, fuelPod } = useSelector(
     (state: any) => state.basicData
   );
-
-  const [Slider1, setSlider1] = useState();
-  const [Slider2, setSlider2] = useState();
-  const [Slider3, setSlider3] = useState();
-  const [Slider4, setSlider4] = useState();
-  const [Slider5, setSlider5] = useState();
-
-  useEffect(() => {
-    console.log(Slider1);
-    console.log(Slider2);
-    console.log(Slider3);
-    console.log(Slider4);
-    console.log(Slider5);
-  }, []);
 
   const s1Height = {
     height: slider1 + '%',
@@ -92,7 +77,6 @@ const FuelData = ({ setFuelModalIsOpen }: Props) => {
           label='Outboard:'
           value={slider1}
           changeValue={(Slider1: any) => {
-            setSlider1(Slider1);
             dispatch(updateSlider1(Slider1));
           }}
         />
@@ -101,7 +85,6 @@ const FuelData = ({ setFuelModalIsOpen }: Props) => {
           label='INB:'
           value={slider2}
           changeValue={(Slider2: any) => {
-            setSlider2(Slider2);
             dispatch(updateSlider2(Slider2));
           }}
         />
@@ -110,7 +93,6 @@ const FuelData = ({ setFuelModalIsOpen }: Props) => {
           label='Fuselage:'
           value={slider3}
           changeValue={(Slider3: any) => {
-            setSlider3(Slider3);
             dispatch(updateSlider3(Slider3));
           }}
         />
@@ -119,7 +101,6 @@ const FuelData = ({ setFuelModalIsOpen }: Props) => {
           label='INB:'
           value={slider4}
           changeValue={(Slider4: any) => {
-            setSlider4(Slider4);
             dispatch(updateSlider4(Slider4));
           }}
         />
@@ -127,7 +108,6 @@ const FuelData = ({ setFuelModalIsOpen }: Props) => {
           label='Outboard:'
           value={slider5}
           changeValue={(Slider5: any) => {
-            setSlider5(Slider5);
             dispatch(updateSlider5(Slider5));
           }}
         />

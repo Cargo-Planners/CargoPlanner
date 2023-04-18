@@ -1,50 +1,48 @@
 import React, { useState } from 'react';
 import {
   FaCaretDown,
-  FaTimes,
   FaTrash,
   FaPlaneDeparture,
   FaChartLine,
   FaFileExport,
+  FaTimes,
 } from 'react-icons/fa';
 import { GiCargoCrate } from 'react-icons/gi';
-import SiderBarItem from './SiderBarItem';
-import DropDown from './DropDown';
-import settingsIcon from '../../icons/settingsIcon.png';
-import helpIcon from '../../icons/helpIcon.png';
-
 import { fabric } from 'fabric';
 import { addItem } from '../../redux/ObjectsDataSlice';
+//@ts-ignore
 import randomColor from 'randomcolor';
 import eventBus from '../Grid/eventBus';
+//@ts-ignore
 import { v4 } from 'uuid';
-import SettingsIcon from '@mui/icons-material/Settings';
 import { useSelector, useDispatch } from 'react-redux';
-import PopUp from '../Grid/PopUp';
-import { Fragment } from 'react';
 import Swal from 'sweetalert2';
-import { Link } from 'react-router-dom';
 import { routeConstants } from '../../Routes/constants';
-import EditBasicDataButton from '../Grid/EditBasicDataButton';
-import BasicData from '../BasicData/BasicData';
-import ActualPopup from '../ActualPopup/basicDataModal';
 import { openPopup, closePopup } from '../../redux/PopupSlice';
 import { BasicDataForm, basicDataId } from '../Popups/BasicData/BasicDataForm';
+import UnitsService from '../../services/UnitsService';
+import { State } from '../../redux/store';
+import { Item } from '../../models/ObjectItem';
+import SiderBarItem from './SiderBarItem';
 import { PopupComponent } from '../ViewComponents';
+import DropDown from './DropDown';
+import { Link } from 'react-router-dom';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 export const X_ORIGIN = 22;
 export const Y_ORIGIN = 315;
+type Props = {
+  showSideBar: boolean;
+  setShowSideBar: React.Dispatch<React.SetStateAction<boolean>>;
+  fabricRef: any;
+};
 
-const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
-  const [isOpen, setIsOpen] = useState(false);
+const SideBarItems = ({ showSideBar, setShowSideBar, fabricRef }: Props) => {
+  const objectListItems = useSelector((state: State) => state.objectsData);
+  const basicData = useSelector((state: State) => state.basicData);
+  const generalData = useSelector((state: State) => state.generalData);
+
   const [showDropDown, setShowDropDown] = useState(false);
-  const objectListItems = useSelector((state) => state.objectsData);
-  const basicData = useSelector((state) => state.basicData);
-  const [mathState, setMathState] = useState(2);
-  const [mathState2, setMathState2] = useState(3);
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const popupList = useSelector((state) => state.popupReducer.popupList);
 
   const setSideBar = () => {
     eventBus.dispatch('setSideBarValue', { message: '' });
@@ -52,68 +50,79 @@ const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
 
   const dispatch = useDispatch();
 
-  const dispatchOpenPopup = (id) => {
+  const dispatchOpenPopup = (id: string) => {
     dispatch(openPopup(id));
   };
 
-  const dispatchClosePopup = (id) => {
+  const dispatchClosePopup = (id: string) => {
     dispatch(closePopup(id));
   };
 
-  const addItemToObjectList = (item) => {
+  const addItemToObjectList = (item: Item) => {
     dispatch(addItem(item));
   };
 
   const addRectangle = () => {
     let color = randomColor();
     const id = v4();
+    const oneUnitInPixels = UnitsService.oneUnitInPixels(
+      fabricRef.current.width
+    );
+
+    const startPoint = UnitsService.startingPosition(
+      fabricRef.current.width,
+      fabricRef.current.height
+    );
+
     const rect = new fabric.Rect({
-      id: id,
-      width: 50,
-      height: 50,
+      name: id,
+      width: oneUnitInPixels,
+      height: oneUnitInPixels,
+      scaleX: 1,
+      scaleY: 1,
       opacity: 1,
-      left: X_ORIGIN,
-      top: Y_ORIGIN - 50,
+      ...startPoint,
       fill: color,
     });
+
     fabricRef.current.add(rect);
     addItemToObjectList({
       type: 'Object',
+      name: '',
       id: id,
-      canvasObj: rect,
       weight: 0,
       fs: 0,
-      width: 50,
-      height: 50,
+      width: UnitsService.ONE_UNIT_IN_INCHES,
+      height: UnitsService.ONE_UNIT_IN_INCHES,
       index: 0,
       fill: color,
-      x: rect.left - X_ORIGIN,
-      y: Math.abs(rect.top - Y_ORIGIN),
-      z: 0,
+      position: {
+        x: 0,
+        y: 0,
+        z: 0,
+      },
+      centerOfGravity: {
+        x: 10,
+        y: 10,
+      },
     });
 
     fabricRef.current.setActiveObject(rect);
   };
 
   const togglePopup = () => {
-    // console.log("something?");
-    // setIsOpen(!isOpen);
-    console.log('basic data is:', basicData);
-    console.log('objects are:', objectListItems);
-    if (mathState === mathState2) {
+    if (true) {
       Swal.fire({
         icon: 'success',
         title: 'כל הכבוד עכשיו אפשר לייצא קובץ pdf',
-        // text: '',
-        // html: "<div><h1>{objectListItems}<h1> <h1>{basicData}</h1></div>",
-        text: `${objectListItems.fuel}${' '}${objectListItems.MAC}{" "}${
-          objectListItems.MACRange
-        }{" "}${objectListItems.ZFW}{" "}${objectListItems.fuel}{" "}${
-          objectListItems.areaGraph
-        }{" "}${objectListItems.index}{"inside the objectListItems"}${
-          objectListItems.objectListItems[0].fill
-        }{" "}${objectListItems.fuel}{" "}${objectListItems.fuel}{" "}${
-          objectListItems.fuel
+        text: `${generalData.fuel}${' '}${generalData.MAC}{" "}${
+          generalData.MACRange
+        }{" "}${generalData.ZFW}{" "}${generalData.fuel}{" "}${
+          generalData.areaGraph
+        }{" "}${generalData.index}{"inside the objectListItems"}${
+          objectListItems.itemList[0].fill
+        }{" "}${generalData.fuel}{" "}${generalData.fuel}{" "}${
+          generalData.fuel
         }{" "}${basicData}`,
       });
     } else {
@@ -125,29 +134,15 @@ const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
     }
   };
 
-  const setModalIsOpen = () => {
-    setModalOpen(!modalOpen);
-  };
   return (
     <div className='min-h-full flex flex-col justify-between'>
-      {/* {isOpen && (
-        <PopUp
-          content={
-            <div>
-              <h1>נתונים שלך עברו בהצלחה כל הכבוד</h1>
-            </div>
-          }
-          handleClose={togglePopup}
-        />
-      )} */}
-
       <div className='flex flex-col gap-5'>
         <div className='flex'>
           {showSideBar ? (
             <button
               className='flex text-5xl text-[#1E1E22] items-center cursor-pointer'
               onClick={() => {
-                setShowSideBar((prev) => !prev);
+                setShowSideBar((prev: boolean) => !prev);
                 setSideBar();
               }}
             >
@@ -167,14 +162,12 @@ const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
         </div>
         <div
           onClick={() => {
-            console.log(popupList);
             dispatchOpenPopup(basicDataId);
           }}
         >
           <SiderBarItem Icon={FaPlaneDeparture} buttonText='Basic Data' />
         </div>
         {
-          // <BasicData setModalIsOpen={setModalIsOpen} />
           <PopupComponent popupId={basicDataId} width='35vw' height='70vh'>
             <BasicDataForm
               close={dispatchClosePopup}
@@ -197,10 +190,6 @@ const SideBarItems = ({ showSideBar, setShowSideBar }, fabricRef) => {
           <SiderBarItem Icon={FaCaretDown} buttonText='Existing Objects' />
         </div>
         {showDropDown && <DropDown />}
-        <div className='flex  text-white'>
-          {/* <button className="font-bold ">Help</button>
-          <img className="my-auto h-5 w-5" src={helpIcon} alt="helpIcon" /> */}
-        </div>
       </div>
       <div className='flex flex-row text-white'>
         <SettingsIcon className='spinningSettingsIcons cursor-pointer' />

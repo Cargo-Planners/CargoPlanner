@@ -7,7 +7,6 @@ import BasicDataPage from './pages/BasicDataPage';
 import FirstPage from './pages/FirstPage';
 import Graphs from './pages/Graphs';
 import { useDispatch } from 'react-redux';
-import { setObjectsList } from './redux/ObjectsDataSlice';
 
 function App() {
   return (

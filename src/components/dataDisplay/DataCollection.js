@@ -1,11 +1,13 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import eventBus from '../Grid/eventBus';
 
 const DataCollection = () => {
-  const dataCollection = useSelector(
-    (state) => state.objectsData.dataCollection
-  );
+  const dataCollection = useSelector((state) => state.generalData);
+
+  useEffect(() => {
+    console.log(dataCollection);
+  }, []);
 
   return (
     <div className='flex justify-start w-full w-full '>
