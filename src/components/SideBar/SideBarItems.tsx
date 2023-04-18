@@ -22,7 +22,7 @@ import { openPopup, closePopup } from '../../redux/PopupSlice';
 import { BasicDataForm, basicDataId } from '../Popups/BasicData/BasicDataForm';
 import UnitsService from '../../services/UnitsService';
 import { State } from '../../redux/store';
-import { ObjectItem } from '../../models/ObjectItem';
+import { Item } from '../../models/ObjectItem';
 import SiderBarItem from './SiderBarItem';
 import { PopupComponent } from '../ViewComponents';
 import DropDown from './DropDown';
@@ -40,6 +40,7 @@ type Props = {
 const SideBarItems = ({ showSideBar, setShowSideBar, fabricRef }: Props) => {
   const objectListItems = useSelector((state: State) => state.objectsData);
   const basicData = useSelector((state: State) => state.basicData);
+  const generalData = useSelector((state: State) => state.generalData);
 
   const [showDropDown, setShowDropDown] = useState(false);
 
@@ -57,7 +58,7 @@ const SideBarItems = ({ showSideBar, setShowSideBar, fabricRef }: Props) => {
     dispatch(closePopup(id));
   };
 
-  const addItemToObjectList = (item: ObjectItem) => {
+  const addItemToObjectList = (item: Item) => {
     dispatch(addItem(item));
   };
 
@@ -67,24 +68,28 @@ const SideBarItems = ({ showSideBar, setShowSideBar, fabricRef }: Props) => {
     const oneUnitInPixels = UnitsService.oneUnitInPixels(
       fabricRef.current.width
     );
+
+    const startPoint = UnitsService.startingPosition(
+      fabricRef.current.width,
+      fabricRef.current.height
+    );
+
     const rect = new fabric.Rect({
-      //@ts-ignore
-      id: id,
+      name: id,
       width: oneUnitInPixels,
       height: oneUnitInPixels,
       scaleX: 1,
       scaleY: 1,
       opacity: 1,
-      left: X_ORIGIN,
-      top: Y_ORIGIN - oneUnitInPixels,
+      ...startPoint,
       fill: color,
     });
+
     fabricRef.current.add(rect);
     addItemToObjectList({
       type: 'Object',
       name: '',
       id: id,
-      canvasObj: rect,
       weight: 0,
       fs: 0,
       width: UnitsService.ONE_UNIT_IN_INCHES,
@@ -92,9 +97,13 @@ const SideBarItems = ({ showSideBar, setShowSideBar, fabricRef }: Props) => {
       index: 0,
       fill: color,
       position: {
-        x: rect.left! - X_ORIGIN,
-        y: Math.abs(rect.top! - Y_ORIGIN),
+        x: 0,
+        y: 0,
         z: 0,
+      },
+      centerOfGravity: {
+        x: 10,
+        y: 10,
       },
     });
 
@@ -106,19 +115,15 @@ const SideBarItems = ({ showSideBar, setShowSideBar, fabricRef }: Props) => {
       Swal.fire({
         icon: 'success',
         title: 'כל הכבוד עכשיו אפשר לייצא קובץ pdf',
-        text: `${objectListItems.dataCollection.fuel}${' '}${
-          objectListItems.dataCollection.MAC
-        }{" "}${objectListItems.dataCollection.MACRange}{" "}${
-          objectListItems.dataCollection.ZFW
-        }{" "}${objectListItems.dataCollection.fuel}{" "}${
-          objectListItems.dataCollection.areaGraph
-        }{" "}${
-          objectListItems.dataCollection.index
-        }{"inside the objectListItems"}${
-          objectListItems.objectListItems[0].fill
-        }{" "}${objectListItems.dataCollection.fuel}{" "}${
-          objectListItems.dataCollection.fuel
-        }{" "}${objectListItems.dataCollection.fuel}{" "}${basicData}`,
+        text: `${generalData.fuel}${' '}${generalData.MAC}{" "}${
+          generalData.MACRange
+        }{" "}${generalData.ZFW}{" "}${generalData.fuel}{" "}${
+          generalData.areaGraph
+        }{" "}${generalData.index}{"inside the objectListItems"}${
+          objectListItems.itemList[0].fill
+        }{" "}${generalData.fuel}{" "}${generalData.fuel}{" "}${
+          generalData.fuel
+        }{" "}${basicData}`,
       });
     } else {
       Swal.fire({
@@ -185,10 +190,6 @@ const SideBarItems = ({ showSideBar, setShowSideBar, fabricRef }: Props) => {
           <SiderBarItem Icon={FaCaretDown} buttonText='Existing Objects' />
         </div>
         {showDropDown && <DropDown />}
-        <div className='flex  text-white'>
-          {/* <button className="font-bold ">Help</button>
-          <img className="my-auto h-5 w-5" src={helpIcon} alt="helpIcon" /> */}
-        </div>
       </div>
       <div className='flex flex-row text-white'>
         <SettingsIcon className='spinningSettingsIcons cursor-pointer' />

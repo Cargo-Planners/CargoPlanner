@@ -1,107 +1,144 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ObjectItem } from '../models/ObjectItem';
+import { Item, Position } from '../models/ObjectItem';
 import UnitsService from '../services/UnitsService';
 
 export interface ObjectsDataState {
-  objectListItems: ObjectItem[];
-  dataCollection: {
-    takeOffWeight: number;
-    totalCargoWeight: number;
-    totalIndex: number;
-    ZFW: number;
-    fuel: number;
-    areaGraph: number;
-    MAC: number;
-    MACRange: number;
-    index: number;
-  };
+  itemList: Item[];
+}
+
+export interface PositionChanges {
+  x?: number;
+  y?: number;
+  z?: number;
 }
 
 const initialState: ObjectsDataState = {
-  objectListItems: [],
-  dataCollection: {
-    takeOffWeight: 0,
-    totalCargoWeight: 0,
-    totalIndex: 0,
-    ZFW: 0,
-    fuel: 0,
-    areaGraph: 0,
-    MAC: 0,
-    MACRange: 0,
-    index: 0,
-  },
+  itemList: [],
 };
 
 const ObjectsDataSlice = createSlice({
   name: 'objectsData',
   initialState,
   reducers: {
-    setObjectsList: (state, action) => {
-      state.objectListItems = action.payload;
+    setItemsList: (state, action) => {
+      state.itemList = action.payload;
     },
     addItem: (state, action) => {
-      state.objectListItems = [...state.objectListItems, action.payload];
+      state.itemList.push(action.payload);
     },
-    updateWeightObj: (state, action) => {
-      state.objectListItems[action.payload.index].weight =
-        action.payload.updatedWeight;
+    updateItemWeight: (
+      state,
+      action: PayloadAction<{ id: string; updatedWeight: number }>
+    ) => {
+      state.itemList = state.itemList.map((item) =>
+        item.id === action.payload.id
+          ? {
+              ...item,
+              weight: action.payload.updatedWeight,
+            }
+          : item
+      );
     },
-    calculateWeight: (state) => {
-      let total = 0;
-      state.objectListItems.forEach((object) => {
-        total += object.weight;
-      });
-      state.dataCollection.totalCargoWeight = total;
-      state.dataCollection.takeOffWeight = total;
+    updateItemWidth: (
+      state,
+      action: PayloadAction<{ id: string; updatedWidth: number }>
+    ) => {
+      state.itemList = state.itemList.map((item) =>
+        item.id === action.payload.id
+          ? {
+              ...item,
+              width: action.payload.updatedWidth,
+            }
+          : item
+      );
     },
-    updateWidth: (state, action) => {
-      state.objectListItems[action.payload.index].width = action.payload.value;
+    updateItemHeight: (
+      state,
+      action: PayloadAction<{ id: string; updatedHeight: number }>
+    ) => {
+      state.itemList = state.itemList.map((item) =>
+        item.id === action.payload.id
+          ? {
+              ...item,
+              height: action.payload.updatedHeight,
+            }
+          : item
+      );
     },
-    updateHeight: (state, action) => {
-      state.objectListItems[action.payload.index].height = action.payload.value;
+    updateItemIndex: (
+      state,
+      action: PayloadAction<{ id: string; updatedIndex: number }>
+    ) => {
+      state.itemList = state.itemList.map((item) =>
+        item.id === action.payload.id
+          ? {
+              ...item,
+              index: action.payload.updatedIndex,
+            }
+          : item
+      );
     },
-    updateIndexObj: (state, action) => {
-      state.objectListItems[action.payload.index].index = action.payload.value;
+    updateItemFs: (
+      state,
+      action: PayloadAction<{ id: string; updatedFs: number }>
+    ) => {
+      state.itemList = state.itemList.map((item) =>
+        item.id === action.payload.id
+          ? {
+              ...item,
+              fs: action.payload.updatedFs,
+            }
+          : item
+      );
     },
-    updateWidthAndHeightByScale: (state, action) => {
-      state.objectListItems[action.payload.index].width =
-        action.payload.updatedWidth;
-      state.objectListItems[action.payload.index].height =
-        action.payload.updatedHeight;
+    updateItemPosition: (
+      state,
+      action: PayloadAction<{ id: string; updatedPosition: Position }>
+    ) => {
+      state.itemList = state.itemList.map((item) =>
+        item.id === action.payload.id
+          ? {
+              ...item,
+              position: action.payload.updatedPosition,
+            }
+          : item
+      );
     },
-    updateFs: (state, action) => {
-      if (state.objectListItems.find((obj) => obj.id === action.payload.id)) {
-        state.objectListItems.find((obj) => obj.id === action.payload.id)!.fs =
-          action.payload.updatedFs;
-      }
-    },
-    updateObjectPosition: (state, action) => {
-      state.objectListItems[action.payload.index] = {
-        ...state.objectListItems[action.payload.index],
-        ...action.payload.position,
-      };
-    },
-    updateObjectScaleById: (
+    updateItemScale: (
       state,
       action: PayloadAction<{ id: string; scaleX: number; scaleY: number }>
     ) => {
-      state.objectListItems = state.objectListItems.map((obj) =>
+      state.itemList = state.itemList.map((obj) =>
         obj.id === action.payload.id
           ? {
               ...obj,
               width: UnitsService.ONE_UNIT_IN_INCHES * action.payload.scaleX,
               height: UnitsService.ONE_UNIT_IN_INCHES * action.payload.scaleY,
-              // canvasObj: {
-              //   ...obj.canvasObj,
-              //   scaleX: action.payload.scaleX,
-              //   scaleY: action.payload.scaleY,
-              // },
             }
           : obj
       );
     },
-    updateObjectById: (state, action) => {
-      state.objectListItems = state.objectListItems.map((obj) =>
+    updateItemCenterOfGravity: (
+      state,
+      action: PayloadAction<{
+        id: string;
+        updatedCenterOfGravity: PositionChanges;
+      }>
+    ) => {
+      state.itemList = state.itemList.map((obj) =>
+        obj.id === action.payload.id
+          ? {
+              ...obj,
+              centerOfGravity: {
+                ...obj.centerOfGravity,
+                ...action.payload.updatedCenterOfGravity,
+              },
+            }
+          : obj
+      );
+    },
+    updateItem: (state, action) => {
+      state.itemList = state.itemList.map((obj) =>
         obj.id === action.payload.id
           ? { ...obj, ...action.payload.changes }
           : obj
@@ -112,16 +149,14 @@ const ObjectsDataSlice = createSlice({
 
 export default ObjectsDataSlice.reducer;
 export const {
-  setObjectsList,
+  setItemsList,
   addItem,
-  updateWeightObj,
-  calculateWeight,
-  updateWidth,
-  updateHeight,
-  updateIndexObj,
-  updateWidthAndHeightByScale,
-  updateFs,
-  updateObjectPosition,
-  updateObjectById,
-  updateObjectScaleById,
+  updateItemWeight,
+  updateItemWidth,
+  updateItemHeight,
+  updateItemIndex,
+  updateItemFs,
+  updateItemPosition,
+  updateItemScale,
+  updateItemCenterOfGravity,
 } = ObjectsDataSlice.actions;

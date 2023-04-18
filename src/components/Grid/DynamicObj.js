@@ -2,13 +2,14 @@ import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { fabric } from 'fabric';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  updateWidth,
-  updateHeight,
-  updateIndexObj,
-  updateWidthAndHeightByScale,
-  updateWeightObj,
-  updateObjectById,
-  updateObjectScaleById,
+  updateItemWidth,
+  updateItemHeight,
+  updateItemIndex,
+  updateItemScale,
+  updateItemWeight,
+  updateItemPosition,
+  updateItemFs,
+  updateItemCenterOfGravity,
 } from '../../redux/ObjectsDataSlice';
 import PopUp from './PopUp';
 import eventBus from './eventBus';
@@ -16,9 +17,7 @@ import { X_ORIGIN, Y_ORIGIN } from '../SideBar/SideBarItems';
 import { MdOutlineClose } from 'react-icons/md';
 import { State } from '../../redux/store';
 import UnitsService from '../../services/UnitsService';
-
-const MIN_Y_POSITION = 110;
-const MAX_X_POSITION = 737;
+import { current } from '@reduxjs/toolkit';
 
 const DynamicObj = (props, fabricRef) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,11 +25,12 @@ const DynamicObj = (props, fabricRef) => {
   let currentObj = useRef(null);
   let updatedIndex = 0;
   const dispatch = useDispatch();
-  const objectListItems = useSelector(
-    (state) => state.objectsData.objectListItems
-  );
+  const objectListItems = useSelector((state) => state.objectsData.itemList);
 
-  const widthChangeHandler = (e, index) => {
+  let isObjectModified = false;
+  let dispatchFunction = () => {};
+
+  const widthChangeHandler = (e) => {
     const width = e.target.value === '' ? 0 : parseInt(e.target.value);
     currentObj = fabricRef.current.getActiveObject();
     if (currentObj !== null) {
@@ -38,10 +38,15 @@ const DynamicObj = (props, fabricRef) => {
       currentObj.setCoords();
       fabricRef.current.requestRenderAll();
     }
-    dispatch(updateWidth({ value: width, index }));
+    dispatch(
+      updateItemWidth({
+        id: currentObj.id,
+        updatedWidth: width,
+      })
+    );
   };
 
-  const heightChangeHandler = (e, index) => {
+  const heightChangeHandler = (e) => {
     const length = e.target.value === '' ? 0 : parseInt(e.target.value);
     currentObj = fabricRef.current.getActiveObject();
     if (currentObj !== null) {
@@ -49,27 +54,43 @@ const DynamicObj = (props, fabricRef) => {
       currentObj.setCoords();
       fabricRef.current.requestRenderAll();
     }
-    dispatch(updateHeight({ value: length, index }));
+    dispatch(
+      updateItemHeight({
+        id: currentObj.name,
+        updatedHeight: length,
+      })
+    );
   };
 
-  const indexChangeHandler = (e, index) => {
+  const fsChangeHandler = (e, index) => {
     const value = e.target.value === '' ? 0 : parseInt(e.target.value);
-    dispatch(updateIndexObj({ value, index }));
+    dispatch(updateItemIndex({ value, index }));
   };
 
-  const weightChangeHandler = (e, index) => {
+  const weightChangeHandler = (e) => {
     const value = e.target.value === '' ? 0 : parseInt(e.target.value);
-    objectListItems.forEach((object, i) => {
-      if (fabricRef.current._activeObject.fill === object.fill) {
-        updatedIndex = i;
-        dispatch(
-          updateWeightObj({
-            updatedWeight: value,
-            index: updatedIndex,
-          })
-        );
-      }
-    });
+    console.log(fabricRef.current._activeObject.name);
+    dispatch(
+      updateItemWeight({
+        id: fabricRef.current._activeObject.name,
+        updatedWeight: value,
+      })
+    );
+  };
+
+  const centerOfGravityChangeHandler = (e, whichCoord) => {
+    const changes = {
+      [whichCoord]: e.target.value === '' ? 0 : +e.target.value,
+    };
+
+    const currentObj = fabricRef.current.getActiveObject();
+
+    dispatch(
+      updateItemCenterOfGravity({
+        id: currentObj.name,
+        updatedCenterOfGravity: changes,
+      })
+    );
   };
 
   useEffect(() => {
@@ -92,6 +113,10 @@ const DynamicObj = (props, fabricRef) => {
     // eslint-disable-next-line
   }, []);
 
+  useEffect(() => {
+    refreshCanvasListeners();
+  }, [objectListItems]);
+
   const togglePopup = () => {
     setIsOpen(!isOpen);
   };
@@ -106,8 +131,100 @@ const DynamicObj = (props, fabricRef) => {
     }
   };
 
-  const getCurrObjectsList = () => {
-    return objectListItems;
+  const refreshCanvasListeners = () => {
+    if (fabricRef.current !== null) {
+      fabricRef.current.__eventListeners = {};
+
+      fabricRef.current.on('selection:updated', (e) => {
+        fabricRef.current.setActiveObject(e.selected[0]);
+      });
+
+      fabricRef.current.on('mouse:up', function (e) {
+        if (isObjectModified) {
+          isObjectModified = false;
+          dispatchFunction();
+        }
+      });
+
+      fabricRef.current.on('mouse:dblclick', (e) => {
+        if (e.target !== null) {
+          setIsOpen(true);
+          console.log(
+            objectListItems.find(
+              (objectItem) => objectItem.id === e.target.name
+            )
+          );
+        }
+      });
+
+      fabricRef.current.on('object:scaling', function (e) {
+        isObjectModified = true;
+
+        dispatchFunction = () => {
+          dispatch(
+            updateItemScale({
+              id: fabricRef.current._activeObject.name,
+              scaleX: e.target.scaleX,
+              scaleY: e.target.scaleY,
+            })
+          );
+        };
+      });
+
+      fabricRef.current.on('object:moving', function (e) {
+        isObjectModified = true;
+
+        const startingPosition = UnitsService.startingPosition(
+          fabricRef.current.width,
+          fabricRef.current.height
+        );
+        const leftMaxValue =
+          UnitsService.CARGO_WIDTH_AS_CANVAS_PERCENT * fabricRef.current.width +
+          startingPosition.left;
+        const topMaxValue =
+          UnitsService.CARGO_LENGTH_AS_CANVAS_PERCENT *
+            fabricRef.current.height +
+          startingPosition.top;
+
+        e.target.top = getValidCoord(
+          e.target.top,
+          startingPosition.top,
+          topMaxValue - e.target.height * e.target.scaleY
+        );
+
+        e.target.left = getValidCoord(
+          e.target.left,
+          startingPosition.left,
+          leftMaxValue - e.target.width * e.target.scaleX
+        );
+
+        const position = {
+          x: UnitsService.pixelsToInches(
+            e.target.left - startingPosition.left,
+            fabricRef.current.width
+          ),
+          y: UnitsService.pixelsToInches(
+            e.target.top - startingPosition.top,
+            fabricRef.current.width
+          ),
+        };
+
+        dispatchFunction = () => {
+          dispatch(
+            updateItemPosition({
+              id: fabricRef.current._activeObject.name,
+              updatedPosition: position,
+            })
+          );
+          dispatch(
+            updateItemFs({
+              id: fabricRef.current._activeObject.name,
+              updatedFs: position.x + 245,
+            })
+          );
+        };
+      });
+    }
   };
 
   const initCanvas = () => {
@@ -118,67 +235,13 @@ const DynamicObj = (props, fabricRef) => {
       renderOnAddRemove: true,
     });
 
-    objectListItems?.forEach((object) => {
-      fabricRef.current.add(object.canvasObj);
-    });
-
-    if (fabricRef.current !== null) {
-      fabricRef.current.on('selection:updated', (e) => {
-        fabricRef.current.setActiveObject(e.selected[0]);
-      });
-
-      fabricRef.current.on('mouse:dblclick', (e) => {
-        if (e.target !== null) {
-          console.log(e.target);
-          setIsOpen(true);
-        }
-      });
-
-      fabricRef.current.on('object:scaling', function (e) {
-        dispatch(
-          updateObjectScaleById({
-            id: fabricRef.current._activeObject.id,
-            scaleX: e.target.scaleX,
-            scaleY: e.target.scaleY,
-          })
-        );
-      });
-
-      fabricRef.current.on('object:moving', function (e) {
-        e.target.top = getValidCoord(
-          e.target.top,
-          MIN_Y_POSITION,
-          Y_ORIGIN - e.target.height * e.target.scaleY
-        );
-
-        e.target.left = getValidCoord(
-          e.target.left,
-          X_ORIGIN,
-          MAX_X_POSITION - e.target.width * e.target.scaleX
-        );
-
-        const position = {
-          x: e.target.left - X_ORIGIN,
-          y: Math.abs(e.target.top - Y_ORIGIN),
-        };
-        // console.log(fabricRef.current._activeObject.id);
-        dispatch(
-          updateObjectById({
-            id: fabricRef.current._activeObject.id,
-            changes: {
-              fs: 245 + position.x,
-              position: position,
-            },
-          })
-        );
-      });
-    }
+    refreshCanvasListeners();
 
     return fabricRef.current;
   };
 
   return (
-    <div className='flex flex-col'>
+    <div>
       <canvas id='canvas' />
       {isOpen && (
         <PopUp
@@ -193,57 +256,68 @@ const DynamicObj = (props, fabricRef) => {
               </h1>
               {objectListItems.map(
                 (item, index) =>
-                  fabricRef.current.getActiveObject().fill === item.fill && (
+                  fabricRef.current.getActiveObject()?.name === item.id && (
                     <div key={index} className='flex justify-center h-4rem'>
                       <div className='grid grid-rows-2 place-items-center my-0'>
                         <h1 className='self-end'>Height</h1>
                         <input
                           name='item'
-                          className='lengthData w-28 h-10 bg-red-200 rounded-xl self-start'
+                          className='w-28 h-10 bg-red-200 rounded-xl self-start'
                           placeholder={`${objectListItems[index].height.toFixed(
                             3
                           )}`}
-                          onChange={(e) => heightChangeHandler(e, index)}
+                          onChange={(e) => heightChangeHandler(e)}
                         />
                       </div>
                       <div className='grid grid-rows-2 place-items-center'>
                         <h1 className='self-end'>Width</h1>
                         <input
                           name='item'
-                          className='heightData w-28 h-10 bg-green-200 p-1 m-1 rounded-xl self-start'
+                          className='w-28 h-10 bg-green-200 p-1 m-1 rounded-xl self-start'
                           placeholder={`${objectListItems[index].width.toFixed(
                             3
                           )}`}
-                          onChange={(e) => widthChangeHandler(e, index)}
-                        />
-                      </div>
-                      <div className='grid grid-rows-2 place-items-center'>
-                        <h1 className='self-end'>Index</h1>
-                        <input
-                          name='item'
-                          className='w-28 h-10 bg-yellow-200 p-1 m-1 rounded-xl self-start'
-                          placeholder={`${objectListItems[index].index}`}
-                          onChange={(e) => indexChangeHandler(e, index)}
+                          onChange={(e) => widthChangeHandler(e)}
                         />
                       </div>
                       <div className='grid grid-rows-2 place-items-center'>
                         <h1 className='self-end'>Fusealge</h1>
                         <input
                           className='w-28 h-10 bg-blue-200 p-1 m-1 rounded-xl self-start'
-                          placeholder={
-                            //245 + fabricRef.current._activeObject.left
-                            `${objectListItems[index].fs}`
-                          }
+                          placeholder={`${objectListItems[index].fs}`}
                         />
                       </div>
                       <div className='grid grid-rows-2 place-items-center'>
                         <h1 className='self-end'>Weight</h1>
                         <input
                           name='item'
-                          className='heightData w-28 h-10 bg-green-200 p-1 m-1 rounded-xl self-start'
+                          className='w-28 h-10 bg-green-200 p-1 m-1 rounded-xl self-start'
                           placeholder={`${objectListItems[index].weight}`}
-                          onChange={(e) => weightChangeHandler(e, index)}
+                          onChange={(e) => weightChangeHandler(e)}
                         />
+                      </div>
+                      <div className='grid grid-rows-2 place-items-center'>
+                        <h1 className='self-end'>Center Gravity</h1>
+                        <div className='flex flex-row-reverse items-start m-0'>
+                          <input
+                            name='item'
+                            className='w-28 h-10 bg-green-200 p-1 m-1 rounded-xl self-start'
+                            placeholder='Y'
+                            value={objectListItems[index].centerOfGravity.y}
+                            onChange={(e) =>
+                              centerOfGravityChangeHandler(e, 'y')
+                            }
+                          />
+                          <input
+                            name='item'
+                            className='w-28 h-10 bg-green-200 p-1 m-1 rounded-xl self-start'
+                            placeholder='X'
+                            value={objectListItems[index].centerOfGravity.x}
+                            onChange={(e) =>
+                              centerOfGravityChangeHandler(e, 'x')
+                            }
+                          />
+                        </div>
                       </div>
                     </div>
                   )

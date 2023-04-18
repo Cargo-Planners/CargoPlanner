@@ -7,7 +7,7 @@ import {
   updateSlider3,
   updateSlider4,
   updateSlider5,
-} from '../../../redux/EditBasicDataSlice';
+} from '../../../redux/BasicDataSlice';
 
 //@ts-ignore
 import Slider from '../../BasicData/Slider';

@@ -1,7 +1,7 @@
-import { useDispatch, useSelector } from "react-redux";
-import { updateFuelPod } from "../../redux/EditBasicDataSlice";
+import { useDispatch, useSelector } from 'react-redux';
+import { updateFuelPod } from '../../redux/BasicDataSlice';
 
-import { useState } from "react";
+import { useState } from 'react';
 
 function Radio() {
   const { fuelPod } = useSelector((state) => state.basicData);
@@ -10,8 +10,8 @@ function Radio() {
   return (
     <form>
       <input
-        className="check-box"
-        type="checkbox"
+        className='check-box'
+        type='checkbox'
         checked={fuelPod}
         onChange={(e) => {
           dispatch(updateFuelPod(e.target.checked));
