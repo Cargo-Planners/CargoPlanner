@@ -55,8 +55,12 @@ function Secondary() {
             tabindex: null
 
         });
-
-        const refPoint = board.create('point', [15, 102], { name: 'Point', size: 3, fixed: true });
+        const point = {
+            x: graph_x(basicData), 
+            y: graph_y(objectsData, basicData)
+        }
+        // console.log(`point Secondary: (${point.x}, ${point.y})`)
+        const refPoint = board.create('point', [point.x, point.y], { name: 'Point', size: 3, fixed: true });
 
         const erea_a = board.create('text', [20, 100, 'AREA A'], { fontSize: 12, anchorX: 'left', anchorY: 'bottom' });
         erea_a.setPosition(JXG.COORDS_BY_USER, [0, 92]);
@@ -81,3 +85,34 @@ function Secondary() {
 }
 
 export default Secondary;
+
+const outboard = 8758 // slider1 = outboard   max_pound: 8758 
+const inboard= 8065 // slider2 = inboard    max_pound: 8065 
+const auxiliary = 6127 // slider3 = auxiliary  max_pound: 6127
+const external = 9377 // slider4 = external   max_pound: 9377 
+const fuselage = 0 // slider5 = fuselage   max_pound:
+
+
+function graph_x(basicData){
+
+    const axis_x = basicData.slider2*8065 < (basicData.slider1*8758-1300)?(basicData.slider2/100)*inboard:(basicData.slider1/100)*outboard-1300
+    const axis_y = 20-((basicData.slider1/100)*outboard /1000)
+    // console.log(`The graph_x function returns: ${(axis_x/1000)+ axis_y}`)
+    return ((axis_x/1000)+ axis_y)
+}
+
+function graph_y(objectsData, basicData){
+
+    // חסר ציוד חירום, תצורה
+    const axis_x = (90 - (basicData.emptyWeight + (basicData.inspectorsCrew + basicData.cockpitCrew) * 170) /1000)
+    // חסר את הדלק שבמטען
+    const fule = (basicData.slider1/100 * outboard) + (basicData.slider2/100 * inboard)+(basicData.slider3/100 * auxiliary) + (basicData.slider4/100 * external)
+    let weight_cargo = 0
+    objectsData.objectListItems.forEach(element => {
+        weight_cargo += element.weight
+    });
+    const axis_y = (fule + weight_cargo) / 1000 
+    
+    // console.log(`The graph_y function returns: ${(axis_x + axis_y + 70)}`)
+    return (axis_x + axis_y + 70)
+}

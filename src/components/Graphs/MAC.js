@@ -13,8 +13,9 @@ export function MAC() {
 
         const point = {
             x: get_mac(basicData, objectsData),
-            y: GetGrossWeight(basicData) / 1000
+            y: GetGrossWeight(objectsData, basicData) / 1000
         }
+        // console.log(`point MAC: (${point.x}, ${point.y})`)
         const title = "weight limit chart (primary)"
         const board = JXG.JSXGraph.initBoard('jxgbox3', {
             boundingbox: [13.5, 180, 32, 70], // [x_min, y_max, x_max, y_min]
@@ -29,7 +30,7 @@ export function MAC() {
         const xAxis = board.create('axis', [[14, 75], [32, 75]], { ticks: { visible: true, frequency: 1 } });
         const yAxis = board.create('axis', [[14, 75], [14, 180]], { ticks: { visible: true } });
 
-        const red = board.create('polygon', [[14, 75], [14, 180], [32, 180], [32, 75]], {
+        const red = board.create('polygon', [[14, 76], [15, 76], [15,101.5],[18.4,118.5],[25.2,175], [25.2,175],[30,175],[30,115],[25.8,76],[31.5,76],[31.5,180],[14,180]], {
             fillColor: 'red',
             fillOpacity: 0.5,
             borders: { strokeWidth: 0 },
@@ -66,21 +67,9 @@ export function MAC() {
             tabindex: null
         });
 
+
         const refPoint = board.create('point', [point.x, point.y], { name: 'Point', size: 3, fixed: true });
-        const a = 2000
-        const b = 200
-        for (let y = 0; y < 5000; y++) {
-            for (let x = 0; x < 5000; x++) {
-                if (red.hasPoint(x, y)) {
-                    x = 5555
-                    y = 5555
-                }
-
-            }
-
-        }
-
-
+       
         const text_x_axis = board.create('text', [35, 105, 'total fuel - 1,000 lbs'], { fontSize: 12, anchorY: 'middle' });
         text_x_axis.setPosition(JXG.COORDS_BY_USER, [35, 72]);
 
@@ -108,12 +97,22 @@ export function MAC() {
 
 export default MAC;
 
-function GetGrossWeight(basicData) {
+const outboard = 8758 // slider1 = outboard   max_pound: 8758 
+const inboard= 8065 // slider2 = inboard    max_pound: 8065 
+const auxiliary = 6127 // slider3 = auxiliary  max_pound: 6127
+const external = 9377 // slider4 = external   max_pound: 9377 
+const fuselage = 0 // slider5 = fuselage   max_pound:
+
+function GetGrossWeight(objectsData,basicData) {
 
     let weight = (basicData.cockpitCrew + basicData.inspectorsCrew) * 170
     weight += basicData.emptyWeight
-    weight += (8758 * basicData.slider1) + (8065 * basicData.slider2) + (6127 * basicData.slider3) + (8758 * basicData.slider5) + (8065 * basicData.slider4)
-    // console.log(`The GetGrossWeight function returns: ${weight}`)
+    
+    weight += (basicData.slider1/100 * outboard) + (basicData.slider2/100 * inboard) + (basicData.slider3/100 * auxiliary) + (basicData.slider5/100 * external) + (basicData.slider4/100 * fuselage)
+    objectsData.objectListItems.forEach((el) => {
+        weight += el.weight
+    })
+    // console.log(`The MAC/GetGrossWeight function returns: ${weight/1000}`)
     return weight
 }
 
@@ -127,6 +126,6 @@ function get_mac(basicData, objectsData) {
     my_aircraft_index -= (basicData.cockpitCrew * 1.2) + (basicData.inspectorsCrew * 0.8)
     const cg = ((my_aircraft_index - 100) * 50000 / basicData.emptyWeight) + 533.46
     const mac = ((cg - 487.4) * 100) / 164.5
-    // console.log(`The GetMAC function returns enter GetMAC: ${mac}`)
+    // console.log(`The MAC/GetMAC function returns enter GetMAC: ${mac}`)
     return mac
 }
