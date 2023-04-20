@@ -156,11 +156,7 @@ function graph_y(objectsData, basicData) {
       (basicData.inspectorsCrew + basicData.cockpitCrew) * 170) /
       1000;
   // חסר את הדלק שבמטען
-  const fule =
-    (basicData.slider1 / 100) * outboard +
-    (basicData.slider2 / 100) * inboard +
-    (basicData.slider3 / 100) * auxiliary +
-    (basicData.slider4 / 100) * external;
+  const fule = basicData.fuselage + basicData.inboard + basicData.outboard;
   let weight_cargo = 0;
   objectsData.itemList.forEach((element) => {
     weight_cargo += element.weight;

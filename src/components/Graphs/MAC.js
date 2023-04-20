@@ -183,12 +183,7 @@ function GetGrossWeight(objectsData, basicData) {
   let weight = (basicData.cockpitCrew + basicData.inspectorsCrew) * 170;
   weight += basicData.emptyWeight;
 
-  weight +=
-    (basicData.slider1 / 100) * outboard +
-    (basicData.slider2 / 100) * inboard +
-    (basicData.slider3 / 100) * auxiliary +
-    (basicData.slider5 / 100) * external +
-    (basicData.slider4 / 100) * fuselage;
+  weight += basicData.fuselage + basicData.inboard + basicData.outboard;
   objectsData.itemList.forEach((el) => {
     weight += el.weight;
   });

@@ -11,6 +11,11 @@ export interface BasicDataState {
   outboard: number;
   inboard: number;
   fuselage: number;
+  slider1?: number;
+  slider2?: number;
+  slider3?: number;
+  slider4?: number;
+  slider5?: number;
 }
 
 export interface BasicDataChanges {
@@ -27,18 +32,16 @@ export interface BasicDataChanges {
   slider5?: number;
 }
 
-const initialState = {
+const initialState: BasicDataState = {
   cockpitCrew: 0,
   inspectorsCrew: 0,
   emptyWeight: 0,
   index: 0,
   config: '',
   fuelPod: false,
-  slider1: 0,
-  slider2: 0,
-  slider3: 0,
-  slider4: 0,
-  slider5: 0,
+  outboard: 0,
+  inboard: 0,
+  fuselage: 0,
 };
 
 const EditBasicDataSlice = createSlice({

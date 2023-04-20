@@ -28,12 +28,7 @@ export class CalcService {
       (basicData.cockpitCrew + basicData.inspectorsCrew) *
       CalcService.TEAM_MEMBER_WEIGHT_IN_LB;
     weight += basicData.emptyWeight;
-    // weight +=
-    //   CalcService.OUTBOARD_MAX_FUEL_IN_LB * basicData.slider1 +
-    //   CalcService.INBOARD_MAX_FUEL_IN_LB * basicData.slider2 +
-    //   CalcService.CENTER_MAX_FUEL_IN_LB * basicData.slider3 +
-    //   CalcService.OUTBOARD_MAX_FUEL_IN_LB * basicData.slider5 +
-    //   CalcService.INBOARD_MAX_FUEL_IN_LB * basicData.slider4;
+    weight += basicData.fuselage + basicData.inboard + basicData.outboard;
     // // console.log(`The GetGrossWeight function returns: ${weight}`)
     return weight;
   }

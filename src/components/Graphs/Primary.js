@@ -161,12 +161,7 @@ const external = 9377; // slider4 = external   max_pound: 9377
 const fuselage = 0; // slider5 = fuselage   max_pound:
 
 function sumFule(basicData) {
-  const fule =
-    (basicData.slider1 / 100) * outboard +
-    (basicData.slider2 / 100) * inboard +
-    (basicData.slider3 / 100) * auxiliary +
-    (basicData.slider5 / 100) * fuselage +
-    (basicData.slider4 / 100) * external;
+  const fule = basicData.fuselage + basicData.inboard + basicData.outboard;
   // console.log(`The sumFule function returns: ${fule}`)
   return fule;
 }
