@@ -8,11 +8,9 @@ export interface BasicDataState {
   index: number;
   config: string;
   fuelPod: boolean;
-  slider1: number;
-  slider2: number;
-  slider3: number;
-  slider4: number;
-  slider5: number;
+  outboard: number;
+  inboard: number;
+  fuselage: number;
 }
 
 export interface BasicDataChanges {

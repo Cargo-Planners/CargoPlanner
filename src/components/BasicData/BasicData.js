@@ -30,8 +30,17 @@ const configs = [
 ];
 
 const BasicData = ({ setModalIsOpen }) => {
-  const { cockpitCrew, inspectorsCrew, emptyWeight, index, config, fuelPod } =
-    useSelector((state) => state.basicData);
+  const {
+    cockpitCrew,
+    inspectorsCrew,
+    emptyWeight,
+    index,
+    config,
+    fuelPod,
+    outboard,
+    inboard,
+    fuselage,
+  } = useSelector((state) => state.basicData);
 
   const [Config, setConfig] = useState(null);
   const [fuelModalIsOpen, setFuelModalIsOpen] = useState(false);
@@ -131,7 +140,6 @@ const BasicData = ({ setModalIsOpen }) => {
             style={{ width: '70px', height: '70px', color: '#F0AD4A' }}
           />
         </button>
-
         <label className='label-font-b'>POD/NO POD:</label>
         <Radio />
       </div>

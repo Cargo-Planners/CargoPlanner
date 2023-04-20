@@ -41,7 +41,7 @@ export const FuelData = ({ close }: Props) => {
   return (
     <CargoContainer close={handleClose}>
       <div className='w-full h-full flex items-center justify-center flex-col'>
-        <h1 className=' text-5xl font-bold text-[#000000] text-center justify-self-center'>
+        <h1 className=' text-5xl font-bold text-[#000000] text-center justify-self-center [mt-2%]'>
           Fuel Distribution
         </h1>
         <div id='fuel-silders'>

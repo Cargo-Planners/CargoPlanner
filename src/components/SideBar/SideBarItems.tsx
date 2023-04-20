@@ -168,7 +168,7 @@ const SideBarItems = ({ showSideBar, setShowSideBar, fabricRef }: Props) => {
           <SiderBarItem Icon={FaPlaneDeparture} buttonText='Basic Data' />
         </div>
         {
-          <PopupComponent popupId={basicDataId} width='35vw' height='70vh'>
+          <PopupComponent popupId={basicDataId} width='35vw' height='80vh'>
             <BasicDataForm
               close={dispatchClosePopup}
               open={dispatchOpenPopup}
