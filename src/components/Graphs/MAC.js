@@ -12,8 +12,9 @@ export function MAC() {
 
     const point = {
       x: get_mac(basicData, objectsData),
-      y: GetGrossWeight(basicData) / 1000,
+      y: GetGrossWeight(objectsData, basicData) / 1000,
     };
+    // console.log(`point MAC: (${point.x}, ${point.y})`)
     const title = 'weight limit chart (primary)';
     const board = JXG.JSXGraph.initBoard('jxgbox3', {
       boundingbox: [13.5, 180, 32, 70], // [x_min, y_max, x_max, y_min]
@@ -45,10 +46,18 @@ export function MAC() {
     const red = board.create(
       'polygon',
       [
-        [14, 75],
+        [14, 76],
+        [15, 76],
+        [15, 101.5],
+        [18.4, 118.5],
+        [25.2, 175],
+        [25.2, 175],
+        [30, 175],
+        [30, 115],
+        [25.8, 76],
+        [31.5, 76],
+        [31.5, 180],
         [14, 180],
-        [32, 180],
-        [32, 75],
       ],
       {
         fillColor: 'red',
@@ -128,16 +137,6 @@ export function MAC() {
       size: 3,
       fixed: true,
     });
-    const a = 2000;
-    const b = 200;
-    for (let y = 0; y < 5000; y++) {
-      for (let x = 0; x < 5000; x++) {
-        if (red.hasPoint(x, y)) {
-          x = 5555;
-          y = 5555;
-        }
-      }
-    }
 
     const text_x_axis = board.create(
       'text',
@@ -154,7 +153,7 @@ export function MAC() {
     text_y_axis.setPosition(JXG.COORDS_BY_USER, [-1, 105]);
 
     return () => board.removeObject(xAxis);
-  }, []);
+  }, [basicData, objectsData]);
 
   return (
     <div className='bigwrapper'>
@@ -174,30 +173,78 @@ export function MAC() {
 
 export default MAC;
 
-function GetGrossWeight(basicData) {
+const outboard = 8758; // slider1 = outboard   max_pound: 8758
+const inboard = 8065; // slider2 = inboard    max_pound: 8065
+const auxiliary = 6127; // slider3 = auxiliary  max_pound: 6127
+const external = 9377; // slider4 = external   max_pound: 9377
+const fuselage = 0; // slider5 = fuselage   max_pound:
+
+function GetGrossWeight(objectsData, basicData) {
   let weight = (basicData.cockpitCrew + basicData.inspectorsCrew) * 170;
   weight += basicData.emptyWeight;
-  weight +=
-    8758 * basicData.slider1 +
-    8065 * basicData.slider2 +
-    6127 * basicData.slider3 +
-    8758 * basicData.slider5 +
-    8065 * basicData.slider4;
-  // console.log(`The GetGrossWeight function returns: ${weight}`)
+
+  weight += basicData.fuselage + basicData.inboard + basicData.outboard;
+  objectsData.itemList.forEach((el) => {
+    weight += el.weight;
+  });
+
   return weight;
 }
 
 function get_mac(basicData, objectsData) {
   let my_aircraft_index = basicData.index;
+  let aircraftWeight = basicData.emptyWeight;
+
+  console.log('empty weight');
+  console.log(basicData.emptyWeight);
+
+  console.log('starting index');
+  console.log(my_aircraft_index);
+
   objectsData.itemList.forEach((el) => {
-    let fus = el.fs - 245;
-    my_aircraft_index -= ((fus - 533.46) * el.weight) / 50000;
+    console.log('weight');
+    console.log(el.weight);
+    my_aircraft_index += ((el.fs - 533.46) * el.weight) / 50000;
+    aircraftWeight += el.weight;
   });
-  my_aircraft_index -=
-    basicData.cockpitCrew * 1.2 + basicData.inspectorsCrew * 0.8;
-  const cg =
-    ((my_aircraft_index - 100) * 50000) / basicData.emptyWeight + 533.46;
+
+  console.log('cockpit total index');
+  console.log(basicData.cockpitCrew * -1.2);
+
+  console.log('cockpit total index');
+  console.log(basicData.inspectorsCrew * -0.8);
+
+  const totalFuelWeight =
+    basicData.fuselage + basicData.outboard + basicData.inboard - 1000;
+
+  my_aircraft_index +=
+    basicData.cockpitCrew * -1.2 +
+    basicData.inspectorsCrew * -0.8 +
+    1 +
+    totalFuelWeight / 3000;
+
+  console.log('index after crew and objects');
+  console.log(my_aircraft_index);
+
+  aircraftWeight +=
+    totalFuelWeight +
+    170 * (basicData.inspectorsCrew + basicData.cockpitCrew) +
+    250;
+
+  console.log(basicData.fuselage + basicData.outboard + basicData.inboard);
+
+  console.log('total weight');
+  console.log(aircraftWeight);
+
+  const cg = ((my_aircraft_index - 100) * 50000) / aircraftWeight + 533.46;
+
+  console.log('cg');
+  console.log(cg);
+
   const mac = ((cg - 487.4) * 100) / 164.5;
-  // console.log(`The GetMAC function returns enter GetMAC: ${mac}`)
+
+  console.log('mac');
+  console.log(mac);
+  // console.log(`The MAC/GetMAC function returns enter GetMAC: ${mac}`)
   return mac;
 }

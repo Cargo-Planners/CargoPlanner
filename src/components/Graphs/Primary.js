@@ -8,11 +8,13 @@ import { State } from '../../redux/store';
 export function Primary() {
   const objectsData = useSelector((State) => State.objectsData);
   const basicData = useSelector((State) => State.basicData);
+
   useEffect(() => {
     const point = {
       x: sumFule(basicData) / 1000,
       y: sumBsicWeightAndCargo(objectsData, basicData) / 1000,
     };
+    // console.log(`point Primary: (${point.x}, ${point.y})`)
 
     const title = 'weight limit chart (primary)';
     const board = JXG.JSXGraph.initBoard('jxgbox1', {
@@ -152,13 +154,14 @@ export function Primary() {
 
 export default Primary;
 
+const outboard = 8758; // slider1 = outboard   max_pound: 8758
+const inboard = 8065; // slider2 = inboard    max_pound: 8065
+const auxiliary = 6127; // slider3 = auxiliary  max_pound: 6127
+const external = 9377; // slider4 = external   max_pound: 9377
+const fuselage = 0; // slider5 = fuselage   max_pound:
+
 function sumFule(basicData) {
-  const fule =
-    8758 * basicData.slider1 +
-    8065 * basicData.slider2 +
-    6127 * basicData.slider3 +
-    8758 * basicData.slider5 +
-    8065 * basicData.slider4;
+  const fule = basicData.fuselage + basicData.inboard + basicData.outboard;
   // console.log(`The sumFule function returns: ${fule}`)
   return fule;
 }

@@ -64,12 +64,6 @@ const ObjectList = (props, fabricRef) => {
           </div>
         </div>
       </div>
-      {isOpen ? (
-        <PopUp
-          content={<ObjectDetails item={itemList[currentIndex]} />}
-          handleClose={togglePopup}
-        />
-      ) : null}
     </div>
   );
 };

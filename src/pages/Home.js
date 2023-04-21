@@ -3,7 +3,6 @@ import CGrid from '../components/Grid/cGrid';
 import SideBar from '../components/SideBar/SideBar';
 import DataCollection from '../components/dataDisplay/DataCollection';
 import ObjectList from '../components/ObjectList/ObjectList';
-import Options from '../components/Options/Options';
 import { useRef } from 'react';
 import eventBus from '../components/Grid/eventBus';
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,6 +10,7 @@ import { useEffect } from 'react';
 import { fabric } from 'fabric';
 import { setItemsList } from '../redux/ObjectsDataSlice';
 import UnitsService from '../services/UnitsService';
+import MAC from '../components/Graphs/MAC';
 
 const Home = () => {
   const fabricRef = useRef({ current: {} });
@@ -60,6 +60,7 @@ const Home = () => {
       <SideBar ref={fabricRef} />
       <div className='ml-[20vw] bg-[#fafafa] w-[60%] aspect-[1/0.36]'>
         <CGrid ref={fabricRef} />
+        <MAC />
       </div>
     </div>
   );
