@@ -3,7 +3,6 @@ import CGrid from '../components/Grid/cGrid';
 import SideBar from '../components/SideBar/SideBar';
 import DataCollection from '../components/dataDisplay/DataCollection';
 import ObjectList from '../components/ObjectList/ObjectList';
-import Options from '../components/Options/Options';
 import { useRef } from 'react';
 import eventBus from '../components/Grid/eventBus';
 import { useSelector, useDispatch } from 'react-redux';

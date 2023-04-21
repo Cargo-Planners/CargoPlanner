@@ -40,7 +40,7 @@ const DynamicObj = (props, fabricRef) => {
     }
     dispatch(
       updateItemWidth({
-        id: currentObj.id,
+        id: currentObj.name,
         updatedWidth: width,
       })
     );
@@ -160,12 +160,62 @@ const DynamicObj = (props, fabricRef) => {
       fabricRef.current.on('object:scaling', function (e) {
         isObjectModified = true;
 
+        const startingPosition = UnitsService.startingPosition(
+          fabricRef.current.width,
+          fabricRef.current.height
+        );
+        const leftMaxValue =
+          UnitsService.CARGO_WIDTH_AS_CANVAS_PERCENT * fabricRef.current.width +
+          startingPosition.left;
+        const topMaxValue =
+          UnitsService.CARGO_LENGTH_AS_CANVAS_PERCENT *
+            fabricRef.current.height +
+          startingPosition.top;
+
+        e.target.top = getValidCoord(
+          e.target.top,
+          startingPosition.top,
+          topMaxValue - e.target.height * e.target.scaleY
+        );
+
+        e.target.left = getValidCoord(
+          e.target.left,
+          startingPosition.left,
+          leftMaxValue - e.target.width * e.target.scaleX
+        );
+
+        const position = {
+          x: UnitsService.pixelsToInches(
+            e.target.left - startingPosition.left,
+            fabricRef.current.width
+          ),
+          y: UnitsService.pixelsToInches(
+            e.target.top - startingPosition.top,
+            fabricRef.current.width
+          ),
+        };
+
         dispatchFunction = () => {
           dispatch(
             updateItemScale({
               id: fabricRef.current._activeObject.name,
               scaleX: e.target.scaleX,
               scaleY: e.target.scaleY,
+            })
+          );
+
+          dispatch(
+            updateItemFs({
+              id: fabricRef.current._activeObject.name,
+              updatedFs:
+                position.x +
+                245 +
+                (UnitsService.pixelsToInches(
+                  fabricRef.current._activeObject.width,
+                  fabricRef.current.width
+                ) *
+                  fabricRef.current._activeObject.scaleX) /
+                  2,
             })
           );
         };
@@ -209,6 +259,11 @@ const DynamicObj = (props, fabricRef) => {
           ),
         };
 
+        console.log(
+          fabricRef.current._activeObject.width *
+            fabricRef.current._activeObject.scaleX
+        );
+
         dispatchFunction = () => {
           dispatch(
             updateItemPosition({
@@ -219,7 +274,15 @@ const DynamicObj = (props, fabricRef) => {
           dispatch(
             updateItemFs({
               id: fabricRef.current._activeObject.name,
-              updatedFs: position.x + 245,
+              updatedFs:
+                position.x +
+                245 +
+                (UnitsService.pixelsToInches(
+                  fabricRef.current._activeObject.width,
+                  fabricRef.current.width
+                ) *
+                  fabricRef.current._activeObject.scaleX) /
+                  2,
             })
           );
         };

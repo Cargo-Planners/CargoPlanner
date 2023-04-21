@@ -3,7 +3,6 @@ import { Routes, Route } from 'react-router-dom';
 import { routeConstants } from './Routes/constants';
 import Home from './pages/Home';
 import ChoosePlatform from './pages/ChoosePlatform';
-import BasicDataPage from './pages/BasicDataPage';
 import FirstPage from './pages/FirstPage';
 import Graphs from './pages/Graphs';
 import { useDispatch } from 'react-redux';
@@ -14,10 +13,6 @@ function App() {
       <Routes>
         <Route path={routeConstants.mainRoute} element={<ChoosePlatform />} />
         <Route path={routeConstants.firstPageRoute} element={<FirstPage />} />
-        <Route
-          path={routeConstants.BasicDataRoute}
-          element={<BasicDataPage />}
-        />
         <Route path={routeConstants.GraphsRoute} element={<Graphs />} />
         <Route path={routeConstants.homeRoute} element={<Home />} />
       </Routes>

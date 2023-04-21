@@ -27,9 +27,11 @@ export const updateTotalWeightEffect: Middleware =
 
     if (triggerActions.includes(action.type)) {
       const state = store.getState();
+      const calcService = new CalcService();
+
       store.dispatch(
         changeGeneralData({
-          totalCargoWeight: CalcService.calculateTotalWeight(
+          totalCargoWeight: calcService.totalAircraftWeight(
             state.basicData,
             state.objectsData.itemList
           ),

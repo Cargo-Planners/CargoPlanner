@@ -6,10 +6,7 @@ import {
   CargoInput,
   labelPositionEnum,
   CargoInputRadio,
-  PopupComponent,
 } from '../../ViewComponents';
-// import { MdLocalGasStation } from 'react-icons/md';
-import { FuelDataId, FuelData } from '../FuelData/FuelData';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateBasicData } from '../../../redux/BasicDataSlice';
 import { State } from '../../../redux/store';
@@ -141,7 +138,7 @@ export const BasicDataForm = ({ close }: Props) => {
             <div className='w-3/5'>
               <CargoInputNumber
                 label='fuselage:'
-                placeholder={basicData.fuselage}
+                placeholder={basicData.auxiliary}
                 onChange={(value) =>
                   dispatchChangeBasicData({ key: 'fuselage', value: value })
                 }
@@ -150,13 +147,6 @@ export const BasicDataForm = ({ close }: Props) => {
           </CargoInput>
         </div>
       </div>
-      {/* <MdLocalGasStation
-        className='absolute right-10 bottom-5 w-[40px] h-[40px] hover:text-[#f9d63a] cursor-pointer'
-        onClick={() => open(FuelDataId)}
-      /> */}
-      <PopupComponent popupId={FuelDataId} width='60%' height='90%'>
-        <FuelData close={close} />
-      </PopupComponent>
     </CargoContainer>
   );
 };
