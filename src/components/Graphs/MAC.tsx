@@ -1,32 +1,31 @@
-import React, { useEffect, useRef } from 'react';
-import CenterOfGravitiyMac from '../../images/CenterOfGravitiyMac.png';
+import React, { useEffect } from 'react';
 import JXG from 'jsxgraph';
 
 import { useSelector } from 'react-redux';
+import { State } from '../../redux/store';
+import { CalcService } from '../../services/CalcService';
 
 export function MAC() {
-  const objectsData = useSelector((state) => state.objectsData);
-  const basicData = useSelector((state) => state.basicData);
-  useEffect(() => {
-    console.log({ objectsData, basicData });
+  const objectsData = useSelector((state: State) => state.objectsData);
+  const basicData = useSelector((state: State) => state.basicData);
 
+  const calcService = new CalcService();
+
+  useEffect(() => {
     const point = {
-      x: get_mac(basicData, objectsData),
-      y: GetGrossWeight(objectsData, basicData) / 1000,
+      x: calcService.meanAerodynamicChord(basicData, objectsData.itemList),
+      y:
+        calcService.totalAircraftWeight(basicData, objectsData.itemList) / 1000,
     };
-    // console.log(`point MAC: (${point.x}, ${point.y})`)
-    const title = 'weight limit chart (primary)';
+
     const board = JXG.JSXGraph.initBoard('jxgbox3', {
-      boundingbox: [13.5, 180, 32, 70], // [x_min, y_max, x_max, y_min]
-      grid: {
-        gridX: 1,
-        gridY: 1,
-      },
+      boundingbox: [13.5, 180, 32, 70],
+      grid: true,
       axis: true,
       showNavigation: false,
     });
 
-    const xAxis = board.create(
+    board.create(
       'axis',
       [
         [14, 75],
@@ -34,7 +33,7 @@ export function MAC() {
       ],
       { ticks: { visible: true, frequency: 1 } }
     );
-    const yAxis = board.create(
+    board.create(
       'axis',
       [
         [14, 75],
@@ -43,7 +42,7 @@ export function MAC() {
       { ticks: { visible: true } }
     );
 
-    const red = board.create(
+    board.create(
       'polygon',
       [
         [14, 76],
@@ -69,7 +68,7 @@ export function MAC() {
         tabindex: null,
       }
     );
-    const orange1 = board.create(
+    board.create(
       'polygon',
       [
         [18.4, 118.5],
@@ -88,7 +87,7 @@ export function MAC() {
         tabindex: null,
       }
     );
-    const orange2 = board.create(
+    board.create(
       'polygon',
       [
         [29.2, 175],
@@ -106,7 +105,7 @@ export function MAC() {
         tabindex: null,
       }
     );
-    const green = board.create(
+    board.create(
       'polygon',
       [
         [15, 76],
@@ -132,7 +131,7 @@ export function MAC() {
       }
     );
 
-    const refPoint = board.create('point', [point.x, point.y], {
+    board.create('point', [point.x, point.y], {
       name: 'Point',
       size: 3,
       fixed: true,
@@ -151,8 +150,6 @@ export function MAC() {
       { display: 'internal', rotate: 90, anchorX: 'middle', anchorY: 'bottom' }
     );
     text_y_axis.setPosition(JXG.COORDS_BY_USER, [-1, 105]);
-
-    return () => board.removeObject(xAxis);
   }, [basicData, objectsData]);
 
   return (
@@ -172,79 +169,3 @@ export function MAC() {
 }
 
 export default MAC;
-
-const outboard = 8758; // slider1 = outboard   max_pound: 8758
-const inboard = 8065; // slider2 = inboard    max_pound: 8065
-const auxiliary = 6127; // slider3 = auxiliary  max_pound: 6127
-const external = 9377; // slider4 = external   max_pound: 9377
-const fuselage = 0; // slider5 = fuselage   max_pound:
-
-function GetGrossWeight(objectsData, basicData) {
-  let weight = (basicData.cockpitCrew + basicData.inspectorsCrew) * 170;
-  weight += basicData.emptyWeight;
-
-  weight += basicData.fuselage + basicData.inboard + basicData.outboard;
-  objectsData.itemList.forEach((el) => {
-    weight += el.weight;
-  });
-
-  return weight;
-}
-
-function get_mac(basicData, objectsData) {
-  let my_aircraft_index = basicData.index;
-  let aircraftWeight = basicData.emptyWeight;
-
-  console.log('empty weight');
-  console.log(basicData.emptyWeight);
-
-  console.log('starting index');
-  console.log(my_aircraft_index);
-
-  objectsData.itemList.forEach((el) => {
-    console.log('weight');
-    console.log(el.weight);
-    my_aircraft_index += ((el.fs - 533.46) * el.weight) / 50000;
-    aircraftWeight += el.weight;
-  });
-
-  console.log('cockpit total index');
-  console.log(basicData.cockpitCrew * -1.2);
-
-  console.log('cockpit total index');
-  console.log(basicData.inspectorsCrew * -0.8);
-
-  const totalFuelWeight =
-    basicData.fuselage + basicData.outboard + basicData.inboard - 1000;
-
-  my_aircraft_index +=
-    basicData.cockpitCrew * -1.2 +
-    basicData.inspectorsCrew * -0.8 +
-    1 +
-    totalFuelWeight / 3000;
-
-  console.log('index after crew and objects');
-  console.log(my_aircraft_index);
-
-  aircraftWeight +=
-    totalFuelWeight +
-    170 * (basicData.inspectorsCrew + basicData.cockpitCrew) +
-    250;
-
-  console.log(basicData.fuselage + basicData.outboard + basicData.inboard);
-
-  console.log('total weight');
-  console.log(aircraftWeight);
-
-  const cg = ((my_aircraft_index - 100) * 50000) / aircraftWeight + 533.46;
-
-  console.log('cg');
-  console.log(cg);
-
-  const mac = ((cg - 487.4) * 100) / 164.5;
-
-  console.log('mac');
-  console.log(mac);
-  // console.log(`The MAC/GetMAC function returns enter GetMAC: ${mac}`)
-  return mac;
-}

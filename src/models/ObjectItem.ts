@@ -1,5 +1,3 @@
-import { fabric } from 'fabric/index';
-
 export interface Position {
   x: number;
   y: number;
@@ -15,7 +13,7 @@ export interface Item {
   width: number;
   height: number;
   index: number;
-  fill: fabric.Color;
+  fill: string;
   position: Position;
   centerOfGravity: Position;
 }

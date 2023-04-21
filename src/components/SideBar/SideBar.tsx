@@ -1,13 +1,9 @@
 import React, { Fragment, useState } from 'react';
 import { FaBars } from 'react-icons/fa';
 import SideBarItems from './SideBarItems';
-import eventBus from '../Grid/eventBus';
 
-const SideBar = (props, fabricRef) => {
+const SideBar = () => {
   const [showSideBar, setShowSideBar] = useState(true);
-  const setSideBar = () => {
-    eventBus.dispatch('setSideBarValue', { message: '' });
-  };
 
   return (
     <Fragment>
@@ -17,7 +13,6 @@ const SideBar = (props, fabricRef) => {
             className='flex text-5xl absolute top-5 left-3 text-[#1E1E22] items-center cursor-pointer'
             onClick={() => {
               setShowSideBar((prev) => !prev);
-              setSideBar();
             }}
           >
             <FaBars size={40} />
@@ -29,7 +24,6 @@ const SideBar = (props, fabricRef) => {
           }`}
         >
           <SideBarItems
-            fabricRef={fabricRef}
             showSideBar={showSideBar}
             setShowSideBar={setShowSideBar}
           />

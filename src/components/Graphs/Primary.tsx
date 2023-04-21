@@ -4,30 +4,28 @@ import './Graphs.css';
 
 import { useSelector } from 'react-redux';
 import { State } from '../../redux/store';
+import { CalcService } from '../../services/CalcService';
 
 export function Primary() {
-  const objectsData = useSelector((State) => State.objectsData);
-  const basicData = useSelector((State) => State.basicData);
+  const objectsData = useSelector((state: State) => state.objectsData);
+  const basicData = useSelector((state: State) => state.basicData);
+
+  const calcService = new CalcService();
 
   useEffect(() => {
     const point = {
-      x: sumFule(basicData) / 1000,
-      y: sumBsicWeightAndCargo(objectsData, basicData) / 1000,
+      x: calcService.fuelWeightForFlight(basicData) / 1000,
+      y: calcService.zeroFuelWeight(basicData, objectsData.itemList) / 1000,
     };
-    // console.log(`point Primary: (${point.x}, ${point.y})`)
 
-    const title = 'weight limit chart (primary)';
     const board = JXG.JSXGraph.initBoard('jxgbox1', {
-      boundingbox: [-5, 137, 71, 68], // [x_min, y_max, x_max, y_min]
-      grid: {
-        gridX: 5,
-        gridY: 5,
-      },
+      boundingbox: [-5, 137, 71, 68],
+      grid: true,
       axis: true,
       showNavigation: false,
     });
 
-    const xAxis = board.create(
+    board.create(
       'axis',
       [
         [0, 70],
@@ -36,7 +34,7 @@ export function Primary() {
       { ticks: { visible: true } }
     );
 
-    const green = board.create(
+    board.create(
       'polygon',
       [
         [0, 70],
@@ -59,7 +57,7 @@ export function Primary() {
         tabindex: null,
       }
     );
-    const blue = board.create(
+    board.create(
       'polygon',
       [
         [0, 98],
@@ -84,7 +82,7 @@ export function Primary() {
         tabindex: null,
       }
     );
-    const yellow = board.create(
+    board.create(
       'polygon',
       [
         [25, 130],
@@ -128,12 +126,11 @@ export function Primary() {
       }
     );
 
-    const refPoint = board.create('point', [point.x, point.y], {
+    board.create('point', [point.x, point.y], {
       fixed: true,
       name: 'Point',
       size: 3,
     });
-    return () => board.removeObject(xAxis);
   }, []);
 
   return (
@@ -153,24 +150,3 @@ export function Primary() {
 }
 
 export default Primary;
-
-const outboard = 8758; // slider1 = outboard   max_pound: 8758
-const inboard = 8065; // slider2 = inboard    max_pound: 8065
-const auxiliary = 6127; // slider3 = auxiliary  max_pound: 6127
-const external = 9377; // slider4 = external   max_pound: 9377
-const fuselage = 0; // slider5 = fuselage   max_pound:
-
-function sumFule(basicData) {
-  const fule = basicData.fuselage + basicData.inboard + basicData.outboard;
-  // console.log(`The sumFule function returns: ${fule}`)
-  return fule;
-}
-
-function sumBsicWeightAndCargo(objectsData, basicData) {
-  let weight = basicData.emptyWeight;
-  objectsData.itemList.forEach((element) => {
-    weight += element.weight;
-  });
-  // console.log(`The sumBsicWeightAndCargo function returns: ${weight}`)
-  return weight;
-}

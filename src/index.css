@@ -525,7 +525,7 @@ body {
   cursor: move;
 }
 
-.gridContainer {
+#gridContainer {
   background-image: url('../src/images/grid.png');
   background-size: contain;
   background-repeat: no-repeat;

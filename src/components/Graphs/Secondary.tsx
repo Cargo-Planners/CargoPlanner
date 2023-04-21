@@ -1,28 +1,30 @@
-import { useEffect } from 'react';
-import JXG, { Point } from 'jsxgraph';
+import React, { useEffect } from 'react';
+import JXG from 'jsxgraph';
 import './Graphs.css';
-
 import { useSelector } from 'react-redux';
 import { State } from '../../redux/store';
-import { green } from '@mui/material/colors';
+import { CalcService } from '../../services/CalcService';
 
 function Secondary() {
-  const objectsData = useSelector((State) => State.objectsData);
-  const basicData = useSelector((State) => State.basicData);
+  const objectsData = useSelector((state: State) => state.objectsData);
+  const basicData = useSelector((state: State) => state.basicData);
+
+  const calcService = new CalcService();
 
   useEffect(() => {
-    const title = 'weight Limitation Chart (Secondary)';
+    const point = {
+      x: calcService.zeroFuelWeight(basicData, objectsData.itemList),
+      y: calcService.fuelWeightForFlight(basicData),
+    };
+
     const board = JXG.JSXGraph.initBoard('jxgbox2', {
-      boundingbox: [-5, 162, 36, 87], // [x_min, y_max, x_max, y_min]
-      grid: {
-        gridX: 5,
-        gridY: 5,
-      },
+      boundingbox: [-5, 162, 36, 87],
+      grid: true,
       axis: true,
       showNavigation: false,
     });
 
-    const xAxis = board.create(
+    board.create(
       'axis',
       [
         [0, 90],
@@ -31,7 +33,7 @@ function Secondary() {
       { ticks: { visible: true } }
     );
 
-    const green = board.create(
+    board.create(
       'polygon',
       [
         [0, 90],
@@ -51,7 +53,7 @@ function Secondary() {
         tabindex: null,
       }
     );
-    const blue = board.create(
+    board.create(
       'polygon',
       [
         [0, 99],
@@ -72,7 +74,7 @@ function Secondary() {
         tabindex: null,
       }
     );
-    const red = board.create(
+    board.create(
       'polygon',
       [
         [0, 118],
@@ -93,25 +95,20 @@ function Secondary() {
         tabindex: null,
       }
     );
-    const point = {
-      x: graph_x(basicData),
-      y: graph_y(objectsData, basicData),
-    };
+
     // console.log(`point Secondary: (${point.x}, ${point.y})`)
-    const refPoint = board.create('point', [point.x, point.y], {
+    board.create('point', [point.x, point.y], {
       name: 'Point',
       size: 3,
       fixed: true,
     });
 
-    const erea_a = board.create('text', [20, 100, 'AREA A'], {
+    const areaA = board.create('text', [20, 100, 'AREA A'], {
       fontSize: 12,
       anchorX: 'left',
       anchorY: 'bottom',
     });
-    erea_a.setPosition(JXG.COORDS_BY_USER, [0, 92]);
-
-    return () => board.removeObject(xAxis);
+    areaA.setPosition(JXG.COORDS_BY_USER, [0, 92]);
   }, []);
 
   return (
@@ -131,38 +128,3 @@ function Secondary() {
 }
 
 export default Secondary;
-
-const outboard = 8758; // slider1 = outboard   max_pound: 8758
-const inboard = 8065; // slider2 = inboard    max_pound: 8065
-const auxiliary = 6127; // slider3 = auxiliary  max_pound: 6127
-const external = 9377; // slider4 = external   max_pound: 9377
-const fuselage = 0; // slider5 = fuselage   max_pound:
-
-function graph_x(basicData) {
-  const axis_x =
-    basicData.slider2 * 8065 < basicData.slider1 * 8758 - 1300
-      ? (basicData.slider2 / 100) * inboard
-      : (basicData.slider1 / 100) * outboard - 1300;
-  const axis_y = 20 - ((basicData.slider1 / 100) * outboard) / 1000;
-  // console.log(`The graph_x function returns: ${(axis_x/1000)+ axis_y}`)
-  return axis_x / 1000 + axis_y;
-}
-
-function graph_y(objectsData, basicData) {
-  // חסר ציוד חירום, תצורה
-  const axis_x =
-    90 -
-    (basicData.emptyWeight +
-      (basicData.inspectorsCrew + basicData.cockpitCrew) * 170) /
-      1000;
-  // חסר את הדלק שבמטען
-  const fule = basicData.fuselage + basicData.inboard + basicData.outboard;
-  let weight_cargo = 0;
-  objectsData.itemList.forEach((element) => {
-    weight_cargo += element.weight;
-  });
-  const axis_y = (fule + weight_cargo) / 1000;
-
-  // console.log(`The graph_y function returns: ${(axis_x + axis_y + 70)}`)
-  return axis_x + axis_y + 70;
-}

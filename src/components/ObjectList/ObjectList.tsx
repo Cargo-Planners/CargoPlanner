@@ -1,18 +1,9 @@
-import React, { Fragment, useState } from 'react';
-import PopUp from '../Grid/PopUp';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import eventBus from '../Grid/eventBus';
-import ObjectDetails from './ObjectDetails';
+import { State } from '../../redux/store';
 
-const ObjectList = (props, fabricRef) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState();
-  const itemList = useSelector((state) => state.objectsData.itemList);
-
-  const togglePopup = (index) => {
-    setIsOpen(!isOpen);
-    setCurrentIndex(index);
-  };
+const ObjectList = () => {
+  const itemList = useSelector((state: State) => state.objectsData.itemList);
 
   return (
     <div className='flex content-center bg-[#f7f7f7] absolute right-0 bottom-0 w-[25vw] h-[50vh]'>
@@ -33,10 +24,7 @@ const ObjectList = (props, fabricRef) => {
               <div key={index} className='flex flex-col'>
                 <div className='flex mb-2'>
                   {/* onClick={setPopUp} What is this? */}
-                  <p
-                    className='w-1/5 my-auto text-center cursor-pointer text-[#000000] font-medium'
-                    onClick={() => togglePopup(index)}
-                  >
+                  <p className='w-1/5 my-auto text-center cursor-pointer text-[#000000] font-medium'>
                     {index}
                   </p>
                   <p className='w-1/5 my-auto text-center text-[#000000] font-medium'>
@@ -45,13 +33,13 @@ const ObjectList = (props, fabricRef) => {
                   <input
                     name='item'
                     className='w-1/5 bg-[#ffffff] text-center text-[#000000] pl-[10px] border-[#424242] border rounded'
-                    placeholder={item.weight}
+                    placeholder={`${item.weight}`}
                     type='number'
                     min='0'
                   />
                   <input
                     className='w-1/5 bg-[#ffffff] text-center text-[#000000] pl-[10px] border-[#424242] border rounded'
-                    placeholder={item.fs}
+                    placeholder={`${item.fs}`}
                     type='number'
                     min='0'
                   />

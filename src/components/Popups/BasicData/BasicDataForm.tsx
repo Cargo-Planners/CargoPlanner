@@ -13,7 +13,6 @@ import { State } from '../../../redux/store';
 
 type Props = {
   close: (id: string) => void;
-  open: (id: string) => void;
 };
 
 export const basicDataId = 'BASIC_DATA';

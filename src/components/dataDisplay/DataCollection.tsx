@@ -1,9 +1,10 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import eventBus from '../Grid/eventBus';
+import { GeneralDataState } from '../../redux/GeneralDataSlice';
+import { State } from '../../redux/store';
 
 const DataCollection = () => {
-  const dataCollection = useSelector((state) => state.generalData);
+  const dataCollection = useSelector((state: State) => state.generalData);
 
   useEffect(() => {
     console.log(dataCollection);
@@ -29,7 +30,9 @@ const DataCollection = () => {
                 key={key}
               >
                 {key}: &nbsp;
-                <span className='font-normal'>{dataCollection[key]}</span>
+                <span className='font-normal'>
+                  {dataCollection[key as keyof GeneralDataState]}
+                </span>
               </h2>
             );
           })}

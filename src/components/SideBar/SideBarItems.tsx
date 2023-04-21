@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   FaCaretDown,
   FaTrash,
@@ -8,11 +8,9 @@ import {
   FaTimes,
 } from 'react-icons/fa';
 import { GiCargoCrate } from 'react-icons/gi';
-import { fabric } from 'fabric';
 import { addItem } from '../../redux/ObjectsDataSlice';
 //@ts-ignore
 import randomColor from 'randomcolor';
-import eventBus from '../Grid/eventBus';
 //@ts-ignore
 import { v4 } from 'uuid';
 import { useSelector, useDispatch } from 'react-redux';
@@ -28,25 +26,24 @@ import { PopupComponent } from '../ViewComponents';
 import DropDown from './DropDown';
 import { Link } from 'react-router-dom';
 import SettingsIcon from '@mui/icons-material/Settings';
+import { CanvasCTX } from '../Grid/CanvasContext';
+import { fabric } from 'fabric';
 
 export const X_ORIGIN = 22;
 export const Y_ORIGIN = 315;
 type Props = {
   showSideBar: boolean;
   setShowSideBar: React.Dispatch<React.SetStateAction<boolean>>;
-  fabricRef: any;
 };
 
-const SideBarItems = ({ showSideBar, setShowSideBar, fabricRef }: Props) => {
+const SideBarItems = ({ showSideBar, setShowSideBar }: Props) => {
   const objectListItems = useSelector((state: State) => state.objectsData);
   const basicData = useSelector((state: State) => state.basicData);
   const generalData = useSelector((state: State) => state.generalData);
+  const grid = useContext(CanvasCTX).canvas;
+  const unitsService = new UnitsService();
 
   const [showDropDown, setShowDropDown] = useState(false);
-
-  const setSideBar = () => {
-    eventBus.dispatch('setSideBarValue', { message: '' });
-  };
 
   const dispatch = useDispatch();
 
@@ -65,35 +62,14 @@ const SideBarItems = ({ showSideBar, setShowSideBar, fabricRef }: Props) => {
   const addRectangle = () => {
     let color = randomColor();
     const id = v4();
-    const oneUnitInPixels = UnitsService.oneUnitInPixels(
-      fabricRef.current.width
-    );
-
-    const startPoint = UnitsService.startingPosition(
-      fabricRef.current.width,
-      fabricRef.current.height
-    );
-
-    const rect = new fabric.Rect({
-      name: id,
-      width: oneUnitInPixels,
-      height: oneUnitInPixels,
-      scaleX: 1,
-      scaleY: 1,
-      opacity: 1,
-      ...startPoint,
-      fill: color,
-    });
-
-    fabricRef.current.add(rect);
     addItemToObjectList({
       type: 'Object',
       name: '',
       id: id,
       weight: 0,
       fs: 0,
-      width: UnitsService.ONE_UNIT_IN_INCHES,
-      height: UnitsService.ONE_UNIT_IN_INCHES,
+      width: unitsService.ONE_UNIT_IN_INCHES,
+      height: unitsService.ONE_UNIT_IN_INCHES,
       index: 0,
       fill: color,
       position: {
@@ -107,7 +83,25 @@ const SideBarItems = ({ showSideBar, setShowSideBar, fabricRef }: Props) => {
       },
     });
 
-    fabricRef.current.setActiveObject(rect);
+    if (grid) {
+      const oneUnitInPixels = unitsService.oneUnitInPixels(grid.width!);
+      const startingPosition = unitsService.startingPosition(
+        grid.width!,
+        grid.height!
+      );
+
+      grid.add(
+        new fabric.Rect({
+          name: id,
+          width: oneUnitInPixels,
+          height: oneUnitInPixels,
+          scaleX: 1,
+          scaleY: 1,
+          fill: color,
+          ...startingPosition,
+        })
+      );
+    }
   };
 
   const togglePopup = () => {
@@ -143,7 +137,6 @@ const SideBarItems = ({ showSideBar, setShowSideBar, fabricRef }: Props) => {
               className='flex text-5xl text-[#1E1E22] items-center cursor-pointer'
               onClick={() => {
                 setShowSideBar((prev: boolean) => !prev);
-                setSideBar();
               }}
             >
               <div className='flex items-center gap-3 '>
@@ -169,10 +162,7 @@ const SideBarItems = ({ showSideBar, setShowSideBar, fabricRef }: Props) => {
         </div>
         {
           <PopupComponent popupId={basicDataId} width='35vw' height='80vh'>
-            <BasicDataForm
-              close={dispatchClosePopup}
-              open={dispatchOpenPopup}
-            />
+            <BasicDataForm close={dispatchClosePopup} />
           </PopupComponent>
         }
 

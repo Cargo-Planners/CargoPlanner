@@ -1,11 +1,10 @@
-import { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { routeConstants } from './Routes/constants';
 import Home from './pages/Home';
 import ChoosePlatform from './pages/ChoosePlatform';
 import FirstPage from './pages/FirstPage';
 import Graphs from './pages/Graphs';
-import { useDispatch } from 'react-redux';
 
 function App() {
   return (

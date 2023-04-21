@@ -16,6 +16,8 @@ const initialState: ObjectsDataState = {
   itemList: [],
 };
 
+const unitsService = new UnitsService();
+
 const ObjectsDataSlice = createSlice({
   name: 'objectsData',
   initialState,
@@ -112,8 +114,8 @@ const ObjectsDataSlice = createSlice({
         obj.id === action.payload.id
           ? {
               ...obj,
-              width: UnitsService.ONE_UNIT_IN_INCHES * action.payload.scaleX,
-              height: UnitsService.ONE_UNIT_IN_INCHES * action.payload.scaleY,
+              width: unitsService.ONE_UNIT_IN_INCHES * action.payload.scaleX,
+              height: unitsService.ONE_UNIT_IN_INCHES * action.payload.scaleY,
             }
           : obj
       );

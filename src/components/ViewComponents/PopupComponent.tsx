@@ -5,7 +5,7 @@ import { State } from '../../redux/store';
 import './styles.css';
 
 type Props = {
-  popupId: string;
+  popupId?: string;
   width: string;
   height: string;
 };
