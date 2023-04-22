@@ -9,14 +9,14 @@ import {
   updateItemPosition,
   updateItemFs,
   setItemsList,
-} from '../../redux/ObjectsDataSlice';
-import UnitsService from '../../services/UnitsService';
-import { State } from '../../redux/store';
+} from '../../../redux/ObjectsDataSlice';
+import UnitsService from '../../../services/UnitsService';
+import { State } from '../../../redux/store';
 import { CanvasCTX } from './CanvasContext';
-import { Item } from '../../models/ObjectItem';
+import { Item } from '../../../models/ObjectItem';
 import { PopupComponent, CargoContainer } from '../ViewComponents';
-import { closePopup, openPopup } from '../../redux/PopupSlice';
-import { useFabric } from '../../hooks/fabric';
+import { closePopup, openPopup } from '../../../redux/PopupSlice';
+import { useFabric } from '../../../hooks/fabric';
 
 export const Grid = () => {
   const { canvas } = useContext(CanvasCTX);

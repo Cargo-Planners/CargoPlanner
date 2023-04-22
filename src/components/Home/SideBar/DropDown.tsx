@@ -3,8 +3,8 @@ import { AiFillCar } from 'react-icons/ai';
 import { GiOldWagon } from 'react-icons/gi';
 import { TbOvalVertical } from 'react-icons/tb';
 import { useDispatch } from 'react-redux';
-import { Item } from '../../models/ObjectItem';
-import { addItem } from '../../redux/ObjectsDataSlice';
+import { Item } from '../../../models/ObjectItem';
+import { addItem } from '../../../redux/ObjectsDataSlice';
 
 const DropDown = () => {
   const dispatch = useDispatch();

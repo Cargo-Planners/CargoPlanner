@@ -8,19 +8,17 @@ import {
   FaTimes,
 } from 'react-icons/fa';
 import { GiCargoCrate } from 'react-icons/gi';
-import { addItem } from '../../redux/ObjectsDataSlice';
-//@ts-ignore
+import { addItem } from '../../../redux/ObjectsDataSlice';
 import randomColor from 'randomcolor';
-//@ts-ignore
 import { v4 } from 'uuid';
 import { useSelector, useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
-import { routeConstants } from '../../Routes/constants';
-import { openPopup, closePopup } from '../../redux/PopupSlice';
-import { BasicDataForm, basicDataId } from '../Popups/BasicData/BasicDataForm';
-import UnitsService from '../../services/UnitsService';
-import { State } from '../../redux/store';
-import { Item } from '../../models/ObjectItem';
+import { routeConstants } from '../../../routes/constants';
+import { openPopup, closePopup } from '../../../redux/PopupSlice';
+import { BasicDataForm, basicDataId } from '../BasicData/BasicDataForm';
+import UnitsService from '../../../services/UnitsService';
+import { State } from '../../../redux/store';
+import { Item } from '../../../models/ObjectItem';
 import SiderBarItem from './SiderBarItem';
 import { PopupComponent } from '../ViewComponents';
 import DropDown from './DropDown';
@@ -29,8 +27,6 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import { CanvasCTX } from '../Grid/CanvasContext';
 import { fabric } from 'fabric';
 
-export const X_ORIGIN = 22;
-export const Y_ORIGIN = 315;
 type Props = {
   showSideBar: boolean;
   setShowSideBar: React.Dispatch<React.SetStateAction<boolean>>;

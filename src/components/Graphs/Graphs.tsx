@@ -1,9 +1,7 @@
 import React from 'react';
-import MAC from '../components/Graphs/MAC';
-//@ts-ignore
-import Primary from '../components/Graphs/Primary';
-//@ts-ignore
-import Secondary from '../components/Graphs/Secondary';
+import MAC from './MAC';
+import Primary from './Primary';
+import Secondary from './Secondary';
 
 const Graphs = () => {
   return (

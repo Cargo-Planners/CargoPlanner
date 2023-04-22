@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { routeConstants } from './Routes/constants';
-import Home from './pages/Home';
-import ChoosePlatform from './pages/ChoosePlatform';
-import FirstPage from './pages/FirstPage';
-import Graphs from './pages/Graphs';
+import { routeConstants } from './routes/constants';
+import Home from './components/Home/Home';
+import ChoosePlatform from './components/ChoosePlatform/ChoosePlatform';
+import FirstPage from './components/Intro/FirstPage';
+import Graphs from './components/Graphs/Graphs';
 
 function App() {
   return (

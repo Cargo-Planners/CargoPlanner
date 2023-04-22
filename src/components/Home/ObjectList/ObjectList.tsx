@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { State } from '../../redux/store';
+import { Item } from '../../../models/ObjectItem';
+import { State } from '../../../redux/store';
 
 const ObjectList = () => {
   const itemList = useSelector((state: State) => state.objectsData.itemList);
@@ -20,7 +21,7 @@ const ObjectList = () => {
             <p className='w-1/5 text-[#000000] font-semibold'>cell</p>
           </div>
           <div className='flex flex-col text-right py-3 rounded-b-lg overflow-auto h-full hide-scroll-bar'>
-            {itemList?.map((item, index) => (
+            {itemList?.map((item: Item, index: number) => (
               <div key={index} className='flex flex-col'>
                 <div className='flex mb-2'>
                   {/* onClick={setPopUp} What is this? */}

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { GeneralDataState } from '../../redux/GeneralDataSlice';
-import { State } from '../../redux/store';
+import { GeneralDataState } from '../../../redux/GeneralDataSlice';
+import { State } from '../../../redux/store';
 
 const DataCollection = () => {
   const dataCollection = useSelector((state: State) => state.generalData);

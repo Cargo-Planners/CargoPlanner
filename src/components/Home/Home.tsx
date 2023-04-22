@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import SideBar from '../components/SideBar/SideBar';
-import { Grid } from '../components/Grid/Grid';
-import MAC from '../components/Graphs/MAC';
+import SideBar from './SideBar/SideBar';
+import { Grid } from './Grid/Grid';
+import MAC from '../Graphs/MAC';
 import { fabric } from 'fabric';
-import { CanvasCTX } from '../components/Grid/CanvasContext';
+import { CanvasCTX } from './Grid/CanvasContext';
 
 const Home = () => {
   const [canvasRef, setCanvasRef] = useState<fabric.Canvas>();

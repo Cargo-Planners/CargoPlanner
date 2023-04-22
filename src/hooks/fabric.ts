@@ -1,6 +1,6 @@
 import { useCallback, useContext, useRef } from 'react';
 import { fabric } from 'fabric';
-import { CanvasCTX } from '../components/Grid/CanvasContext';
+import { CanvasCTX } from '../components/Home/Grid/CanvasContext';
 
 export const useFabric = () => {
   const canvas = useRef<fabric.Canvas>();

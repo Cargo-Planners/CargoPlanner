@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { routeConstants } from '../../Routes/constants';
+import { routeConstants } from '../../routes/constants';
 import { motion } from 'framer-motion';
 
 const OptionWrapper = ({ name, img }: { name: string; img: string }) => {

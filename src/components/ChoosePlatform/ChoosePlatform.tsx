@@ -1,5 +1,5 @@
 import React from 'react';
-import ChoosePlatformComponent from '../components/ChoosePlatform/ChoosePlatformComponent';
+import ChoosePlatformComponent from './ChoosePlatformComponent';
 
 const ChoosePlatform = () => {
   return <ChoosePlatformComponent />;

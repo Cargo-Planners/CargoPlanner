@@ -6,7 +6,7 @@ import {
   CargoInput,
   labelPositionEnum,
   CargoInputRadio,
-} from '../../ViewComponents';
+} from '../ViewComponents';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateBasicData } from '../../../redux/BasicDataSlice';
 import { State } from '../../../redux/store';

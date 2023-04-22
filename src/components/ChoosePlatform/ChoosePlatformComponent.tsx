@@ -1,9 +1,9 @@
 import React from 'react';
 import OptionWrapper from './OptionWrapper';
-import Karnaf from '../../images/Karnaf.png';
-import Reem from '../../images/Reem.png';
-import Tzofit from '../../images/Tzofit.png';
-import Shimshon from '../../images/Shimshon.png';
+import Karnaf from '../../assets/Karnaf.png';
+import Reem from '../../assets/Reem.png';
+import Tzofit from '../../assets/Tzofit.png';
+import Shimshon from '../../assets/Shimshon.png';
 
 const ChoosePlatformComponent = () => {
   return (

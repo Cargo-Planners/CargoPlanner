@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from 'react';
 import { Dialog } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { State } from '../../redux/store';
+import { State } from '../../../redux/store';
 import './styles.css';
 
 type Props = {
