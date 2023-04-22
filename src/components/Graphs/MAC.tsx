@@ -13,9 +13,10 @@ export function MAC() {
 
   useEffect(() => {
     const point = {
-      x: calcService.meanAerodynamicChord(basicData, objectsData.itemList),
+      x: calcService.meanAerodynamicChord(basicData, objectsData.cargoList),
       y:
-        calcService.totalAircraftWeight(basicData, objectsData.itemList) / 1000,
+        calcService.totalAircraftWeight(basicData, objectsData.cargoList) /
+        1000,
     };
 
     const board = JXG.JSXGraph.initBoard('jxgbox3', {
@@ -157,7 +158,7 @@ export function MAC() {
       <div className='wrapper'>
         <div className='content'>
           <h2 className='title'>Center Of Gravity Limitation By %MAC</h2>
-          <div id='jxgbox3' style={{ width: '400px', height: '400px' }} />
+          <div id='jxgbox3' style={{ width: '300px', height: '300px' }} />
           <p className='subtitle'>CG Location - % MAC</p>
         </div>
         <div className='titleWrapper'>

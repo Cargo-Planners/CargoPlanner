@@ -4,6 +4,7 @@ import { Grid } from './Grid/Grid';
 import MAC from '../Graphs/MAC';
 import { fabric } from 'fabric';
 import { CanvasCTX } from './Grid/CanvasContext';
+import { ObjectView } from './DataDisplay/ObjectView';
 
 const Home = () => {
   const [canvasRef, setCanvasRef] = useState<fabric.Canvas>();
@@ -19,10 +20,16 @@ const Home = () => {
       }}
     >
       <div>
-        <SideBar />
-        <div className='ml-[20vw] bg-[#fafafa] w-[60%] aspect-[1/0.36]'>
-          <Grid />
-          <MAC />
+        <div className='bg-[#fafafa] flex flex-row'>
+          <SideBar />
+          <div className='w-4/6'>
+            <Grid />
+            <div className='flex flex-row'>
+              <MAC />
+              <ObjectView />
+            </div>
+          </div>
+          <div className='w-1/6 bg-[#303030]'></div>
         </div>
       </div>
     </CanvasCTX.Provider>

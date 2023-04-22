@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Item } from '../../../models/ObjectItem';
+import { Cargo } from '../../../models/ObjectItem';
 import { State } from '../../../redux/store';
 
 const ObjectList = () => {
-  const itemList = useSelector((state: State) => state.objectsData.itemList);
+  const itemList = useSelector((state: State) => state.objectsData.cargoList);
 
   return (
     <div className='flex content-center bg-[#f7f7f7] absolute right-0 bottom-0 w-[25vw] h-[50vh]'>
@@ -21,7 +21,7 @@ const ObjectList = () => {
             <p className='w-1/5 text-[#000000] font-semibold'>cell</p>
           </div>
           <div className='flex flex-col text-right py-3 rounded-b-lg overflow-auto h-full hide-scroll-bar'>
-            {itemList?.map((item: Item, index: number) => (
+            {itemList?.map((item: Cargo, index: number) => (
               <div key={index} className='flex flex-col'>
                 <div className='flex mb-2'>
                   {/* onClick={setPopUp} What is this? */}

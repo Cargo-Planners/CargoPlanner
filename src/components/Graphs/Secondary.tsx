@@ -13,7 +13,7 @@ function Secondary() {
 
   useEffect(() => {
     const point = {
-      x: calcService.zeroFuelWeight(basicData, objectsData.itemList),
+      x: calcService.zeroFuelWeight(basicData, objectsData.cargoList),
       y: calcService.fuelWeightForFlight(basicData),
     };
 

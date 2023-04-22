@@ -5,7 +5,6 @@ import {
   FaPlaneDeparture,
   FaChartLine,
   FaFileExport,
-  FaTimes,
 } from 'react-icons/fa';
 import { GiCargoCrate } from 'react-icons/gi';
 import { addItem } from '../../../redux/ObjectsDataSlice';
@@ -18,7 +17,7 @@ import { openPopup, closePopup } from '../../../redux/PopupSlice';
 import { BasicDataForm, basicDataId } from '../BasicData/BasicDataForm';
 import UnitsService from '../../../services/UnitsService';
 import { State } from '../../../redux/store';
-import { Item } from '../../../models/ObjectItem';
+import { Cargo } from '../../../models/ObjectItem';
 import SiderBarItem from './SiderBarItem';
 import { PopupComponent } from '../ViewComponents';
 import DropDown from './DropDown';
@@ -27,12 +26,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import { CanvasCTX } from '../Grid/CanvasContext';
 import { fabric } from 'fabric';
 
-type Props = {
-  showSideBar: boolean;
-  setShowSideBar: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-const SideBarItems = ({ showSideBar, setShowSideBar }: Props) => {
+const SideBarItems = () => {
   const objectListItems = useSelector((state: State) => state.objectsData);
   const basicData = useSelector((state: State) => state.basicData);
   const generalData = useSelector((state: State) => state.generalData);
@@ -51,7 +45,7 @@ const SideBarItems = ({ showSideBar, setShowSideBar }: Props) => {
     dispatch(closePopup(id));
   };
 
-  const addItemToObjectList = (item: Item) => {
+  const addItemToObjectList = (item: Cargo) => {
     dispatch(addItem(item));
   };
 
@@ -110,7 +104,7 @@ const SideBarItems = ({ showSideBar, setShowSideBar }: Props) => {
         }{" "}${generalData.ZFW}{" "}${generalData.fuel}{" "}${
           generalData.areaGraph
         }{" "}${generalData.index}{"inside the objectListItems"}${
-          objectListItems.itemList[0].fill
+          objectListItems.cargoList[0].fill
         }{" "}${generalData.fuel}{" "}${generalData.fuel}{" "}${
           generalData.fuel
         }{" "}${basicData}`,
@@ -128,23 +122,13 @@ const SideBarItems = ({ showSideBar, setShowSideBar }: Props) => {
     <div className='min-h-full flex flex-col justify-between'>
       <div className='flex flex-col gap-5'>
         <div className='flex'>
-          {showSideBar ? (
-            <button
-              className='flex text-5xl text-[#1E1E22] items-center cursor-pointer'
-              onClick={() => {
-                setShowSideBar((prev: boolean) => !prev);
-              }}
-            >
-              <div className='flex items-center gap-3 '>
-                <FaTimes size={40} />
-                <h2 className='text-xl font-bold text-[#000000]'>Gulliver</h2>
-              </div>
-            </button>
-          ) : null}
+          <div className='flex items-center gap-3 '>
+            <h2 className='text-xl font-bold text-[#000000]'>Cargo Planner</h2>
+          </div>
         </div>
         <hr className='border-[#000000]' />
         <div onClick={addRectangle}>
-          <SiderBarItem Icon={GiCargoCrate} buttonText='New Object' />
+          <SiderBarItem Icon={GiCargoCrate} buttonText='New Cargo' />
         </div>
         <div>
           <SiderBarItem Icon={FaTrash} buttonText='Erase All' />
@@ -157,14 +141,14 @@ const SideBarItems = ({ showSideBar, setShowSideBar }: Props) => {
           <SiderBarItem Icon={FaPlaneDeparture} buttonText='Basic Data' />
         </div>
         {
-          <PopupComponent popupId={basicDataId} width='35vw' height='80vh'>
+          <PopupComponent popupId={basicDataId} width='auto' height='auto'>
             <BasicDataForm close={dispatchClosePopup} />
           </PopupComponent>
         }
 
         <Link to={routeConstants.GraphsRoute}>
           <div>
-            <SiderBarItem Icon={FaChartLine} buttonText='Show Infographics' />
+            <SiderBarItem Icon={FaChartLine} buttonText='Show Graphs' />
           </div>
         </Link>
 

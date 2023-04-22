@@ -15,7 +15,7 @@ export function Primary() {
   useEffect(() => {
     const point = {
       x: calcService.fuelWeightForFlight(basicData) / 1000,
-      y: calcService.zeroFuelWeight(basicData, objectsData.itemList) / 1000,
+      y: calcService.zeroFuelWeight(basicData, objectsData.cargoList) / 1000,
     };
 
     const board = JXG.JSXGraph.initBoard('jxgbox1', {

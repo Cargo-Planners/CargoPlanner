@@ -1,6 +1,6 @@
 export interface BasicDataObject {
   cockpitCrew: number;
-  inspectorsCrew: number;
+  loadmasters: number;
   emptyWeight: number;
   index: number;
   config: number;

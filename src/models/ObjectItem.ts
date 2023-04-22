@@ -4,7 +4,7 @@ export interface Position {
   z?: number;
 }
 
-export interface Item {
+export interface Cargo {
   type: string;
   name: string;
   id: string;

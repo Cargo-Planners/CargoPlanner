@@ -3,7 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 
 export interface BasicDataState {
   cockpitCrew: number;
-  loadMasters: number;
+  loadmasters: number;
   emptyWeight: number;
   index: number;
   config: string;
@@ -11,11 +11,12 @@ export interface BasicDataState {
   outboard: number;
   inboard: number;
   auxiliary: number;
+  external: number;
 }
 
 export interface BasicDataChanges {
   cockpitCrew?: number;
-  inspectorsCrew?: number;
+  loadmasters?: number;
   emptyWeight?: number;
   index?: number;
   config?: string;
@@ -26,15 +27,16 @@ export interface BasicDataChanges {
 }
 
 const initialState: BasicDataState = {
-  cockpitCrew: 0,
-  loadMasters: 0,
-  emptyWeight: 0,
-  index: 0,
+  cockpitCrew: 5,
+  loadmasters: 3,
+  emptyWeight: 84451,
+  index: 82.6,
   config: '',
   fuelPod: false,
-  outboard: 0,
-  inboard: 0,
-  auxiliary: 0,
+  outboard: 13000,
+  inboard: 13000,
+  auxiliary: 8000,
+  external: 0,
 };
 
 const EditBasicDataSlice = createSlice({
@@ -47,11 +49,11 @@ const EditBasicDataSlice = createSlice({
     decrementCockpitCrew: (state) => {
       state.cockpitCrew -= 1;
     },
-    incrementInspectorsCrew: (state) => {
-      state.loadMasters += 1;
+    incrementLoadmasters: (state) => {
+      state.loadmasters += 1;
     },
-    decrementInspectorsCrew: (state) => {
-      state.loadMasters -= 1;
+    decrementLoadmasters: (state) => {
+      state.loadmasters -= 1;
     },
     updateEmptyWeight: (state, action) => {
       if (!isNaN(action.payload)) {
@@ -93,8 +95,8 @@ const EditBasicDataSlice = createSlice({
 export const {
   incrementCockpitCrew,
   decrementCockpitCrew,
-  incrementInspectorsCrew,
-  decrementInspectorsCrew,
+  incrementLoadmasters,
+  decrementLoadmasters,
   updateEmptyWeight,
   updateIndex,
   updateConfig,

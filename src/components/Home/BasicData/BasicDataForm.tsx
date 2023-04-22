@@ -32,119 +32,125 @@ export const BasicDataForm = ({ close }: Props) => {
 
   return (
     <CargoContainer close={handleClose}>
-      <div className='w-full'>
+      <div style={{ height: '100%' }}>
         <div className='flex justify-center'>
           <h1 className='text-center text-5xl font-bold'>Basic Data</h1>
         </div>
-        <div>
-          <CargoInput
-            label='Aircraft:'
-            labelPosition={labelPositionEnum.TOP}
-            labelSize={1.75}
-          >
-            <div className='w-3/5'>
-              <CargoInputNumber
-                placeholder='Empty Weight'
-                label='Empty Weight:'
-                onChange={(value) =>
-                  dispatchChangeBasicData({ key: 'emptyWeight', value: value })
-                }
-              />
-            </div>
-            <div className='w-3/5'>
-              <CargoInputNumber
-                placeholder='Index'
-                label='Aircraft Index:'
-                onChange={(value) =>
-                  dispatchChangeBasicData({ key: 'index', value: value })
-                }
-              />
-            </div>
-            <div className='w-3/5'>
-              <CargoInputSelect
-                options={['Option1', 'Option2', 'Option3']}
-                label='Configuration:'
-                onChange={(value) =>
-                  dispatchChangeBasicData({ key: 'config', value: value })
-                }
-              />
-            </div>
-          </CargoInput>
-        </div>
-        <div>
-          <CargoInput
-            label='Crew:'
-            labelPosition={labelPositionEnum.TOP}
-            labelSize={1.75}
-          >
-            <div className='w-3/5'>
-              <CargoInputNumber
-                minValue={0}
-                placeholder='0'
-                label='Cockpit Crew:'
-                onChange={(value) =>
-                  dispatchChangeBasicData({ key: 'cockpitCrew', value: value })
-                }
-              />
-            </div>
-            <div className='w-3/5'>
-              <CargoInputNumber
-                minValue={0}
-                placeholder='0'
-                label='Inspectors Crew:'
-                onChange={(value) =>
-                  dispatchChangeBasicData({
-                    key: 'inspectorsCrew',
-                    value: value,
-                  })
-                }
-              />
-            </div>
-          </CargoInput>
-        </div>
-        <div>
-          <CargoInput
-            label='Fuel Distribution:'
-            labelPosition={labelPositionEnum.TOP}
-            labelSize={1.75}
-          >
-            <div className='w-3/5'>
-              <CargoInputRadio
-                label='Pod/No Pod:'
-                onChange={(value) =>
-                  dispatchChangeBasicData({ key: 'fuelPod', value: value })
-                }
-              />
-            </div>
-            <div className='w-3/5'>
-              <CargoInputNumber
-                label='outboard:'
-                placeholder={basicData.outboard}
-                onChange={(value) =>
-                  dispatchChangeBasicData({ key: 'outboard', value: value })
-                }
-              />
-            </div>
-            <div className='w-3/5'>
-              <CargoInputNumber
-                placeholder={basicData.inboard}
-                label='inboard:'
-                onChange={(value) =>
-                  dispatchChangeBasicData({ key: 'inboard', value: value })
-                }
-              />
-            </div>
-            <div className='w-3/5'>
-              <CargoInputNumber
-                label='fuselage:'
-                placeholder={basicData.auxiliary}
-                onChange={(value) =>
-                  dispatchChangeBasicData({ key: 'fuselage', value: value })
-                }
-              />
-            </div>
-          </CargoInput>
-        </div>
+
+        <CargoInput
+          label='Aircraft:'
+          labelPosition={labelPositionEnum.TOP}
+          labelSize={1.75}
+        >
+          <div className='w-3/5'>
+            <CargoInputNumber
+              placeholder={basicData.emptyWeight}
+              label='Empty Weight:'
+              onChange={(value) =>
+                dispatchChangeBasicData({ key: 'emptyWeight', value: value })
+              }
+            />
+          </div>
+          <div className='w-3/5'>
+            <CargoInputNumber
+              placeholder={basicData.index}
+              label='Aircraft Index:'
+              onChange={(value) =>
+                dispatchChangeBasicData({ key: 'index', value: value })
+              }
+            />
+          </div>
+          <div className='w-3/5'>
+            <CargoInputSelect
+              options={['Option1', 'Option2', 'Option3']}
+              label='Configuration:'
+              onChange={(value) =>
+                dispatchChangeBasicData({ key: 'config', value: value })
+              }
+            />
+          </div>
+        </CargoInput>
+
+        <CargoInput
+          label='Crew:'
+          labelPosition={labelPositionEnum.TOP}
+          labelSize={1.75}
+        >
+          <div className='w-3/5'>
+            <CargoInputNumber
+              minValue={0}
+              placeholder={basicData.cockpitCrew}
+              label='Cockpit Crew:'
+              onChange={(value) =>
+                dispatchChangeBasicData({ key: 'cockpitCrew', value: value })
+              }
+            />
+          </div>
+          <div className='w-3/5'>
+            <CargoInputNumber
+              minValue={0}
+              placeholder={basicData.loadmasters}
+              label='Loadmasters:'
+              onChange={(value) =>
+                dispatchChangeBasicData({
+                  key: 'loadmasters',
+                  value: value,
+                })
+              }
+            />
+          </div>
+        </CargoInput>
+
+        <CargoInput
+          label='Fuel Distribution:'
+          labelPosition={labelPositionEnum.TOP}
+          labelSize={1.75}
+        >
+          <div className='w-3/5'>
+            <CargoInputRadio
+              label='Pod/No Pod:'
+              onChange={(value) =>
+                dispatchChangeBasicData({ key: 'fuelPod', value: value })
+              }
+            />
+          </div>
+          <div className='w-3/5'>
+            <CargoInputNumber
+              label='Outboard:'
+              placeholder={basicData.outboard}
+              onChange={(value) =>
+                dispatchChangeBasicData({ key: 'outboard', value: value })
+              }
+            />
+          </div>
+          <div className='w-3/5'>
+            <CargoInputNumber
+              placeholder={basicData.inboard}
+              label='Inboard:'
+              onChange={(value) =>
+                dispatchChangeBasicData({ key: 'inboard', value: value })
+              }
+            />
+          </div>
+          <div className='w-3/5'>
+            <CargoInputNumber
+              label='Auxiliary:'
+              placeholder={basicData.auxiliary}
+              onChange={(value) =>
+                dispatchChangeBasicData({ key: 'auxiliary', value: value })
+              }
+            />
+          </div>
+          <div className='w-3/5'>
+            <CargoInputNumber
+              label='External:'
+              placeholder={basicData.external}
+              onChange={(value) =>
+                dispatchChangeBasicData({ key: 'external', value: value })
+              }
+            />
+          </div>
+        </CargoInput>
       </div>
     </CargoContainer>
   );

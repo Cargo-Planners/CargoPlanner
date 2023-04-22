@@ -40,15 +40,19 @@ export const CargoInput = ({
       className='cargo-input-holder'
       style={{ flexDirection: labelPosition }}
     >
-      <span
-        className='input-label'
-        style={{
-          fontSize: `${labelSize}rem`,
-          justifyContent: labelTextPosition,
-        }}
-      >
-        {label}
-      </span>
+      {label !== '' || undefined ? (
+        <span
+          className='input-label'
+          style={{
+            fontSize: `${labelSize}rem`,
+            justifyContent: labelTextPosition,
+          }}
+        >
+          {label}
+        </span>
+      ) : (
+        <></>
+      )}
       {input}
     </div>
   );

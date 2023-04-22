@@ -12,8 +12,6 @@ type Props = {
 
 export function PopupComponent({
   popupId,
-  width,
-  height,
   children,
 }: PropsWithChildren<Props>) {
   const isOpen = useSelector(
@@ -29,11 +27,8 @@ export function PopupComponent({
       sx={{
         '& .MuiDialog-container': {
           '& .MuiPaper-root': {
-            width: '100%',
-            maxWidth: width,
-            height: '100%',
-            maxHeight: height,
             borderRadius: '1rem',
+            overflow: 'hidden',
           },
         },
       }}

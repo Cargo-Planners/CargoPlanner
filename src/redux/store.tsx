@@ -39,7 +39,7 @@ const objectsDataToLocalStorage: Middleware =
     if (action.type.includes('objectsData')) {
       localStorage.setItem(
         'objectsList',
-        JSON.stringify(store.getState().objectsData.itemList)
+        JSON.stringify(store.getState().objectsData.cargoList)
       );
     }
 

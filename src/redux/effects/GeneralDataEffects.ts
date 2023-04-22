@@ -33,7 +33,7 @@ export const updateTotalWeightEffect: Middleware =
         changeGeneralData({
           totalCargoWeight: calcService.totalAircraftWeight(
             state.basicData,
-            state.objectsData.itemList
+            state.objectsData.cargoList
           ),
         })
       );
