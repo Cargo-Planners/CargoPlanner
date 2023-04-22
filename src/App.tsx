@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { routeConstants } from './routes/constants';
 import Home from './components/Home/Home';
 import ChoosePlatform from './components/ChoosePlatform/ChoosePlatform';
-import FirstPage from './components/Intro/FirstPage';
+import FirstPage from './components/First/FirstPage';
 import Graphs from './components/Graphs/Graphs';
 
 function App() {
