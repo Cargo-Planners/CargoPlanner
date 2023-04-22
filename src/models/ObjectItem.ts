@@ -11,7 +11,7 @@ export interface Cargo {
   weight: number;
   fs: number;
   width: number;
-  height: number;
+  length: number;
   index: number;
   fill: string;
   position: Position;

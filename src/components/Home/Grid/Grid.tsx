@@ -59,7 +59,7 @@ export const Grid = () => {
             width: unitsService.oneUnitInPixels(grid?.width!),
             height: unitsService.oneUnitInPixels(grid?.width!),
             scaleX: cargo.width / unitsService.ONE_UNIT_IN_INCHES,
-            scaleY: cargo.height / unitsService.ONE_UNIT_IN_INCHES,
+            scaleY: cargo.length / unitsService.ONE_UNIT_IN_INCHES,
             left:
               unitsService.inchesToPixels(cargo.position.x, grid?.width!) +
               startingPosition.left,
@@ -122,14 +122,6 @@ export const Grid = () => {
       if (isObjectModified) {
         isObjectModified = false;
         dispatchFunction();
-      }
-    });
-
-    grid?.on('mouse:dblclick', (e: fabric.IEvent<MouseEvent>) => {
-      if (e.target) {
-        // setSelectedCargo(
-        //   objectListItems.find((cargo) => cargo.id === e.target!.name!)
-        // );
       }
     });
 
@@ -260,7 +252,7 @@ export const Grid = () => {
   };
 
   return (
-    <div id='gridContainer' className='flex flex-col w-full aspect-[25/9]'>
+    <div id='gridContainer' className='w-full h-auto aspect-[25/9]'>
       <canvas id='canvas' ref={canvasRef} />
     </div>
   );

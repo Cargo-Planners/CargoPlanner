@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   updateItemFs,
-  updateItemHeight,
+  updateItemLength,
   updateItemName,
   updateItemWeight,
   updateItemWidth,
@@ -39,9 +39,9 @@ export const ObjectView = () => {
       currentObj.scaleX = length / unitsService.ONE_UNIT_IN_INCHES;
       grid?.requestRenderAll();
       dispatch(
-        updateItemWidth({
+        updateItemLength({
           id: currentObj.name!,
-          updatedWidth: length,
+          updatedLength: length,
         })
       );
     }
@@ -54,9 +54,9 @@ export const ObjectView = () => {
       currentObj.scaleY = width / unitsService.ONE_UNIT_IN_INCHES;
       grid?.requestRenderAll();
       dispatch(
-        updateItemHeight({
+        updateItemWidth({
           id: currentObj.name!,
-          updatedHeight: width,
+          updatedWidth: width,
         })
       );
     }
@@ -124,7 +124,7 @@ export const ObjectView = () => {
               labelPosition={labelPositionEnum.TOP}
               minValue={0}
               maxValue={140}
-              placeholder={selectedCargo.height}
+              placeholder={selectedCargo.width}
               onChange={(width: number) => widthChangeHandler(width)}
             />
             <CargoInputNumber
@@ -133,7 +133,7 @@ export const ObjectView = () => {
               labelPosition={labelPositionEnum.TOP}
               minValue={0}
               maxValue={800}
-              placeholder={selectedCargo.width}
+              placeholder={selectedCargo.length}
               onChange={(length: number) => lengthChangeHandler(length)}
             />
             <CargoInputNumber

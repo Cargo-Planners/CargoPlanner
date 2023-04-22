@@ -59,7 +59,7 @@ const SideBarItems = () => {
       weight: 0,
       fs: 0,
       width: unitsService.ONE_UNIT_IN_INCHES,
-      height: unitsService.ONE_UNIT_IN_INCHES,
+      length: unitsService.ONE_UNIT_IN_INCHES,
       index: 0,
       fill: color,
       position: {

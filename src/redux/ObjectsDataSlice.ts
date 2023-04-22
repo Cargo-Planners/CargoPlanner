@@ -44,9 +44,9 @@ const ObjectsDataSlice = createSlice({
     ) => {
       state.cargoList = state.cargoList.map((cargo) => {
         if (cargo.id === action.payload.id) {
-          const modifiedObject = {
+          const modifiedObject: Cargo = {
             ...cargo,
-            height: action.payload.updatedWeight,
+            weight: action.payload.updatedWeight,
           };
           state.selectedCargo = modifiedObject;
           return modifiedObject;
@@ -61,9 +61,9 @@ const ObjectsDataSlice = createSlice({
     ) => {
       state.cargoList = state.cargoList.map((cargo) => {
         if (cargo.id === action.payload.id) {
-          const modifiedObject = {
+          const modifiedObject: Cargo = {
             ...cargo,
-            height: action.payload.updatedWidth,
+            width: action.payload.updatedWidth,
           };
           state.selectedCargo = modifiedObject;
           return modifiedObject;
@@ -72,15 +72,15 @@ const ObjectsDataSlice = createSlice({
         return cargo;
       });
     },
-    updateItemHeight: (
+    updateItemLength: (
       state,
-      action: PayloadAction<{ id: string; updatedHeight: number }>
+      action: PayloadAction<{ id: string; updatedLength: number }>
     ) => {
       state.cargoList = state.cargoList.map((cargo) => {
         if (cargo.id === action.payload.id) {
-          const modifiedObject = {
+          const modifiedObject: Cargo = {
             ...cargo,
-            height: action.payload.updatedHeight,
+            length: action.payload.updatedLength,
           };
           state.selectedCargo = modifiedObject;
           return modifiedObject;
@@ -95,7 +95,7 @@ const ObjectsDataSlice = createSlice({
     ) => {
       state.cargoList = state.cargoList.map((cargo) => {
         if (cargo.id === action.payload.id) {
-          const modifiedObject = {
+          const modifiedObject: Cargo = {
             ...cargo,
             index: action.payload.updatedIndex,
           };
@@ -112,7 +112,7 @@ const ObjectsDataSlice = createSlice({
     ) => {
       state.cargoList = state.cargoList.map((cargo) => {
         if (cargo.id === action.payload.id) {
-          const modifiedObject = {
+          const modifiedObject: Cargo = {
             ...cargo,
             fs: action.payload.updatedFs,
           };
@@ -129,7 +129,7 @@ const ObjectsDataSlice = createSlice({
     ) => {
       state.cargoList = state.cargoList.map((cargo) => {
         if (cargo.id === action.payload.id) {
-          const modifiedObject = {
+          const modifiedObject: Cargo = {
             ...cargo,
             position: {
               ...cargo.position,
@@ -149,10 +149,10 @@ const ObjectsDataSlice = createSlice({
     ) => {
       state.cargoList = state.cargoList.map((cargo) => {
         if (cargo.id === action.payload.id) {
-          const modifiedObject = {
+          const modifiedObject: Cargo = {
             ...cargo,
-            width: unitsService.ONE_UNIT_IN_INCHES * action.payload.scaleX,
-            height: unitsService.ONE_UNIT_IN_INCHES * action.payload.scaleY,
+            width: unitsService.ONE_UNIT_IN_INCHES * action.payload.scaleY,
+            length: unitsService.ONE_UNIT_IN_INCHES * action.payload.scaleX,
           };
           state.selectedCargo = modifiedObject;
           return modifiedObject;
@@ -170,7 +170,7 @@ const ObjectsDataSlice = createSlice({
     ) => {
       state.cargoList = state.cargoList.map((cargo) => {
         if (cargo.id === action.payload.id) {
-          const modifiedObject = {
+          const modifiedObject: Cargo = {
             ...cargo,
             centerOfGravity: {
               ...cargo.centerOfGravity,
@@ -222,7 +222,7 @@ export const {
   setSelectedCargoById,
   updateItemWeight,
   updateItemWidth,
-  updateItemHeight,
+  updateItemLength,
   updateItemIndex,
   updateItemFs,
   updateItemPosition,
