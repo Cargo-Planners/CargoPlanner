@@ -12,15 +12,10 @@ import UnitsService from '../../../services/UnitsService';
 import { State } from '../../../redux/store';
 import { CanvasCTX } from './CanvasContext';
 import { Cargo } from '../../../models/ObjectItem';
-import { openPopup } from '../../../redux/PopupSlice';
 import { useFabric } from '../../../hooks/fabric';
 
 export const Grid = () => {
   const { canvas } = useContext(CanvasCTX);
-
-  const selectedCargo = useSelector(
-    (state: State) => state.objectsData.selectedCargo
-  );
 
   const dispatch = useDispatch();
 
@@ -74,12 +69,6 @@ export const Grid = () => {
     refreshCanvasListeners();
     grid?.requestRenderAll();
   }, [grid]);
-
-  useEffect(() => {
-    if (selectedCargo) {
-      dispatch(openPopup(selectedCargo.id));
-    }
-  }, [selectedCargo]);
 
   useEffect(() => {
     refreshCanvasListeners();

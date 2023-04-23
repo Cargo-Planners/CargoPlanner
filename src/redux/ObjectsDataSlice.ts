@@ -125,7 +125,7 @@ const ObjectsDataSlice = createSlice({
     },
     updateItemPosition: (
       state,
-      action: PayloadAction<{ id: string; updatedPosition: Position }>
+      action: PayloadAction<{ id: string; updatedPosition: Partial<Position> }>
     ) => {
       state.cargoList = state.cargoList.map((cargo) => {
         if (cargo.id === action.payload.id) {
