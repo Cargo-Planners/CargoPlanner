@@ -43,6 +43,10 @@ const EditBasicDataSlice = createSlice({
   name: 'basicData',
   initialState,
   reducers: {
+    // updateAllBasicDate:(state)=>{
+    //   state.
+    // },
+
     incrementCockpitCrew: (state) => {
       state.cockpitCrew += 1;
     },
@@ -89,6 +93,12 @@ const EditBasicDataSlice = createSlice({
     ) => {
       return { ...state, ...action.payload.changes };
     },
+    // updateBasicData: (
+    //   state,
+    //   action: PayloadAction<{ changes: BasicDataChanges }>
+    // ) => {
+    //   return { ...state, ...action.payload.changes };
+    // },
   },
 });
 

@@ -693,3 +693,21 @@ body {
     transform: rotate(360deg);
   }
 }
+
+.basicDataSendButton {
+  width: fit-content;
+  height: fit-content;
+  background-color: #c4c8cc !important;
+  color: black !important;
+  font-weight: bold;
+  padding: 5px;
+  font-size: larger;
+  align-self: center;
+
+  /* position: absolute;
+  left: 9vw;
+  top: 4.5vh; */
+}
+.swal2-container {
+  z-index: 10000;
+}
