@@ -12,9 +12,9 @@ export function Primary() {
   useEffect(() => {
     const point = {
       x: sumFule(basicData) / 1000,
-      y: sumBsicWeightAndCargo(objectsData, basicData) / 1000,
+      y: sumBsicWeightAndCargo(objectsData, basicData) ,
     };
-    // console.log(`point Primary: (${point.x}, ${point.y})`)
+    console.log(`point Primary: (${point.x}, ${point.y})`)
 
     const title = 'weight limit chart (primary)';
     const board = JXG.JSXGraph.initBoard('jxgbox1', {
@@ -161,16 +161,21 @@ const external = 9377; // slider4 = external   max_pound: 9377
 const fuselage = 0; // slider5 = fuselage   max_pound:
 
 function sumFule(basicData) {
-  const fule = basicData.fuselage + basicData.inboard + basicData.outboard;
+  const fule = basicData.auxiliary + basicData.inboard + basicData.outboard -1000;
   // console.log(`The sumFule function returns: ${fule}`)
   return fule;
 }
 
 function sumBsicWeightAndCargo(objectsData, basicData) {
-  let weight = basicData.emptyWeight;
+  // Emergancy equipment = 250
+  const axis_x = ((basicData.cockpitCrew + basicData.loadMasters) * 170 + basicData.emptyWeight + 250) /1000 
+  let weight_cargo = 0;
   objectsData.itemList.forEach((element) => {
-    weight += element.weight;
-  });
+    weight_cargo += element.weight;
+  })
+  const axis_y = weight_cargo / 1000
+
+
   // console.log(`The sumBsicWeightAndCargo function returns: ${weight}`)
-  return weight;
+  return axis_x + axis_y;
 }

@@ -60,11 +60,14 @@ export function MAC() {
         [14, 180],
       ],
       {
-        fillColor: 'red',
+        fillColor: 'white',
         fillOpacity: 0.5,
+        borders: { strokeWidth: 1.25, strokeColor: "black" },
         borders: { strokeWidth: 0 },
         vertices: { visible: false },
-        highlightFillColor: 'red',
+        highlightFillColor: 'white',
+        highlightStrokeColor: "black",
+        highlight: false,
         highlightFillOpacity: 0.5,
         tabindex: null,
       }
@@ -79,11 +82,13 @@ export function MAC() {
         [18.8, 120],
       ],
       {
-        fillColor: 'orange',
+        fillColor: "white",
         fillOpacity: 0.5,
-        borders: { strokeWidth: 0 },
+        borders: { strokeWidth: 1.25, strokeColor: "black" },
         vertices: { visible: false },
-        highlightFillColor: 'yellow',
+        highlightFillColor: 'white',
+        highlightStrokeColor: "black",
+        highlight: false,
         highlightFillOpacity: 0.5,
         tabindex: null,
       }
@@ -97,11 +102,13 @@ export function MAC() {
         [29.2, 133],
       ],
       {
-        fillColor: 'orange',
+        fillColor: 'white',
         fillOpacity: 0.5,
-        borders: { strokeWidth: 0 },
+        borders: { strokeWidth: 1.25, strokeColor: "black" },
         vertices: { visible: false },
-        highlightFillColor: 'yellow',
+        highlightFillColor: 'white',
+        highlightStrokeColor: "black",
+        highlight: false,
         highlightFillOpacity: 0.5,
         tabindex: null,
       }
@@ -122,11 +129,13 @@ export function MAC() {
         [25.8, 76],
       ],
       {
-        fillColor: 'green',
+        fillColor: 'white',
         fillOpacity: 0.5,
-        borders: { strokeWidth: 0 },
+        borders: { strokeWidth: 1.25, strokeColor: "black" },
         vertices: { visible: false },
-        highlightFillColor: 'green',
+        highlightFillColor: 'white',
+        highlightStrokeColor: "black",
+        highlight: false,
         highlightFillOpacity: 0.5,
         tabindex: null,
       }
@@ -195,24 +204,19 @@ function get_mac(basicData, objectsData) {
   let my_aircraft_index = basicData.index;
   let aircraftWeight = basicData.emptyWeight;
 
-  console.log('empty weight');
-  console.log(basicData.emptyWeight);
+  console.log(`empty weight: ${basicData.emptyWeight}`);
 
-  console.log('starting index');
-  console.log(my_aircraft_index);
+  console.log(`starting index: ${my_aircraft_index}`);
 
   objectsData.itemList.forEach((el) => {
-    console.log('weight');
-    console.log(el.weight);
+    console.log(`weight: ${el.weight}`);
     my_aircraft_index += ((el.fs - 533.46) * el.weight) / 50000;
     aircraftWeight += el.weight;
   });
 
-  console.log('cockpit total index');
-  console.log(basicData.cockpitCrew * -1.2);
+  console.log(`cockpit total index: ${basicData.cockpitCrew * -1.2}`);
 
-  console.log('cockpit total index');
-  console.log(basicData.inspectorsCrew * -0.8);
+  console.log(`cockpit total index: ${basicData.inspectorsCrew * -0.8}`);
 
   const totalFuelWeight =
     basicData.fuselage + basicData.outboard + basicData.inboard - 1000;
@@ -223,8 +227,7 @@ function get_mac(basicData, objectsData) {
     1 +
     totalFuelWeight / 3000;
 
-  console.log('index after crew and objects');
-  console.log(my_aircraft_index);
+  console.log(`index after crew and objects: ${my_aircraft_index}`);
 
   aircraftWeight +=
     totalFuelWeight +
@@ -233,18 +236,15 @@ function get_mac(basicData, objectsData) {
 
   console.log(basicData.fuselage + basicData.outboard + basicData.inboard);
 
-  console.log('total weight');
-  console.log(aircraftWeight);
+  console.log(`total weight: ${aircraftWeight}`);
 
   const cg = ((my_aircraft_index - 100) * 50000) / aircraftWeight + 533.46;
 
-  console.log('cg');
-  console.log(cg);
+  console.log(`cg: ${cg}`);
 
   const mac = ((cg - 487.4) * 100) / 164.5;
 
-  console.log('mac');
-  console.log(mac);
+  console.log(`mac: ${mac}`);
   // console.log(`The MAC/GetMAC function returns enter GetMAC: ${mac}`)
   return mac;
 }
