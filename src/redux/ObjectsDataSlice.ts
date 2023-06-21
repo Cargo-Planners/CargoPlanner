@@ -30,6 +30,14 @@ const ObjectsDataSlice = createSlice({
     addItem: (state, action) => {
       state.cargoList.push(action.payload);
     },
+    deleteItem(state, action) {
+      state.cargoList = state.cargoList.filter(
+        (cargo) => cargo.id !== action.payload
+      );
+    },
+    deleteAll(state) {
+      state.cargoList = [];
+    },
     setSelectedCargoById: (
       state,
       action: PayloadAction<string | undefined>
@@ -219,6 +227,8 @@ export default ObjectsDataSlice.reducer;
 export const {
   setItemsList,
   addItem,
+  deleteItem,
+  deleteAll,
   setSelectedCargoById,
   updateItemWeight,
   updateItemWidth,
