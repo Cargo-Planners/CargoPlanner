@@ -45,7 +45,7 @@
 
 p,
 label {
-  font: 1rem "Fira Sans", sans-serif;
+  font: 1rem 'Fira Sans', sans-serif;
 }
 
 input {
@@ -136,90 +136,98 @@ button {
 
 #podState {
   text-align: center;
-  color: #ffff;
+  color: #000000;
   font-size: 4vh;
-  font-weight: 500;
+  font-weight: bold;
+  margin: 3%;
 }
 
 .tank-container {
   background-color: #1b1b1b;
-  border-radius: 10px;
+  border-radius: 1vh;
 }
 
 #tank-outBoard {
-  background: #52db90;
-  width: 100v;
-  border-radius: 10px;
+  background: #f9d63a;
+  width: 100vw;
+  border-radius: 1vh;
 }
 
 #outboard1 {
   position: relative;
-  top: 98px;
-  left: 69px;
+  top: 10.5vh;
+  left: 3.5vw;
   opacity: 0.75;
-  width: 100px;
-  height: 70px;
+  width: 10.6vw;
+  height: 7.5vh;
   transform: rotate(190deg);
 }
 
 #outboard2 {
   position: relative;
-  top: 118px;
-  left: 725px;
+  top: 12.6vh;
+  left: 37.7vw;
   opacity: 0.75;
-  width: 120px;
-  height: 70px;
+  width: 6.25vw;
+  height: 7.47vh;
   transform: rotate(183deg);
 }
 
 #tank-inBoard {
-  background: #5b52db;
+  background: #f9d63a;
   width: 100v;
   border-radius: 10px;
 }
 
 #inboard1 {
   position: relative;
-  left: 290px;
+  left: 15vw;
   opacity: 0.75;
-  width: 70px;
-  height: 80px;
+  width: 3.6vw;
+  height: 8.5vh;
   transform: rotate(190deg);
 }
 
 #inboard2 {
   position: relative;
-  left: 533px;
-  bottom: 50px;
+  left: 27.7vw;
+  bottom: 5.3vh;
   opacity: 0.75;
-  width: 70px;
-  height: 80px;
+  width: 3.645vw;
+  height: 8.5vh;
   transform: rotate(183deg);
 }
 
+#root {
+  height: 100%;
+  position: relative;
+}
+
 #tank-fuselage {
-  background: #db5264;
+  background: #f9d63a;
   width: 100v;
-  border-radius: 10px;
+  border-radius: 1vh;
 }
 
 #fuselage {
   position: relative;
-  left: 370px;
-  bottom: 95px;
+  left: 19.27vw;
+  bottom: 10.1vh;
   opacity: 0.75;
-  width: 120px;
-  height: 42px;
+  width: 6.25vw;
+  height: 4.48vh;
   transform: rotate(186deg);
 }
 
 #plane-tanks {
   @apply justify-center items-center;
-
   background-repeat: no-repeat;
-  background-size: 100%;
-  width: 100%;
+  background-size: cover;
+  align-self: center;
+  width: 47vw;
   height: 35vh;
+  margin: 5%;
+  position: relative;
 }
 
 /* Input Variables CSS */
@@ -286,7 +294,7 @@ button {
 }
 
 #background-image {
-  background-image: url("/src/images/Cloud.png");
+  background-image: url('/src/assets/Cloud.png');
   background-repeat: no-repeat;
   background-size: 100% 100%;
   height: 100vh;
@@ -482,11 +490,11 @@ button {
 }
 
 #data-col-win2 {
-  @apply flex flex-col w-1/2;
+  @apply flex flex-col w-1/2 ml-[20px];
 }
 
 #data-col-h1 {
-  @apply text-center text-3xl font-bold text-[#000000] mt-5;
+  @apply text-3xl font-bold text-[#000000] mt-5 ml-[10px];
 }
 
 #data-col-h2 {
@@ -495,6 +503,7 @@ button {
 
 body {
   height: 100vh;
+  background-color: #fafafa;
 }
 
 /*first page gradiant*/
@@ -516,11 +525,20 @@ body {
   cursor: move;
 }
 
-.gridContainer {
-  width: 738px;
-  height: 388.8px;
-  background-image: url("../src/images/grid.png");
-  background-size: cover;
+#gridContainer {
+  background-image: url('../src/assets/grid.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+#gridEnd {
+  position: absolute;
+  margin-top: -25px;
+}
+
+#gridStart {
+  position: absolute;
+  margin-top: -25px;
 }
 
 .modal {
@@ -587,7 +605,7 @@ body {
 }
 
 .close-icon {
-  content: "x";
+  content: 'x';
   cursor: pointer;
   position: fixed;
   right: calc(16% - 30px);
@@ -674,4 +692,22 @@ body {
   to {
     transform: rotate(360deg);
   }
+}
+
+.basicDataSendButton {
+  width: fit-content;
+  height: fit-content;
+  background-color: #c4c8cc !important;
+  color: black !important;
+  font-weight: bold;
+  padding: 5px;
+  font-size: larger;
+  align-self: center;
+
+  /* position: absolute;
+  left: 9vw;
+  top: 4.5vh; */
+}
+.swal2-container {
+  z-index: 10000;
 }
