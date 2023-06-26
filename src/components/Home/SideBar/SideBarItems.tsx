@@ -7,7 +7,7 @@ import {
   FaFileExport,
 } from 'react-icons/fa';
 import { GiCargoCrate } from 'react-icons/gi';
-import { addItem } from '../../../redux/ObjectsDataSlice';
+import { addItem, deleteAll } from '../../../redux/ObjectsDataSlice';
 import randomColor from 'randomcolor';
 import { v4 } from 'uuid';
 import { useSelector, useDispatch } from 'react-redux';
@@ -58,6 +58,11 @@ const SideBarItems = () => {
     dispatch(addItem(item));
   };
 
+  const dispatchDeleteAll = () => {
+    grid?.remove(...grid?.getObjects());
+    dispatch(deleteAll());
+  };
+
   const addRectangle = () => {
     let color = randomColor();
     const id = v4();
@@ -89,17 +94,19 @@ const SideBarItems = () => {
         grid.height!
       );
 
-      grid.add(
-        new fabric.Rect({
-          name: id,
-          width: oneUnitInPixels,
-          height: oneUnitInPixels,
-          scaleX: 1,
-          scaleY: 1,
-          fill: color,
-          ...startingPosition,
-        })
-      );
+      const cargo = new fabric.Rect({
+        name: id,
+        strokeWidth: 0,
+        width: oneUnitInPixels,
+        height: oneUnitInPixels,
+        scaleX: 1,
+        scaleY: 1,
+        fill: color,
+        ...startingPosition,
+      });
+
+      grid.add(cargo);
+      grid.setActiveObject(cargo);
     }
   };
 
@@ -178,7 +185,7 @@ const SideBarItems = () => {
         <div onClick={addRectangle}>
           <SiderBarItem Icon={GiCargoCrate} buttonText='New Cargo' />
         </div>
-        <div>
+        <div onClick={dispatchDeleteAll}>
           <SiderBarItem Icon={FaTrash} buttonText='Erase All' />
         </div>
         <div

@@ -12,15 +12,10 @@ import UnitsService from '../../../services/UnitsService';
 import { State } from '../../../redux/store';
 import { CanvasCTX } from './CanvasContext';
 import { Cargo } from '../../../models/ObjectItem';
-import { openPopup } from '../../../redux/PopupSlice';
 import { useFabric } from '../../../hooks/fabric';
 
 export const Grid = () => {
   const { canvas } = useContext(CanvasCTX);
-
-  const selectedCargo = useSelector(
-    (state: State) => state.objectsData.selectedCargo
-  );
 
   const dispatch = useDispatch();
 
@@ -36,16 +31,7 @@ export const Grid = () => {
   let isObjectModified = false;
   let dispatchFunction = () => {};
 
-  useEffect(() => {
-    const listFromLocalStorage = localStorage.getItem('objectsList');
-    const cargoList = listFromLocalStorage
-      ? (JSON.parse(listFromLocalStorage) as Cargo[])
-      : [];
-
-    console.log(grid);
-
-    dispatch(setItemsList(cargoList));
-
+  const addItemsToGrid = (cargoList: Cargo[]) => {
     const startingPosition = unitsService.startingPosition(
       grid?.width!,
       grid?.height!
@@ -56,10 +42,11 @@ export const Grid = () => {
         (cargo) =>
           new fabric.Rect({
             name: cargo.id,
+            strokeWidth: 0,
             width: unitsService.oneUnitInPixels(grid?.width!),
             height: unitsService.oneUnitInPixels(grid?.width!),
-            scaleX: cargo.width / unitsService.ONE_UNIT_IN_INCHES,
-            scaleY: cargo.length / unitsService.ONE_UNIT_IN_INCHES,
+            scaleX: cargo.length / unitsService.ONE_UNIT_IN_INCHES,
+            scaleY: cargo.width / unitsService.ONE_UNIT_IN_INCHES,
             left:
               unitsService.inchesToPixels(cargo.position.x, grid?.width!) +
               startingPosition.left,
@@ -70,16 +57,25 @@ export const Grid = () => {
           })
       )
     );
+  };
+
+  useEffect(() => {
+    const listFromLocalStorage = localStorage.getItem('objectsList');
+    const cargoList = listFromLocalStorage
+      ? (JSON.parse(listFromLocalStorage) as Cargo[])
+      : [];
+
+    dispatch(setItemsList(cargoList));
+
+    addItemsToGrid(cargoList);
+
+    grid?.forEachObject((cargo) => {
+      console.log(cargo);
+    });
 
     refreshCanvasListeners();
     grid?.requestRenderAll();
   }, [grid]);
-
-  useEffect(() => {
-    if (selectedCargo) {
-      dispatch(openPopup(selectedCargo.id));
-    }
-  }, [selectedCargo]);
 
   useEffect(() => {
     refreshCanvasListeners();
@@ -176,12 +172,7 @@ export const Grid = () => {
           dispatch(
             updateItemFs({
               id: target.name!,
-              updatedFs:
-                position.x +
-                245 +
-                (unitsService.pixelsToInches(target.width, grid!.getWidth()) *
-                  target.scaleX) /
-                  2,
+              updatedFs: position.x + 245 + (20 * target.scaleX) / 2,
             })
           );
         };
