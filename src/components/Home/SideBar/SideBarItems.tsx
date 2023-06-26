@@ -24,8 +24,7 @@ import { Link } from 'react-router-dom';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { CanvasCTX } from '../Grid/CanvasContext';
 import { fabric } from 'fabric';
-// import * as XLSX from 'xlsx';
-import filePath from '../../../assets/excelSheet/excelSheet.xlsx'
+import filePath from '../../../assets/excelSheet/excelSheet.xlsx';
 import ExcelJS from 'exceljs';
 import { saveAs } from 'file-saver';
 import { routeConstants } from '../../../routes/constants';
@@ -36,12 +35,10 @@ const SideBarItems = () => {
   const generalData = useSelector((state: State) => state.generalData);
   const grid = useContext(CanvasCTX).canvas;
   const unitsService = new UnitsService();
-  const [jsonData] = useState
-  ({
-    
-    name:"Yuval",
-    age:"19"
-  } as {[x:string]:string,name:string,age:string})
+  const [jsonData] = useState({
+    name: 'Yuval',
+    age: '19',
+  } as { [x: string]: string; name: string; age: string });
   const [showDropDown, setShowDropDown] = useState(false);
 
   const dispatch = useDispatch();
@@ -111,7 +108,7 @@ const SideBarItems = () => {
   };
 
   const togglePopup = () => {
-    fillExcelWithData()
+    fillExcelWithData();
     if (true) {
       Swal.fire({
         icon: 'success',
@@ -138,8 +135,8 @@ const SideBarItems = () => {
     const workbook = new ExcelJS.Workbook();
 
     fetch(filePath)
-      .then(response => response.arrayBuffer())
-      .then(buffer => {
+      .then((response) => response.arrayBuffer())
+      .then((buffer) => {
         const uint8Array = new Uint8Array(buffer);
         return workbook.xlsx.load(uint8Array);
       })
@@ -153,7 +150,10 @@ const SideBarItems = () => {
                   matches.forEach((match) => {
                     const field = match.substring(1, match.length - 1);
                     if (jsonData[field]) {
-                      cell.value = (`${cell.value}`).replace(match, jsonData[field]);
+                      cell.value = `${cell.value}`.replace(
+                        match,
+                        jsonData[field]
+                      );
                     }
                   });
                 }
@@ -161,18 +161,20 @@ const SideBarItems = () => {
             });
           });
         });
-  
+
         return workbook.xlsx.writeBuffer();
       })
-      .then(buffer => {
-        const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      .then((buffer) => {
+        const blob = new Blob([buffer], {
+          type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        });
         saveAs(blob, 'data.xlsx');
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error reading the Excel file:', error);
       });
   }
-  
+
   return (
     <div className='min-h-full flex flex-col justify-between'>
       <div className='flex flex-col gap-5'>
