@@ -4,7 +4,7 @@ import { Grid } from './Grid/Grid';
 import MAC from '../Graphs/MAC';
 import { fabric } from 'fabric';
 import { CanvasCTX } from './Grid/CanvasContext';
-import { ObjectView } from './DataDisplay/ObjectView';
+import { ObjectView } from './dataDisplay/ObjectView';
 
 const Home = () => {
   const [canvasRef, setCanvasRef] = useState<fabric.Canvas>();
