@@ -14,17 +14,9 @@ export function Primary() {
 
   useEffect(() => {
     const point = {
-<<<<<<< HEAD:src/components/Graphs/Primary.js
-      x: sumFule(basicData) / 1000,
-      y: sumBsicWeightAndCargo(objectsData, basicData) ,
-    };
-    console.log(`point Primary: (${point.x}, ${point.y})`)
-=======
       x: calcService.fuelWeightForFlight(basicData) / 1000,
       y: calcService.zeroFuelWeight(basicData, objectsData.cargoList) / 1000,
     };
->>>>>>> 3e4a1af36f1636e6c015c17a44f0b0d1c3a6132e:src/components/Graphs/Primary.tsx
-
     const board = JXG.JSXGraph.initBoard('jxgbox1', {
       boundingbox: [-5, 137, 71, 68],
       grid: true,
@@ -157,32 +149,3 @@ export function Primary() {
 }
 
 export default Primary;
-<<<<<<< HEAD:src/components/Graphs/Primary.js
-
-const outboard = 8758; // slider1 = outboard   max_pound: 8758
-const inboard = 8065; // slider2 = inboard    max_pound: 8065
-const auxiliary = 6127; // slider3 = auxiliary  max_pound: 6127
-const external = 9377; // slider4 = external   max_pound: 9377
-const fuselage = 0; // slider5 = fuselage   max_pound:
-
-function sumFule(basicData) {
-  const fule = basicData.auxiliary + basicData.inboard + basicData.outboard -1000;
-  // console.log(`The sumFule function returns: ${fule}`)
-  return fule;
-}
-
-function sumBsicWeightAndCargo(objectsData, basicData) {
-  // Emergancy equipment = 250
-  const axis_x = ((basicData.cockpitCrew + basicData.loadMasters) * 170 + basicData.emptyWeight + 250) /1000 
-  let weight_cargo = 0;
-  objectsData.itemList.forEach((element) => {
-    weight_cargo += element.weight;
-  })
-  const axis_y = weight_cargo / 1000
-
-
-  // console.log(`The sumBsicWeightAndCargo function returns: ${weight}`)
-  return axis_x + axis_y;
-}
-=======
->>>>>>> 3e4a1af36f1636e6c015c17a44f0b0d1c3a6132e:src/components/Graphs/Primary.tsx

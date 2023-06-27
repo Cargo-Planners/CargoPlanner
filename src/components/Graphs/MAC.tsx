@@ -62,11 +62,10 @@ export function MAC() {
       {
         fillColor: 'white',
         fillOpacity: 0.5,
-        borders: { strokeWidth: 1.25, strokeColor: "black" },
-        borders: { strokeWidth: 0 },
+        borders: { strokeWidth: 1.25, strokeColor: 'black' },
         vertices: { visible: false },
         highlightFillColor: 'white',
-        highlightStrokeColor: "black",
+        highlightStrokeColor: 'black',
         highlight: false,
         highlightFillOpacity: 0.5,
         tabindex: null,
@@ -82,12 +81,12 @@ export function MAC() {
         [18.8, 120],
       ],
       {
-        fillColor: "white",
+        fillColor: 'white',
         fillOpacity: 0.5,
-        borders: { strokeWidth: 1.25, strokeColor: "black" },
+        borders: { strokeWidth: 1.25, strokeColor: 'black' },
         vertices: { visible: false },
         highlightFillColor: 'white',
-        highlightStrokeColor: "black",
+        highlightStrokeColor: 'black',
         highlight: false,
         highlightFillOpacity: 0.5,
         tabindex: null,
@@ -104,10 +103,10 @@ export function MAC() {
       {
         fillColor: 'white',
         fillOpacity: 0.5,
-        borders: { strokeWidth: 1.25, strokeColor: "black" },
+        borders: { strokeWidth: 1.25, strokeColor: 'black' },
         vertices: { visible: false },
         highlightFillColor: 'white',
-        highlightStrokeColor: "black",
+        highlightStrokeColor: 'black',
         highlight: false,
         highlightFillOpacity: 0.5,
         tabindex: null,
@@ -131,10 +130,10 @@ export function MAC() {
       {
         fillColor: 'white',
         fillOpacity: 0.5,
-        borders: { strokeWidth: 1.25, strokeColor: "black" },
+        borders: { strokeWidth: 1.25, strokeColor: 'black' },
         vertices: { visible: false },
         highlightFillColor: 'white',
-        highlightStrokeColor: "black",
+        highlightStrokeColor: 'black',
         highlight: false,
         highlightFillOpacity: 0.5,
         tabindex: null,
@@ -179,73 +178,3 @@ export function MAC() {
 }
 
 export default MAC;
-<<<<<<< HEAD:src/components/Graphs/MAC.js
-
-const outboard = 8758; // slider1 = outboard   max_pound: 8758
-const inboard = 8065; // slider2 = inboard    max_pound: 8065
-const auxiliary = 6127; // slider3 = auxiliary  max_pound: 6127
-const external = 9377; // slider4 = external   max_pound: 9377
-const fuselage = 0; // slider5 = fuselage   max_pound:
-
-function GetGrossWeight(objectsData, basicData) {
-  let weight = (basicData.cockpitCrew + basicData.inspectorsCrew) * 170;
-  weight += basicData.emptyWeight;
-
-  weight += basicData.fuselage + basicData.inboard + basicData.outboard;
-  objectsData.itemList.forEach((el) => {
-    weight += el.weight;
-  });
-
-  return weight;
-}
-
-function get_mac(basicData, objectsData) {
-  let my_aircraft_index = basicData.index;
-  let aircraftWeight = basicData.emptyWeight;
-
-  console.log(`empty weight: ${basicData.emptyWeight}`);
-
-  console.log(`starting index: ${my_aircraft_index}`);
-
-  objectsData.itemList.forEach((el) => {
-    console.log(`weight: ${el.weight}`);
-    my_aircraft_index += ((el.fs - 533.46) * el.weight) / 50000;
-    aircraftWeight += el.weight;
-  });
-
-  console.log(`cockpit total index: ${basicData.cockpitCrew * -1.2}`);
-
-  console.log(`cockpit total index: ${basicData.inspectorsCrew * -0.8}`);
-
-  const totalFuelWeight =
-    basicData.fuselage + basicData.outboard + basicData.inboard - 1000;
-
-  my_aircraft_index +=
-    basicData.cockpitCrew * -1.2 +
-    basicData.inspectorsCrew * -0.8 +
-    1 +
-    totalFuelWeight / 3000;
-
-  console.log(`index after crew and objects: ${my_aircraft_index}`);
-
-  aircraftWeight +=
-    totalFuelWeight +
-    170 * (basicData.inspectorsCrew + basicData.cockpitCrew) +
-    250;
-
-  console.log(basicData.fuselage + basicData.outboard + basicData.inboard);
-
-  console.log(`total weight: ${aircraftWeight}`);
-
-  const cg = ((my_aircraft_index - 100) * 50000) / aircraftWeight + 533.46;
-
-  console.log(`cg: ${cg}`);
-
-  const mac = ((cg - 487.4) * 100) / 164.5;
-
-  console.log(`mac: ${mac}`);
-  // console.log(`The MAC/GetMAC function returns enter GetMAC: ${mac}`)
-  return mac;
-}
-=======
->>>>>>> 3e4a1af36f1636e6c015c17a44f0b0d1c3a6132e:src/components/Graphs/MAC.tsx
