@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Item, Position } from '../models/ObjectItem';
+import { Cargo, Position } from '../models/ObjectItem';
 import UnitsService from '../services/UnitsService';
 
 export interface ObjectsDataState {
-  itemList: Item[];
+  cargoList: Cargo[];
+  selectedCargo?: Cargo;
 }
 
 export interface PositionChanges {
@@ -13,110 +14,160 @@ export interface PositionChanges {
 }
 
 const initialState: ObjectsDataState = {
-  itemList: [],
+  cargoList: [],
+  selectedCargo: undefined,
 };
+
+const unitsService = new UnitsService();
 
 const ObjectsDataSlice = createSlice({
   name: 'objectsData',
   initialState,
   reducers: {
     setItemsList: (state, action) => {
-      state.itemList = action.payload;
+      state.cargoList = action.payload;
     },
     addItem: (state, action) => {
-      state.itemList.push(action.payload);
+      state.cargoList.push(action.payload);
+    },
+    deleteItem(state, action) {
+      state.cargoList = state.cargoList.filter(
+        (cargo) => cargo.id !== action.payload
+      );
+    },
+    deleteAll(state) {
+      state.cargoList = [];
+    },
+    setSelectedCargoById: (
+      state,
+      action: PayloadAction<string | undefined>
+    ) => {
+      state.selectedCargo = state.cargoList.find(
+        (cargo) => cargo.id === action.payload
+      );
     },
     updateItemWeight: (
       state,
       action: PayloadAction<{ id: string; updatedWeight: number }>
     ) => {
-      state.itemList = state.itemList.map((item) =>
-        item.id === action.payload.id
-          ? {
-              ...item,
-              weight: action.payload.updatedWeight,
-            }
-          : item
-      );
+      state.cargoList = state.cargoList.map((cargo) => {
+        if (cargo.id === action.payload.id) {
+          const modifiedObject: Cargo = {
+            ...cargo,
+            weight: action.payload.updatedWeight,
+          };
+          state.selectedCargo = modifiedObject;
+          return modifiedObject;
+        }
+
+        return cargo;
+      });
     },
     updateItemWidth: (
       state,
       action: PayloadAction<{ id: string; updatedWidth: number }>
     ) => {
-      state.itemList = state.itemList.map((item) =>
-        item.id === action.payload.id
-          ? {
-              ...item,
-              width: action.payload.updatedWidth,
-            }
-          : item
-      );
+      state.cargoList = state.cargoList.map((cargo) => {
+        if (cargo.id === action.payload.id) {
+          const modifiedObject: Cargo = {
+            ...cargo,
+            width: action.payload.updatedWidth,
+          };
+          state.selectedCargo = modifiedObject;
+          return modifiedObject;
+        }
+
+        return cargo;
+      });
     },
-    updateItemHeight: (
+    updateItemLength: (
       state,
-      action: PayloadAction<{ id: string; updatedHeight: number }>
+      action: PayloadAction<{ id: string; updatedLength: number }>
     ) => {
-      state.itemList = state.itemList.map((item) =>
-        item.id === action.payload.id
-          ? {
-              ...item,
-              height: action.payload.updatedHeight,
-            }
-          : item
-      );
+      state.cargoList = state.cargoList.map((cargo) => {
+        if (cargo.id === action.payload.id) {
+          const modifiedObject: Cargo = {
+            ...cargo,
+            length: action.payload.updatedLength,
+          };
+          state.selectedCargo = modifiedObject;
+          return modifiedObject;
+        }
+
+        return cargo;
+      });
     },
     updateItemIndex: (
       state,
       action: PayloadAction<{ id: string; updatedIndex: number }>
     ) => {
-      state.itemList = state.itemList.map((item) =>
-        item.id === action.payload.id
-          ? {
-              ...item,
-              index: action.payload.updatedIndex,
-            }
-          : item
-      );
+      state.cargoList = state.cargoList.map((cargo) => {
+        if (cargo.id === action.payload.id) {
+          const modifiedObject: Cargo = {
+            ...cargo,
+            index: action.payload.updatedIndex,
+          };
+          state.selectedCargo = modifiedObject;
+          return modifiedObject;
+        }
+
+        return cargo;
+      });
     },
     updateItemFs: (
       state,
       action: PayloadAction<{ id: string; updatedFs: number }>
     ) => {
-      state.itemList = state.itemList.map((item) =>
-        item.id === action.payload.id
-          ? {
-              ...item,
-              fs: action.payload.updatedFs,
-            }
-          : item
-      );
+      state.cargoList = state.cargoList.map((cargo) => {
+        if (cargo.id === action.payload.id) {
+          const modifiedObject: Cargo = {
+            ...cargo,
+            fs: action.payload.updatedFs,
+          };
+          state.selectedCargo = modifiedObject;
+          return modifiedObject;
+        }
+
+        return cargo;
+      });
     },
     updateItemPosition: (
       state,
-      action: PayloadAction<{ id: string; updatedPosition: Position }>
+      action: PayloadAction<{ id: string; updatedPosition: Partial<Position> }>
     ) => {
-      state.itemList = state.itemList.map((item) =>
-        item.id === action.payload.id
-          ? {
-              ...item,
-              position: action.payload.updatedPosition,
-            }
-          : item
-      );
+      state.cargoList = state.cargoList.map((cargo) => {
+        if (cargo.id === action.payload.id) {
+          const modifiedObject: Cargo = {
+            ...cargo,
+            position: {
+              ...cargo.position,
+              ...action.payload.updatedPosition,
+            },
+          };
+          state.selectedCargo = modifiedObject;
+          return modifiedObject;
+        }
+
+        return cargo;
+      });
     },
     updateItemScale: (
       state,
       action: PayloadAction<{ id: string; scaleX: number; scaleY: number }>
     ) => {
-      state.itemList = state.itemList.map((obj) =>
-        obj.id === action.payload.id
-          ? {
-              ...obj,
-              width: UnitsService.ONE_UNIT_IN_INCHES * action.payload.scaleX,
-              height: UnitsService.ONE_UNIT_IN_INCHES * action.payload.scaleY,
-            }
-          : obj
-      );
+      state.cargoList = state.cargoList.map((cargo) => {
+        if (cargo.id === action.payload.id) {
+          const modifiedObject: Cargo = {
+            ...cargo,
+            width: unitsService.ONE_UNIT_IN_INCHES * action.payload.scaleY,
+            length: unitsService.ONE_UNIT_IN_INCHES * action.payload.scaleX,
+          };
+          state.selectedCargo = modifiedObject;
+          return modifiedObject;
+        }
+
+        return cargo;
+      });
     },
     updateItemCenterOfGravity: (
       state,
@@ -125,24 +176,49 @@ const ObjectsDataSlice = createSlice({
         updatedCenterOfGravity: PositionChanges;
       }>
     ) => {
-      state.itemList = state.itemList.map((obj) =>
-        obj.id === action.payload.id
-          ? {
-              ...obj,
-              centerOfGravity: {
-                ...obj.centerOfGravity,
-                ...action.payload.updatedCenterOfGravity,
-              },
-            }
-          : obj
-      );
+      state.cargoList = state.cargoList.map((cargo) => {
+        if (cargo.id === action.payload.id) {
+          const modifiedObject: Cargo = {
+            ...cargo,
+            centerOfGravity: {
+              ...cargo.centerOfGravity,
+              ...action.payload.updatedCenterOfGravity,
+            },
+          };
+          state.selectedCargo = modifiedObject;
+          return modifiedObject;
+        }
+
+        return cargo;
+      });
+    },
+    updateItemName: (
+      state,
+      action: PayloadAction<{ id: string; name: string }>
+    ) => {
+      state.cargoList = state.cargoList.map((cargo) => {
+        if (cargo.id === action.payload.id) {
+          const modifiedObject = {
+            ...cargo,
+            name: action.payload.name,
+          };
+          state.selectedCargo = modifiedObject;
+          return modifiedObject;
+        }
+
+        return cargo;
+      });
     },
     updateItem: (state, action) => {
-      state.itemList = state.itemList.map((obj) =>
-        obj.id === action.payload.id
-          ? { ...obj, ...action.payload.changes }
-          : obj
-      );
+      state.cargoList = state.cargoList.map((cargo) => {
+        if (cargo.id === action.payload.id) {
+          const modifiedObject = { ...cargo, ...action.payload.changes };
+          state.selectedCargo = modifiedObject;
+          return modifiedObject;
+        }
+
+        return cargo;
+      });
     },
   },
 });
@@ -151,12 +227,16 @@ export default ObjectsDataSlice.reducer;
 export const {
   setItemsList,
   addItem,
+  deleteItem,
+  deleteAll,
+  setSelectedCargoById,
   updateItemWeight,
   updateItemWidth,
-  updateItemHeight,
+  updateItemLength,
   updateItemIndex,
   updateItemFs,
   updateItemPosition,
   updateItemScale,
   updateItemCenterOfGravity,
+  updateItemName,
 } = ObjectsDataSlice.actions;

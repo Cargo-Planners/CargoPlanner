@@ -18,6 +18,7 @@ export type State = {
   generalData: GeneralDataState;
 };
 
+//@ts-ignore
 const logger: Middleware =
   (store: MiddlewareAPI<Dispatch<AnyAction>, State>) =>
   (next: Dispatch) =>
@@ -39,7 +40,7 @@ const objectsDataToLocalStorage: Middleware =
     if (action.type.includes('objectsData')) {
       localStorage.setItem(
         'objectsList',
-        JSON.stringify(store.getState().objectsData.itemList)
+        JSON.stringify(store.getState().objectsData.cargoList)
       );
     }
 
@@ -54,5 +55,5 @@ export const store = configureStore({
     generalData: GeneralDataSlice,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(logger, objectsDataToLocalStorage),
+    getDefaultMiddleware().concat(objectsDataToLocalStorage),
 });
