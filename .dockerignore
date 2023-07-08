@@ -1,0 +1,9 @@
+**/node_modules/
+.dockerignore
+Dockerfile
+Dockerfile.prod
+.vscode
+.prettierignore
+.prettierrc.json
+postcss.config.json
+README.md
