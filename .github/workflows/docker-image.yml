@@ -2,17 +2,18 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ['main']
   pull_request:
-    branches: [ "main" ]
+    branches: ['main']
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag cargo-planner-image:$(date +%s); docker images
+      - uses: actions/checkout@v3
+      - name: Build the Docker image
+        run: |
+          docker build . --file Dockerfile --tag cargo-planner-image:latest
+          docker save -o ./cargo-planner.tar cargo-planner-image:latest
+          sshpass -p 'ben123' scp ./cargo-planner.tar ben@192.168.1.185:/docker/tars
