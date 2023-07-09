@@ -243,7 +243,7 @@ export const Grid = () => {
   };
 
   return (
-    <div id='gridContainer' className='w-full h-auto aspect-[25/9]'>
+    <div id='gridContainer'>
       <canvas id='canvas' ref={canvasRef} />
     </div>
   );
