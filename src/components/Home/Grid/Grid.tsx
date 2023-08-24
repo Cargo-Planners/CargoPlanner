@@ -69,9 +69,12 @@ export const Grid = () => {
 
     addItemsToGrid(cargoList);
 
-    grid?.forEachObject((cargo) => {
-      console.log(cargo);
-    });
+    refreshCanvasListeners();
+    grid?.requestRenderAll();
+  }, []);
+
+  useEffect(() => {
+    addItemsToGrid(objectListItems);
 
     refreshCanvasListeners();
     grid?.requestRenderAll();
