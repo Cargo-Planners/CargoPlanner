@@ -526,6 +526,12 @@ body {
 }
 
 #gridContainer {
+  width: 100%;
+  padding-top: 36.6666%;
+  height: 0;
+  position: relative;
+  overflow: hidden;
+
   background-image: url('../src/assets/grid.png');
   background-size: contain;
   background-repeat: no-repeat;
