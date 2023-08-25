@@ -69,10 +69,6 @@ export const Grid = () => {
 
     addItemsToGrid(cargoList);
 
-    grid?.forEachObject((cargo) => {
-      console.log(cargo);
-    });
-
     refreshCanvasListeners();
     grid?.requestRenderAll();
   }, [grid]);
@@ -220,6 +216,15 @@ export const Grid = () => {
         };
 
         dispatchFunction = () => {
+          const objectLeftAsPercent = e.target?.left! / grid!.getWidth();
+          const widthInInches = unitsService.pixelsToInches(
+            e.target?.width!,
+            grid!.getWidth()
+          );
+          const fs =
+            (869 - 245) * objectLeftAsPercent + 245 + widthInInches / 2;
+          console.log(fs);
+
           dispatch(
             updateItemPosition({
               id: target.name,
@@ -229,12 +234,7 @@ export const Grid = () => {
           dispatch(
             updateItemFs({
               id: target.name,
-              updatedFs:
-                position.x +
-                245 +
-                (unitsService.pixelsToInches(target.width, grid!.getWidth()) *
-                  target.scaleX) /
-                  2,
+              updatedFs: fs,
             })
           );
         };
@@ -243,7 +243,7 @@ export const Grid = () => {
   };
 
   return (
-    <div id='gridContainer' className='w-full h-auto aspect-[25/9]'>
+    <div id='gridContainer'>
       <canvas id='canvas' ref={canvasRef} />
     </div>
   );

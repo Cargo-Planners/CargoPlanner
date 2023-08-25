@@ -2,9 +2,12 @@ export default class UnitsService {
   ONE_UNIT_IN_INCHES = 20;
   ONE_UNIT_AS_IMAGE_WIDTH_PERCENT = 0.03422;
   Y_START_POSITION_AS_CANVAS_PERCENT = 0.3477;
-  X_START_POSITION_AS_CANVAS_PERCENT = 0.011977;
+  X_START_POSITION_AS_CANVAS_PERCENT = 0;
   CARGO_LENGTH_AS_CANVAS_PERCENT = 0.52467;
   CARGO_WIDTH_AS_CANVAS_PERCENT = 0.97247533667854;
+  USABLE_CARGO_WITH = 849;
+  TOTAL_CARGO_WIDTH = 869;
+  USABLE_CARGO_PERCENTAGE = 849 / 869;
 
   pixelsToInches(dimensionInPixels: number, canvasWidth: number) {
     return +(dimensionInPixels * this.getPixelToInchRatio(canvasWidth)).toFixed(

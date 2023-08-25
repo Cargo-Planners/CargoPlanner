@@ -15,6 +15,9 @@ export const useFabric = () => {
       selection: false,
       renderOnAddRemove: true,
     });
+
+    element.parentElement!.style.position = 'static';
+
     setCanvas(canvas.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
